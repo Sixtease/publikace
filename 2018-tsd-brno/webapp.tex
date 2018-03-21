@@ -1,0 +1,71 @@
+\documentclass{llncs}
+%\usepackage[cp1250]{inputenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[czech]{babel}
+\usepackage{graphicx}
+%\usepackage{tipa}
+
+\bibliographystyle{splncs}
+
+\begin{filecontents}{citace.bib}
+@inproceedings{kruuza2012making,
+  title={Making Community and ASR Join Forces in Web Environment},
+  author={Kr{\uu}za, Old{\v{r}}ich and Peterek, Nino},
+  booktitle={International Conference on Text, Speech and Dialogue},
+  pages={415--421},
+  year={2012},
+  organization={Springer}
+}
+\end{filecontents}
+
+
+
+\begin{document}
+\newtheorem{Definition}{Definition}
+\title{ASR-Output-Correcting Webapp After 6 Years}
+
+\author{Oldřich Krůza and Vladislav Kuboň}
+\institute{Charles University in Prague\\
+           Faculty of Mathematics and Physics\\
+           Institute of Formal and Applied Linguistics\\
+           Malostranské nám. 25, Prague, Czech Republic\\
+           \{kruza,vk\}@ufal.mff.cuni.cz}
+
+\maketitle
+
+\begin{abstract}
+
+This paper presents a next-generation web application that enables users to
+contribute corrections to automatically acquired transcription of long speech
+recordings. We describe differences from similar settings, compare our solution
+with others and reflect on the development from the first, 6 years old version
+in the light of the work done, lessons learned and the new technologies
+available in the browser.
+
+\end{abstract}
+
+\section{Introduction}
+
+In 2012\cite{kruuza2012making}, we presented a setting where a community of
+users contributed corrections to automatically transcribed talks of a single
+speaker. Now that the browser technologies evolved drastically and we could
+observe the usage patterns and discover shortcomings of the solution at hand, we
+have created a next generation of the programme. We shall describe the steps
+taken and discuss their motivation and impact.
+
+\section{}
+
+\section{Conclusion}
+
+\section*{Acknowledgments}
+
+The research was supported by SVV project number 265 314.\\
+\\
+This work has been using language resources stored
+by the LINDAT-Clarin project of the Ministry of
+Education of the Czech Republic (project LM2010013).
+%\bibliography{paper}
+
+\bibliography{citace}
+
+\end{document}
