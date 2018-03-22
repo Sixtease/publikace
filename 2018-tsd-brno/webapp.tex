@@ -53,7 +53,46 @@ observe the usage patterns and discover shortcomings of the solution at hand, we
 have created a next generation of the programme. We shall describe the steps
 taken and discuss their motivation and impact.
 
-\section{}
+\section{Differences to other settings}
+
+In our setting, we have a large spoken corpus (about 1000 hours) of a single
+speaker. Our aim is to have a transcription as good as possible for the purpose
+of searching and further, higher-level processing of the data. There is a pool
+of people interested in the talks, who on one hand are the force we can try to
+employ and on the other hand are the consumers of our effort, our target group
+so to speak.
+
+The web application should therefore combine the two purposes: 1. serve its user
+with making the content available in a manner as good as possible and 2. animate
+the user to give as much and as high-quality contribution as possible.
+
+To our best knowledge, there is no other project with a comparable setting.
+However, we can compare single aspects found in other applications.
+
+\subsection{Transcribing apps}
+
+The main differences to common transcribing software are that
+\begin{enumerate}
+\item{they are optimized for the case where there is no transcription available
+and it must be acquired from scratch;}
+\item{no quality control: the user is free to enter whatever transcription she
+pleases and the ultimate measure is her content; in contrast, we need the
+transcription to be accurate because it is used as training data for the
+acoustic model;}
+\item{the alignment is on the level of phrases, if any; we use alignment on the
+level of phones;}
+\item{standalone transcribing applications are user-centric: the user
+transcribes whatever acoustic data they choose; our system is data-centric: the
+whole application with all its tools and persons revolves around the data set;}
+\item{common transcription software assumes the user wants to transcribe; we
+assume the user want to listen and possibly read along and we want to animate
+her to submit transcriptions.}
+\item{user collision}
+\end{enumerate}
+
+Our first reference is
+Transcriber\footnote{sourceforge.net/projects/trans}. Transcriber is an
+open-source program written in TCL.
 
 \section{Conclusion}
 
