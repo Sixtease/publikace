@@ -3,6 +3,7 @@
 %\usepackage[utf8]{inputenc}
 %\usepackage[czech]{babel}
 \usepackage{graphicx}
+\usepackage{tabularx}
 %\usepackage{tipa}
 
 \bibliographystyle{splncs}
@@ -72,27 +73,64 @@ However, we can compare single aspects found in other applications.
 \subsection{Transcribing apps}
 
 The main differences to common transcribing software are that
-\begin{enumerate}
-\item{they are optimized for the case where there is no transcription available
-and it must be acquired from scratch;}
-\item{no quality control: the user is free to enter whatever transcription she
-pleases and the ultimate measure is her content; in contrast, we need the
-transcription to be accurate because it is used as training data for the
-acoustic model;}
-\item{the alignment is on the level of phrases, if any; we use alignment on the
-level of phones;}
-\item{standalone transcribing applications are user-centric: the user
-transcribes whatever acoustic data they choose; our system is data-centric: the
-whole application with all its tools and persons revolves around the data set;}
-\item{common transcription software assumes the user wants to transcribe; we
-assume the user want to listen and possibly read along and we want to animate
-her to submit transcriptions.}
-\item{user collision}
-\end{enumerate}
 
-Our first reference is
-Transcriber\footnote{sourceforge.net/projects/trans}. Transcriber is an
-open-source program written in TCL.
+\noindent
+\begin{tabularx}{\textwidth}{
+    @{\hspace{1.5em}}% Space for left bullet
+    >{\leavevmode\llap{\textbullet~}\raggedright}% Left bullet + formatting of column
+    X% Left column specification
+    @{\quad\hspace{1.5em}}% Space between columns + right bullet space
+    >{\leavevmode\llap{\textbullet~}\raggedright\arraybackslash}% Right bullet + formatting of column
+    X% Right column specification
+    @{}% No column space on right
+  }
+  \em{common transcription applications} & \em{our application} \\
+  are optimized for the case where there is no transcription available and it
+  must be acquired from scratch &
+    always assumes a transcription is available \\
+  need no quality control: the user is free to enter whatever transcription she
+  pleases and the ultimate measure is her satisfaction &
+    needs the transcription to be accurate because it is used as training data
+    for the acoustic model \\
+  use alignment on the level of phrases, if any &
+    uses alignment on the level of words \\
+  are user-centric: the user transcribes whatever acoustic data they choose &
+    is data-centric: the whole application with all its tools and persons
+    revolves around the data set \\
+  assumes the user wants to transcribe &
+    assume the user want to listen and possibly read along and we want to
+    animate her to submit transcriptions \\
+  has no shared data between users &
+    must count with collisions
+\end{tabularx}
+
+We can still learn a lot from transcribing software. The ease of performing
+common tasks, like pausing, resuming and rewinding is crucial for the user
+experience and in effect for the amount of submissions that we receive. Also,
+the way the text is displayed synchronously to the audio played has a big impact
+and the approaches have a lot of space for variation.
+
+\subsection{Wiki}
+
+Where our application diverts from transciption software, it mostly resembles a
+wiki: a community platform that serves its users including the contributors but
+where the quality of the contributions is essential, while the contributor's
+satisfaction alone is of little importance.
+
+%The need for quality control has wide implications. We need to perform forced
+%alignment every time a segment is transcribed. Hence, it must be clear what part
+%of the audio \em{exactly} the segment corresponds to. Since each word knows its
+%exact timestamp, and we know which words from the old transcription are to be
+%replaced, we can perform the forced alignment very precisely. This is also one
+%of the reasons why our application always assumes an existing transcription.
+
+%What concerns animating the user to provide a transcription, there must be more
+%research done. The basic idea is though that when the user sees the
+%transcription synchronously and it contains errors, they get the urge to fix it.
+
+%Our first reference is
+%Transcriber\footnote{sourceforge.net/projects/trans}. Transcriber is an
+%open-source program written in TCL.
 
 \section{Conclusion}
 
