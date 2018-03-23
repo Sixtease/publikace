@@ -107,6 +107,8 @@ The main differences to common transcribing software are that
   are optimized for the case where there is no transcription available and it
   must be acquired from scratch &
     always assumes a transcription is available \\
+  allow annotation of speakers &
+    assumes all utterances come from the same speaker \\
   need no quality control: the user is free to enter whatever transcription she
   pleases and the ultimate measure is her satisfaction &
     needs the transcription to be accurate because it is used as training data
@@ -150,7 +152,158 @@ a larger transcription of user B;}
 coordinating with each other. We plan to expand to broader public soon though.}
 \end{enumerate}
 
+\section{Description of the web application}
 
+The application consists of several views:
+\begin{enumerate}
+\item{the start page where all recordings are listed and each points to a detail
+view,}
+\item{the detail view, where a recording can be played back, its transcription
+is displayed and can be corrected by the user,}
+\item{search page, where hits to a search query are listed and point to
+corresponding positions in the recordings,}
+\item{static pages with general information, contact etc.}
+\end{enumerate}
+
+We shall only discuss the detail view as the others are not relevant to this
+article. Figure~\ref{fig:scn1lab} shows the interface during playback.
+Figure~\ref{fig:scn2lab} shows the interface while a segment is being edited.
+The interface in the figures is conveniently shown in English, although in
+reality it is in Czech.
+
+\begin{figure}[htpb]
+\includegraphics[scale=0.6]{rc/radio-makon-en-1-lab.png}
+\caption{Web interface during playback}
+\label{fig:scn1lab}
+\end{figure}
+
+Legend to Figure~\ref{fig:scn1lab}:
+\begin{enumerate}
+\item{
+    Header with
+    \begin{itemize}
+    \item{app name linking to start page,}
+    \item{about link,}
+    \item{search field and}
+    \item{username input field;}
+    \end{itemize}
+}
+\item{Identifier of the recording;}
+\item{Automatically transcribed segments in gray;}
+\item{Manually transcribed segments in black;}
+\item{Currently played-back word highlighted by yellow background;}
+\item{Marked word highlighted in regent st. blue;}
+\item{
+    Marked word info:
+    \begin{itemize}
+    \item{
+        occurrence: the word with contextual capitalization and
+        punctuation as it appeard in the text, currently being edited as the
+        selected initial letter reveals,
+    }
+    \item{form: normalized word form as it appears in the word list,}
+    \item{pronunciation: Czech phonetic transcription of the word,}
+    \item{
+        position: time of the beginning of the word in seconds from the
+        start of the recording;
+    }
+    \end{itemize}
+}
+\item{
+    Tools for storing:
+    \begin{itemize}
+    \item{direct links to the audio files,}
+    \item{selecting the whole transcription for easy pasting,}
+    \item{storing the decoded recording in the browser's IndexedDB;}
+    \end{itemize}
+}
+\item{Graphical equalizer for compensating narrow-band noise;}
+\item{
+    Audio playback controls:
+    \begin{itemize}
+    \item{play/pause button,}
+    \item{current playback position,}
+    \item{playback scrollbar,}
+    \item{total recording length;}
+    \end{itemize}
+}
+\item{Current position reflected in URL fragment.}
+\end{enumerate}
+
+\begin{figure}[htpb]
+\includegraphics[scale=0.6]{rc/radio-makon-en-2-lab.png}
+\caption{Interface in the state of editing a segment, with labels}
+\label{fig:scn2lab}
+\end{figure}
+
+Legend to Figure~\ref{fig:scn2lab}:
+\begin{enumerate}
+\item{
+    Selecting a text range with the mouse defines the segment the user is about
+    to transcribe;
+}
+\item{
+    The edit tool with
+    \begin{itemize}
+    \item{textarea prefilled with the current transcription,}
+    \item{playback button that plays the corresponding segment,}
+    \item{save button and}
+    \item{download-segment button, which initiates a file-save action for the
+    corresponding segment.}
+    \end{itemize}
+}
+\end{enumerate}
+
+\subsection{Displaying the transcription}
+
+Most transcribing programs show the transcription as a vertical list of
+utterances, see Figure~\ref{fig:transcriber1} for an example of
+{\em{Transcriber}}\footnote{trans.sourceforge.net}, a veteran open-source
+transcription tool. We attribute this to the fact that the atomic elements of
+the transcription are the user-entered utterances and their boundaries are
+reliable. In our case, the atomic elements are words. There are sentences, sure,
+but the segmentation to sentences by the ASR is very unreliable, so we want it
+to be natural to transcribe a segment overlapping sentence boundaries.
+
+This is one of the reasons why we display the transcription basically as a
+single wrapped line.
+
+The transcription display was designed to have these features:
+\begin{itemize}
+\item{Currently played-back word should be highlighted;}
+\item{
+    Manually transcribed segments should be clearly distinct from automatically
+    transcribed ones;
+    \label{feats:item:manualdistinct}
+}
+\item{
+    Selecting one or more words with the mouse should trigger transcription mode
+    for the selected text;
+    upon a successful save, this should be merged into the display;
+}
+\item{
+    Clicking a word should bring up its context info (we call this the
+    \em{marked word} as the term \em{selected word} is already taken);
+}
+\item{
+    The whole transcription should be shown at once for easy searching;
+    \label{feats:item:showall}
+}
+\item{
+    The page should be responsive;\label{feats:item:speed}
+}
+\end{itemize}
+
+These requirements are harder to combine than it may seem. Notably
+responsiveness is hard to combine with all of the other ones. Why is that so?
+
+
+
+\begin{figure}[htpb]
+\includegraphics[scale=0.4]{rc/transcriber1.png}
+\caption{A screenshot of Transcriber}
+\label{fig:transcriber1}
+\end{figure}
 
 % alert when correcting humanic
 
