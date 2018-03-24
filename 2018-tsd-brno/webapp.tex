@@ -266,6 +266,12 @@ reliable. In our case, the atomic elements are words. There are sentences, sure,
 but the segmentation to sentences by the ASR is very unreliable, so we want it
 to be natural to transcribe a segment overlapping sentence boundaries.
 
+\begin{figure}[htpb]
+\includegraphics[scale=0.4]{rc/transcriber1.png}
+\caption{A screenshot of Transcriber}
+\label{fig:transcriber1}
+\end{figure}
+
 This is one of the reasons why we display the transcription basically as a
 single wrapped line.
 
@@ -348,13 +354,58 @@ precisely beneath it (beneath on the z-axis; over it in the x-y sense), avoiding
 positioning issues and keeping the rectangle position synced even after scrolling
 / window resizing is definitely a challenge but we chose this way nonetheless.
 The performance gain for the majority of the usage time outweighs the possible
-errors in the corner cases, 
+errors in the corner cases, moreso since the eventual errors are not critical
+and mostly remedied by further playback.
 
-\begin{figure}[htpb]
-\includegraphics[scale=0.4]{rc/transcriber1.png}
-\caption{A screenshot of Transcriber}
-\label{fig:transcriber1}
-\end{figure}
+The efficiency of repositioning a rectangle is supported by the fact that we can
+calculate the coordinates of all rendered words once and only recalculate them
+in two cases: 1) In the rare event of screen resize and 2) when a corrected
+segment is merged into the transcription, in which case we only need to
+recalculate for the words further in the document.
+
+\subsection{Implementation Details}
+
+\subsubsection{Audio Engine}
+
+The adoption of Web Audio API allowed for big improvements in comparison with
+the original implementation described by Kruza 2012~\cite{kruuza2012making}.
+There are four major differences between using the HTML \texttt{<audio>} tag
+and the Web Audio API.
+
+\begin{itemize}
+\item{It is now possible to precisely replay the selected audio span.}
+\item{
+    We could implement a graphical equalizer. Some recordings suffer from loud
+    noise in the low frequency spectrum. A systematic approach to acoustic
+    normalising of the material is a point of future work. Until that, the
+    equalizer is a huge relief for the users.
+}
+\item{
+    Thanks to the \texttt{OfflineAudioContext}, it is possible to store the
+    recording in the browser's storage and avoid downloading or decoding it
+    again after reload.
+}
+\item{
+    We have also implemented saving the audio corresponding to the selected text
+    segment as a sound file.
+}
+\end{itemize}
+
+\subsubsection{App State Management}
+
+We use React as the view library and Redux for state management. The good thing
+about Redux is that it makes it easy to keep minimal state as the single source
+of truth and everything that can be computed is computed, while avoiding
+needless calculations. This is of course nothing new -- basically it is what we
+know from database design as the normal representation. Also in our case, this
+approach makes the program more predictable, less error-prone and, as the modern
+programming jargon lovingly expresses, {\em easier to reason about}.
+
+We are squeezing as much juice from these fruits as we can.
+
+Among the states the app can enter is simple playback, inspecting a word,
+transcribing a segment and replaying the selected audio span. Now, the only
+thing we actually store is the sub
 
 % alert when correcting humanic
 
