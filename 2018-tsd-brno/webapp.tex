@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 %\usepackage{tipa}
+\usepackage{enumitem}
 
 \bibliographystyle{splncs}
 
@@ -25,7 +26,7 @@
 \newtheorem{Definition}{Definition}
 \title{ASR-Output-Correcting Webapp After 6 Years}
 
-\author{Oldřich Krůza and Vladislav Kuboň}
+\author{Old\v{r}ich Kr\r{u}za and Vladislav Kubo\v{n}}
 \institute{Charles University in Prague\\
            Faculty of Mathematics and Physics\\
            Institute of Formal and Applied Linguistics\\
@@ -268,9 +269,14 @@ to be natural to transcribe a segment overlapping sentence boundaries.
 This is one of the reasons why we display the transcription basically as a
 single wrapped line.
 
+\subsubsection{Performance challenge}
+
 The transcription display was designed to have these features:
-\begin{itemize}
-\item{Currently played-back word should be highlighted;}
+\begin{enumerate}
+\item{
+    Currently played-back word should be highlighted;
+    \label{feats:item:curword}
+}
 \item{
     Manually transcribed segments should be clearly distinct from automatically
     transcribed ones;
@@ -280,10 +286,12 @@ The transcription display was designed to have these features:
     Selecting one or more words with the mouse should trigger transcription mode
     for the selected text;
     upon a successful save, this should be merged into the display;
+    \label{feats:item:selectable}
 }
 \item{
     Clicking a word should bring up its context info (we call this the
-    \em{marked word} as the term \em{selected word} is already taken);
+    {\em marked word} as the term {\em selected word} is already taken);
+    \label{feats:item:clickable}
 }
 \item{
     The whole transcription should be shown at once for easy searching;
@@ -292,12 +300,55 @@ The transcription display was designed to have these features:
 \item{
     The page should be responsive;\label{feats:item:speed}
 }
-\end{itemize}
+\end{enumerate}
 
 These requirements are harder to combine than it may seem. Notably
 responsiveness is hard to combine with all of the other ones. Why is that so?
 
+Points~\ref{feats:item:curword} through \ref{feats:item:clickable}
+call for every word to be wrapped in its own element.
+Point~\ref{feats:item:showall} and the median count of words in a transcript of
+about 6000 yield 6000 \texttt{<span>} elements just to show the text. 
 
+Although this may not seem like a big deal, it does make affect the
+responsiveness and memory footprint of the page.
+
+Kr\r{u}za 2012~\cite{kruuza2012making} solve this by sacrificing point~5:
+% TODO obrázek MakonFM
+only 3
+lines of text are shown with the current word kept on the middle line. Thanks to
+the development in the web standards and their support from popular browsers, a
+solution is possible.
+
+\subsubsection{Solution}
+
+We can use the fortunate fact that manually transcribed words and automatically
+transcribed ones tend to form larger chunks. The average number of words per
+submitted segment is 7.9. Furthermore, the absolute majority of such segments
+are adjacent to other manually transcribed chunks. 
+% TODO max fragmentation
+Hence, wrapping each chunk of consecutive manually or automatically transcribed
+words in an HTML element is no problem, which solves
+point~2.
+
+Point~\ref{feats:item:selectable} can be implemented using
+\texttt{document.selection} and the \texttt{Range} objects, which let us find
+out the innermost HTML element and text offset of the start and end of the
+textual selection. Since we know the length of the words, this allows us to map
+the selection to the corresponding words in the transcription.
+
+Points~\ref{feats:item:curword} and~\ref{feats:item:clickable} can be
+implemented in two ways: We could either wrap the current and marked word in a
+dedicated element or we could draw a highlighting rectangle beneath the word.
+
+Wrapping the word would definetely be more robust and less error-prone but the
+constant changes in the DOM during playback with possible frequent reflows speak
+against it. Finding the exact position of each word and drawing a rectangle
+precisely beneath it (beneath on the z-axis; over it in the x-y sense), avoiding
+positioning issues and keeping the rectangle position synced even after scrolling
+/ window resizing is definitely a challenge but we chose this way nonetheless.
+The performance gain for the majority of the usage time outweighs the possible
+errors in the corner cases, 
 
 \begin{figure}[htpb]
 \includegraphics[scale=0.4]{rc/transcriber1.png}
