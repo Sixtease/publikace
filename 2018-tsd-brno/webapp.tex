@@ -397,15 +397,41 @@ We use React as the view library and Redux for state management. The good thing
 about Redux is that it makes it easy to keep minimal state as the single source
 of truth and everything that can be computed is computed, while avoiding
 needless calculations. This is of course nothing new -- basically it is what we
-know from database design as the normal representation. Also in our case, this
-approach makes the program more predictable, less error-prone and, as the modern
-programming jargon lovingly expresses, {\em easier to reason about}.
+know from database design as the normal representation. It is the first time
+this approach reached the web front-end in such degree of popularity though.
 
-We are squeezing as much juice from these fruits as we can.
+Also in our case, this approach makes the program more predictable, less
+error-prone and, as the modern programming jargon lovingly expresses, {\em
+easier to reason about}. But some of our features make this a bit complicated.
 
 Among the states the app can enter is simple playback, inspecting a word,
 transcribing a segment and replaying the selected audio span. Now, the only
-thing we actually store is the sub
+relevant things we actually store is the redux state are:
+\begin{enumerate}
+\item{
+    The array of transcription words, each of which bears the flag whether it is
+    automatically or manually transcribed. This defines the manual - automatic
+    chunks of words that in turn define the HTML elements wrapping them.
+}
+\item{
+    The beginning and end of the selection in terms of chunk number and
+    character offset in the chunk, which is basically what we get from the DOM
+    upon a \texttt{mouseup} event.
+}
+\item{Whether playback is running and the current position.
+\end{enumerate}
+
+Whether a word is marked or a segment is being edited is determined solely by
+the boundaries of the selected words. If there is a selection and the beginning
+and end are identical, it means a word was simply clicked and its detail is
+shown (it is {\em marked}). If the boundaries span at least one character, then
+all words that intersect this span are {\em selected} for correction.
+
+Simple as it sounds, a slight problem arises when a correction is accepted and
+the corrected subtitles are merged into the view. In the time after the
+correction is accepted and reflected in the redux state, but before the new
+chunks are rendered in the document, selection changes cannot be reliably mapped
+to logical chunks. Simple null defaults solve this problem.
 
 \section{Future Work}
 
