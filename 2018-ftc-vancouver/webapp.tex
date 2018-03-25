@@ -36,10 +36,10 @@
 %\tocauthor{Ivar Ekeland, Roger Temam, Jeffrey Dean, David Grove,
 %Craig Chambers, Kim B. Bruce, and Elisa Bertino}
 %
-\institute{Charles University in Prague\\
+\institute{Charles University\\
            Faculty of Mathematics and Physics\\
            Institute of Formal and Applied Linguistics\\
-           Malostranské nám. 25, Prague, Czech Republic\\
+           Malostransk\'{e} n\'{a}m. 25, Prague, Czech Republic\\
            \{kruza,vk\}@ufal.mff.cuni.cz}
 
 \maketitle              % typeset the title of the contribution
@@ -112,26 +112,26 @@ The main differences to common transcription software are that
     X% Right column specification
     @{}% No column space on right
   }
-  \em{common transcription applications} & \em{our application} \\
+  \em{common transcription applications}: & \em{our application}: \\
   are optimized for the case where there is no transcription available and it
-  must be acquired from scratch &
-    always assumes a transcription is available \\
-  allow annotation of speakers &
-    assumes all utterances come from the same speaker \\
+  must be acquired from scratch; &
+    always assumes a transcription is available; \\
+  allow annotation of speakers; &
+    assumes all utterances come from the same speaker; \\
   need no quality control: the user is free to enter whatever transcription she
-  pleases and the ultimate measure is her satisfaction &
+  pleases and the ultimate measure is her satisfaction; &
     needs the transcription to be accurate because it is used as training data
-    for the acoustic model \\
-  use alignment on the level of phrases, if any &
-    uses alignment on the level of words \\
-  are user-centric: the user transcribes whatever acoustic data they choose &
+    for the acoustic model; \\
+  use alignment on the level of phrases, if any; &
+    uses alignment on the level of words; \\
+  are user-centric: the user transcribes whatever acoustic data they choose; &
     is data-centric: the whole application with all its tools and persons
-    revolves around the data set \\
-  assumes the user wants to transcribe &
-    assume the user want to listen and possibly read along and we want to
-    animate her to submit transcriptions \\
-  has no shared data between users &
-    must count with collisions
+    revolves around the data set; \\
+  assumes the user wants to transcribe; &
+    assume the user wants to listen and possibly read along and we want to
+    animate her to submit transcriptions; \\
+  has no shared data between users; &
+    must count with collisions.
 \end{tabularx}
 
 We can still learn a lot from transcription software. The ease of performing
@@ -151,8 +151,8 @@ One major difference to a wiki is that wiki is creative, whereas our task is
 mechanical. The user has basically no room for their own invention: providing a
 different than correct transcription is seen as an error.
 
-Major wikis have good measures for edit conflicts, which is where we could learn
-some lessons. However, so far there was no need to do that because
+Popular wikis have good measures for edit conflicts, which is where we could
+learn some lessons. However, so far there was no need to do that because
 \begin{enumerate}
 \item{when we always simply take the most recent version
 of a segment, the result stays consistent even if a piece from user A comes into
@@ -258,7 +258,7 @@ Legend to Figure~\ref{fig:scn2lab}:
     \item{playback button that plays the corresponding segment,}
     \item{save button and}
     \item{download-segment button, which initiates a file-save action for the
-    corresponding segment.}
+    audio segment corresponding the the selected text.}
     \end{itemize}
 }
 \end{enumerate}
@@ -312,7 +312,7 @@ The transcription display was designed to have these features:
     \label{feats:item:showall}
 }
 \item{
-    The page should be responsive;\label{feats:item:speed}
+    The page should be responsive.\label{feats:item:speed}
 }
 \end{enumerate}
 
@@ -376,7 +376,7 @@ recalculate for the words further in the document.
 \subsubsection{Audio Engine}
 
 The adoption of Web Audio API allowed for big improvements in comparison with
-the original implementation described by Kruza 2012~\cite{kruuza2012making}.
+the original implementation described by Kr\r{u}za 2012~\cite{kruuza2012making}.
 There are four major differences between using the HTML \texttt{<audio>} tag
 and the Web Audio API.
 
@@ -405,47 +405,80 @@ We use React as the view library and Redux for state management. The good thing
 about Redux is that it makes it easy to keep minimal state as the single source
 of truth and everything that can be computed is computed, while avoiding
 needless calculations. This is of course nothing new -- basically it is what we
-know from database design as the normal representation.
+know from database design as the normal representation. It is the first time
+this approach reached the web front-end in such degree of popularity though.
+% TODO: cite normal representation
 
 Also in our case, this approach makes the program more predictable, less
 error-prone and, as the modern programming jargon lovingly expresses, {\em
-easier to reason about}.
+easier to reason about}. But some of our features make this a bit complicated.
 
 Among the states the app can enter is simple playback, inspecting a word,
 transcribing a segment and replaying the selected audio span. Now, the only
-thing we actually store is the sub
+relevant things we actually store is the redux state are:
+\begin{enumerate}
+\item{
+    The array of transcription words, each of which bears the flag whether it is
+    automatically or manually transcribed. This defines the manual - automatic
+    chunks of words that in turn define the HTML elements wrapping them.
+}
+\item{
+    The beginning and end of the selection in terms of chunk number and
+    character offset in the chunk, which is basically what we get from the DOM
+    upon a \texttt{mouseup} event.
+}
+\item{Whether playback is running and the current position.}
+\end{enumerate}
+
+Whether a word is marked or a segment is being edited is determined solely by
+the boundaries of the selected words. If there is a selection and the beginning
+and end are identical, it means a word was simply clicked and its detail is
+shown (it is {\em marked}). If the boundaries span at least one character, then
+all words that intersect this span are {\em selected} for correction.
+
+Simple as it sounds, a slight problem arises when a correction is accepted and
+the corrected subtitles are merged into the view. In the time after the
+correction is accepted and reflected in the redux state, but before the new
+chunks are rendered in the document, selection changes cannot be reliably mapped
+to logical chunks. Simple null defaults solve this problem.
 
 \section{Future Work}
 
-Next up in our to-do list is releasing the application to wider public and
-researching the 
+We plan to focus on optimizing the app for wider audience. Experience confirms
+that the Mako\v{n}'s talks are of interest to some people, and our aim is to
+remove as many obstacles as possible to potentially interested people reaching
+the material. The benefit from technical point of view would be clear: A web app
+for listening to recordings and correcting their transcription is nice but one
+that's really easy to use and inviting to people to submit corrections is nicer.
 
-% alert when correcting humanic
+One of the aspects we want to explore is enabling people to naturally share
+catching segments of talks on social networks.
 
-%The need for quality control has wide implications. We need to perform forced
-%alignment every time a segment is transcribed. Hence, it must be clear what part
-%of the audio \em{exactly} the segment corresponds to. Since each word knows its
-%exact timestamp, and we know which words from the old transcription are to be
-%replaced, we can perform the forced alignment very precisely. This is also one
-%of the reasons why our application always assumes an existing transcription.
-
-%What concerns animating the user to provide a transcription, there must be more
-%research done. The basic idea is though that when the user sees the
-%transcription synchronously and it contains errors, they get the urge to fix it.
-
-%Our first reference is
-%Transcriber\footnote{sourceforge.net/projects/trans}. Transcriber is an
-%open-source program written in TCL.
+Another point of near future endeavor is higher-level work with the contents. By
+this we mean that we'd like to use both automatic processing methods and the
+users to do semantic analysis of the talks: What topic is covered where? What
+topics are covered at all? Which talks relate to which written works?, and
+similar questions.
 
 \section{Conclusion}
 
+Our work is motivated by the will to make the most out of a specific set of
+talks of spiritual nature by a single speaker. The setting and path taken are
+not common and we hope to make solution that can be used by others or to inspire
+others at solving their own tasks, however distantly related.
+
+The web interface to consuming and editing audio transcription we have created
+is first of its kind that we know of and we can but admire the recent
+developments in the web standards, their adoption by major browsers and the
+open-source JavaScript ecosystem that make this possible.
+
 \section*{Acknowledgments}
 
-The research was supported by SVV project number 265 314.\\
+The research was supported by SVV project number 260 453.\\
 \\
-This work has been using language resources stored
-by the LINDAT-Clarin project of the Ministry of
-Education of the Czech Republic (project LM2010013).
+use the prescribed wording: This work has been using language resources stored
+and distributed  by the LINDAT/CLARIN project of the Ministry of Education,
+Youth and Sports of the Czech Republic (project LM2015071).
 
 
 \end{document}
