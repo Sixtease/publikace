@@ -37,6 +37,21 @@
   year={1970},
   publisher={ACM}
 }
+@article{adenot2013web,
+  title={Web audio api},
+  author={Adenot, Paul and Wilson, Chris and Rogers, Chris},
+  journal={W3C, October},
+  volume={10},
+  year={2013}
+}
+@article{abramov2015redux,
+  title={Redux},
+  author={Abramov, D},
+  journal={React Community, c},
+  year={2015}
+}
+
+
 \end{filecontents}
 
 
@@ -405,10 +420,10 @@ recalculate for the words further in the document.
 
 \subsubsection{Audio Engine}
 
-The adoption of Web Audio API allowed for big improvements in comparison with
-the original implementation described by Kr\r{u}za 2012~\cite{kruuza2012making}.
-There are four major differences between using the HTML \texttt{<audio>} tag
-and the Web Audio API.
+The adoption of Web Audio API~\cite{adenot2013web} allowed for big improvements
+in comparison with the original implementation described by Kr\r{u}za
+2012~\cite{kruuza2012making}. There are four major differences between using the
+HTML \texttt{<audio>} tag and the Web Audio API.
 
 \begin{itemize}
 \item{It is now possible to precisely replay the selected audio span.}
@@ -431,13 +446,13 @@ and the Web Audio API.
 
 \subsubsection{App State Management}
 
-We use React as the view library and Redux for state management. The good thing
-about Redux is that it makes it easy to keep minimal state as the single source
-of truth and everything that can be computed is computed, while avoiding
-needless calculations. This is of course nothing new -- basically it is what we
-know from database design as the normal representation.~\cite{codd1970relational}
-It is the first time this approach reached the web front-end in such degree of
-popularity though.
+We use React as the view library and Redux\cite{abramov2015redux} for state
+management. The good thing about Redux is that it makes it easy to keep minimal
+state as the single source of truth and everything that can be computed is
+computed, while avoiding needless calculations. This is of course nothing new --
+basically it is what we know from database design as the normal
+representation.~\cite{codd1970relational} It is the first time this approach
+reached the web front-end in such degree of popularity though.
 
 Also in our case, this approach makes the program more predictable, less
 error-prone and, as the modern programming jargon lovingly expresses, {\em
@@ -510,5 +525,7 @@ use the prescribed wording: This work has been using language resources stored
 and distributed  by the LINDAT/CLARIN project of the Ministry of Education,
 Youth and Sports of the Czech Republic (project LM2015071).
 
+\bibliography{citace}
+\bibliographystyle{splncs03}
 
 \end{document}
