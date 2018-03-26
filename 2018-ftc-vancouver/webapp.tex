@@ -17,6 +17,29 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{enumitem}
+
+\begin{filecontents}{citace.bib}
+@inproceedings{kruuza2012making,
+  title={Making Community and ASR Join Forces in Web Environment},
+  author={Kr{\uu}za, Old{\v{r}}ich and Peterek, Nino},
+  booktitle={International Conference on Text, Speech and Dialogue},
+  pages={415--421},
+  year={2012},
+  organization={Springer}
+}
+@article{codd1970relational,
+  title={A relational model of data for large shared data banks},
+  author={Codd, Edgar F},
+  journal={Communications of the ACM},
+  volume={13},
+  number={6},
+  pages={377--387},
+  year={1970},
+  publisher={ACM}
+}
+\end{filecontents}
+
+
 \def\UrlFont{\rmfamily}
 
 \begin{document}
@@ -405,9 +428,9 @@ We use React as the view library and Redux for state management. The good thing
 about Redux is that it makes it easy to keep minimal state as the single source
 of truth and everything that can be computed is computed, while avoiding
 needless calculations. This is of course nothing new -- basically it is what we
-know from database design as the normal representation. It is the first time
-this approach reached the web front-end in such degree of popularity though.
-% TODO: cite normal representation
+know from database design as the normal representation.~\cite{codd1970relational}
+It is the first time this approach reached the web front-end in such degree of
+popularity though.
 
 Also in our case, this approach makes the program more predictable, less
 error-prone and, as the modern programming jargon lovingly expresses, {\em
