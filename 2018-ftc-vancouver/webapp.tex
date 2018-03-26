@@ -107,7 +107,14 @@ answering questions, personal experiences, behind-the-scenes to the books etc.
 
 \section{Differences to other settings}
 
-In our setting, we have a large spoken corpus (about 1000 hours) of a single
+The application we describe is a part of a larger system that deals with
+Mako\v{n}'s recordings. It consists roughly of (1) the corpus itself, (2) an ASR
+system trained specially for it and (3) a web interface for the users. These
+three parts form a whole where the ASR gives a baseline transcription, the users
+correct it and the corrections are fed as further training data for the acoustic
+and language models. In this paper, we focus on the web interface.
+
+The spoken corpus is about 1000 hours of a single
 speaker. Our aim is to have a transcription as good as possible for the purpose
 of searching and further, higher-level processing of the data. There is a pool
 of people interested in the talks, who on one hand are the force we can try to
