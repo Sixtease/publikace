@@ -21,7 +21,7 @@
 \begin{filecontents}{citace.bib}
 @inproceedings{kruuza2012making,
   title={Making Community and ASR Join Forces in Web Environment},
-  author={Kr{\uu}za, Old{\v{r}}ich and Peterek, Nino},
+  author={Kr\r{u}za, Old{\v{r}}ich and Peterek, Nino},
   booktitle={International Conference on Text, Speech and Dialogue},
   pages={415--421},
   year={2012},
@@ -50,8 +50,17 @@
   journal={React Community, c},
   year={2015}
 }
-
-
+@article{hajek2007cesky,
+  title={\v{C}esk\'{y} mystik Karel Mako\v{n}},
+  author={Jurik H\'{a}jek},
+  journal={Dingir},
+  year={2007},
+  volume={2007/4},
+  pages={142--143},
+  publisher={Dingir, s.r.o.},
+  ISSN={1212-1371},
+  editor={Zden\v{e}k Vojt\'{i}\v{s}ek}
+}
 \end{filecontents}
 
 
@@ -86,9 +95,9 @@
 This paper presents a next-generation web application that enables users to
 contribute corrections to automatically acquired transcription of long speech
 recordings. We describe differences from similar settings, compare our solution
-with others and reflect on the development from the first, 6 years old version
-in the light of the work done, lessons learned and the new technologies
-available in the browser.
+with others and reflect on the development from the now 6 years old work we
+build upon in the light of the progress made, lessons learned and the new
+technologies available in the browser.
 \keywords{Speech recognition, community-driven, web standards}
 \end{abstract}
 
@@ -103,14 +112,14 @@ taken and discuss their motivation and impact.
 
 \subsection{Motivation}
 
-Our project focuses on the collection of recordings of Karel Mako\v{n} *1912
-\textdagger1993, the author of numerous books, translations and comments to
-works of spiritual and religious nature, who was influenced by trances during
-recurring surgery without anesthesy in the age of 6, ecstasies in the youth and
-finally facing and surviving certain death in a Nazi concentration camp, after
-which he experienced enlightenment. He gave talks in a narrow circle of friends
-and the recordings in our care have been taken between early 70's and 1991,
-spanning about 1000 hours in total.
+Our project focuses on the collection of recordings of Karel
+Mako\v{n}~\cite{hajek2007cesky} *1912 \textdagger1993, the author of numerous
+books, translations and comments to works of spiritual and religious nature, who
+was influenced by trances during recurring surgery without anesthesy in the age
+of 6, ecstasies in the youth and finally facing and surviving certain death in a
+Nazi concentration camp, after which he experienced enlightenment. He gave talks
+in a narrow circle of friends and the recordings in our care have been taken
+between early 70's and 1991, spanning about 1000 hours in total.
 
 All of his work deals more or less directly with a single topic: entering the
 eternal life before the physical death. He draws mainly from the Christian
@@ -525,7 +534,7 @@ use the prescribed wording: This work has been using language resources stored
 and distributed  by the LINDAT/CLARIN project of the Ministry of Education,
 Youth and Sports of the Czech Republic (project LM2015071).
 
-\bibliography{citace}
 \bibliographystyle{splncs03}
+\bibliography{citace}
 
 \end{document}
