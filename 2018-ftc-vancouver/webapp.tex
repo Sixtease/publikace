@@ -162,6 +162,7 @@ To our best knowledge, there is no other project with a comparable setting.
 However, we can compare single aspects found in other applications.
 
 \subsection{Transcription Apps}
+\label{ssec:diff:trans}
 
 The best widespread match to our task is that of creating an application for
 transcribing speech recordings. Let's compare the two tasks, pointing out the
@@ -478,6 +479,59 @@ calculate the coordinates of all rendered words once and only recalculate them
 in two cases: 1) In the rare event of screen resize and 2) when a corrected
 segment is merged into the transcription, in which case we only need to
 recalculate for the words further in the document.
+
+\subsection{Ergonomy}
+
+It is clear that the ease of use is crucial in our case where the user is
+supposed to perform a requiring, tedious task with repeated steps, especially
+since it is our interest more than hers that she performs them. We compared our
+setting with that of transcription apps in section~\ref{ssec:diff:trans},
+pointing out lessons to learn. Let's now look at some specific points and their
+actual (lack of) implementation.
+
+\subsubsection{Keyboard Shortcuts}
+
+One of the most profound measures in ergonomy are keyboard shortcuts. The most
+common task is pausing and resuming playback. Both oTranscribe and Transcribe
+use the \texttt{esc} key for that, and Transcriber uses the \texttt{tab} key.
+We chose \texttt{ctrl+space} combination. We argue that \texttt{esc} is not the
+best of options because the distance the fingers have to travel from the
+alphanumeric keys causes a noticeable delay. This can lead to missing a pause
+between words. The \texttt{tab} key as chosen by Transcriber is a stellar choice
+from the ergonomy point of view and there is no reason not to use it in a
+dedicated user interface. However, in the browser, where the \texttt{tab} key
+has as native use, re-binding it could lead to confusion and irritation. The
+space bar is probably the easiest-to-find key in all situations and dedicating
+\texttt{ctrl} to all application-specific commands as opposed to single keys
+lends a sense of consistency, we believe.
+
+This is speculation though, as we had no resources so far to perform serious
+research to support these statements.
+
+The only other keyboard shortcut we support is \texttt{ctrl+enter} for
+submitting the correction. We chose this to stay consistent using the
+\texttt{ctrl} key and because this shortcut is familiar to users of many instant
+messengers, like the Facebook chat or the once popular official ICQ client.
+Also, requiring a key combination prevents accidental submission, which is
+desirable as we only want double-checked, guaranteed-precise ones. In
+comparison, Transcriber uses the base \texttt{enter} key to separate utterances.
+oTranscribe and Transcribe allow free formatting with no explicit alignment, so
+using the enter key to split utterances by lines is the user's choice.
+
+\subsubsection{Missing Features}
+
+One of the features that Transcribe, the only commercial tool in our reference
+list, offers is setting up keyboard shortcuts for common words. We haven't
+implemented this because ideally, common words should be covered by the speech
+recognition. However, it could be sensible to implement it anyway. The reason is
+that a word can be very rare globally and thus poorly recognized by ASR but very
+common in a specific passage. This particularly regards named entities.
+
+Another point in our ergonomy to-do list is lifting the need to select a segment
+prior to correcting it. If the transcription was simply editable, it could
+increase the ease of use rapidly. We would have to automate the selection of
+segment to send for forced alignment but we could probably do a better job than
+the user in the end.
 
 \subsection{Mechanics of Submitting a Corrected Segment}
 
