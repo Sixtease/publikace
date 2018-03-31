@@ -127,10 +127,17 @@ Christian symbolism, builds up on Christian mysticism and ancient tradition of
 India and China.
 
 Basically the meat of his teachings is systematically encompassed in his written
-works, whereas the talks contain the sauce: talks tailored to the audience,
+works, whilst the talks contain the sauce: talks tailored to the audience,
 answers to questions, personal experiences, behind-the-scenes to the books etc.
 
 \section{Differences to Other Settings}
+
+% wreally: pause interval
+%          auto loop
+%          templates
+%          pedál
+%          Fka
+%          bez alignmentu
 
 The application we describe is a part of a larger system that deals with
 Mako\v{n}'s recordings. It consists roughly of (1) the corpus itself, (2) an ASR
@@ -155,7 +162,17 @@ However, we can compare single aspects found in other applications.
 
 \subsection{Transcription Apps}
 
-The main differences to common transcription software are that
+The best widespread match to our task is that of creating an application for
+transcribing speech recordings. Let's compare the two tasks, pointing out the
+main points of difference. For reference, we take (1)
+Transcriber\footnote{trans.sourceforge.net}, a classical open-source program
+written in TCL, (2) oTranscribe\footnote{otranscribe.com}, a free modern
+web-based transcription tool and (3) Transcribe\footnote{transcribe.wreally.com}
+a commercial web-based transcription tool.
+
+The numbers in the bullet list denote the programs our statement applies to. For
+example, of the three only Transcriber allows speaker annotation, hence there is
+only the number (1) standing at the second list item.
 
 \noindent
 \begin{tabularx}{\textwidth}{
@@ -167,25 +184,29 @@ The main differences to common transcription software are that
     X% Right column specification
     @{}% No column space on right
   }
-  \em{common transcription applications}: & \em{our application}: \\
-  are optimized for the case where there is no transcription available and it
+  \em{transcription applications}: & \em{our application}: \\
+  (1,2,3) are optimized for the case where there is no transcription available and it
   must be acquired from scratch; &
     always assumes a prior transcription is available; \\
-  allow annotation of speakers; &
+  (1) allow annotation of speakers; &
     assumes all utterances come from the same speaker; \\
-  need no quality control: the user is free to enter whatever transcription she
-  pleases and the ultimate measure is her satisfaction; &
+  (1,2,3) need no quality control: the user is free to enter whatever
+  transcription she pleases and the ultimate measure is her satisfaction; &
     needs the transcription to be accurate because it is used as training data
     for the acoustic model; \\
-  use alignment on the level of phrases, if any; &
+  (1)\footnote{Transcriber explicitly aligns the text with speech, while the
+  other two merely automate addition of timestamps into the transcription.} use
+  alignment on the level of phrases, if any; &
     uses alignment on the level of words; \\
-  are user-centric: the user transcribes whatever acoustic data they choose; &
+  (1,2,3) are user-centric: the user transcribes whatever acoustic data they
+  choose; &
     is data-centric: the whole application with all its tools and persons
     revolves around the data set; \\
-  assumes the user wants to transcribe; &
+  (1,2,3) assumes the user wants to transcribe; &
     assume the user wants to listen and possibly read along and we want to
     animate her to submit transcriptions; \\
-  has no shared data between users; &
+  (1,2)\footnote{Transcribe supports team co-operation.} has no shared data
+  between users; &
     must count with collisions. \\
 \end{tabularx}
 
@@ -332,8 +353,7 @@ Ctrl-Enter for submitting a correction.
 
 Most transcription programs show the transcription as a vertical list of
 utterances, see Figure~\ref{fig:transcriber1} for an example of
-{\em{Transcriber}}\footnote{trans.sourceforge.net}, a veteran open-source
-transcription tool. We attribute this to the fact that the atomic elements of
+Transcriber. We attribute this to the fact that the atomic elements of
 the transcription are the user-entered utterances and their boundaries are
 reliable. In our case, the atomic elements are words. There are sentences, sure,
 but the segmentation to sentences by the ASR is very unreliable, so we want it
