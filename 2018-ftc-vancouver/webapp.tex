@@ -172,9 +172,9 @@ written in TCL, (2) oTranscribe\footnote{otranscribe.com}, a free modern
 web-based transcription tool and (3) Transcribe\footnote{transcribe.wreally.com}
 a commercial web-based transcription tool.
 
-The numbers in the bullet list denote the programs our statement applies to. For
-example, of the three only Transcriber allows speaker annotation, hence there is
-only the number (1) standing at the second list item.
+The numbers in the bullet list below denote the programs our statement applies
+to. For example, of the three only Transcriber allows speaker annotation, hence
+there is only the number (1) standing at the second list item.
 
 \noindent
 \begin{tabularx}{\textwidth}{
@@ -208,7 +208,7 @@ only the number (1) standing at the second list item.
   use alignment on the level of phrases, if any; &
     (1)\footnote{
         Transcriber explicitly aligns the text with speech, while the
-        other two merely automate addition of timestamps into the transcription.
+        other two merely support addition of timestamps into the transcription.
     } &
       uses alignment on the level of words; \\
 
@@ -238,19 +238,19 @@ variation.
 
 \subsection{Wiki}
 
-Where our application diverts from transciption software, it mostly resembles a
+Where our application diverts from transcription software, it mostly resembles a
 wiki: a community platform that serves its users including the contributors but
 where the quality of the contributions is essential, while the contributor's
 satisfaction alone is of less importance.
 
-One major difference to a wiki is that wiki is creative, whereas our task is
-mechanical. The user has basically no room for their own invention: providing a
-different than correct transcription is seen as an error.
+One major point of difference to a wiki is that wiki is creative, whereas our
+task is mechanical. The user has basically no room for their own invention:
+providing a different than correct transcription is seen as an error.
 
 Popular wikis have good measures for edit conflicts, which is where we could
 learn some lessons. However, so far there was no need to do that because
 \begin{enumerate}
-\item{when we always simply take the most recent version
+\item{if we always simply take the most recent version
 of a segment, the result stays consistent even if a piece from user A comes into
 a larger transcription of user B;}
 \item{our user base is so far limited to a small community who have no problem
@@ -268,7 +268,7 @@ The application consists of several views:
 view,}
 \item{the detail view, where a recording can be played back, its transcription
 is displayed and can be corrected by the user,}
-\item{search page, where hits to a search query are listed and point to
+\item{the search page, where hits to a search query are listed and point to
 corresponding positions in the recordings,}
 \item{static pages with general information, contact etc.}
 \end{enumerate}
@@ -297,7 +297,7 @@ Legend to Figure~\ref{fig:scn1lab}:
     \end{itemize}
 }
 \item{Identifier of the recording;}
-\item{Automatically transcribed segments in gray;}
+\item{Automatically transcribed segments in grey;}
 \item{Manually transcribed segments in black;}
 \item{Currently played-back word highlighted by yellow background;}
 \item{Marked word highlighted in regent st. blue;}
@@ -306,8 +306,8 @@ Legend to Figure~\ref{fig:scn1lab}:
     \begin{itemize}
     \item{
         occurrence: the word with contextual capitalization and
-        punctuation as it appeard in the text, currently being edited as the
-        selected initial letter reveals,
+        punctuation as it appeard in the text (currently being edited as the
+        selected initial letter reveals),
     }
     \item{form: normalized word form as it appears in the word list,}
     \item{pronunciation: Czech phonetic transcription of the word,}
@@ -363,12 +363,12 @@ Legend to Figure~\ref{fig:scn2lab}:
 }
 \end{enumerate}
 
-Most common tasks have keyboard shortcuts: Ctrl-Space for play/pause and
-Ctrl-Enter for submitting a correction.
+Most common tasks have keyboard shortcuts: \texttt{ctrl+space} for play/pause
+and \texttt{ctrl+enter} for submitting a correction.
 
 \subsection{Displaying the Transcription}
 
-Most transcription programs show the transcription as a vertical list of
+Many transcription programs show the transcription as a vertical list of
 utterances, see Figure~\ref{fig:transcriber1} for an example of
 Transcriber. We attribute this to the fact that the atomic elements of
 the transcription are the user-entered utterances and their boundaries are
@@ -480,6 +480,26 @@ in two cases: 1) In the rare event of screen resize and 2) when a corrected
 segment is merged into the transcription, in which case we only need to
 recalculate for the words further in the document.
 
+\subsubsection{Manual / Automatic Distinction}
+
+As shown on Figure~\ref{fig:scn1lab}, we draw automatic transcription in grey
+and manual one in black. Why did we choose this instead of normal / boldface?
+Firstly, the normal font is optimal for reading. Boldface is meant to highlight
+spots in text. It becomes bulky when applied on long continuous passages. The
+automatic transcription contains many errors, so there is no sense in optimizing
+it for best reading experience.
+
+There is also another practical reason. When the two font variants only differ
+in color, and a segment of automatic transcription is left intact and submitted
+as correct transcription, its merge-down into the displayed text causes no
+reflow, which saves us computations and raises responsiveness. It may seem like
+a rare use case but we believe that identifying correctly recognized words is a
+legitimate way of contribution, so why not optimize for it?
+
+Still, the underlying HTML tags are \texttt{<span>} and \texttt{<b>} because
+that way the distinction persists when copy-pasting the text from the web page
+to a rich text editor.
+
 \subsection{Ergonomy}
 
 It is clear that the ease of use is crucial in our case where the user is
@@ -497,7 +517,7 @@ use the \texttt{esc} key for that, and Transcriber uses the \texttt{tab} key.
 We chose \texttt{ctrl+space} combination. We argue that \texttt{esc} is not the
 best of options because the distance the fingers have to travel from the
 alphanumeric keys causes a noticeable delay. This can lead to missing a pause
-between words. The \texttt{tab} key as chosen by Transcriber is a stellar choice
+between words. The \texttt{tab} key as chosen by Transcriber is a splendid choice
 from the ergonomy point of view and there is no reason not to use it in a
 dedicated user interface. However, in the browser, where the \texttt{tab} key
 has as native use, re-binding it could lead to confusion and irritation. The
@@ -505,8 +525,8 @@ space bar is probably the easiest-to-find key in all situations and dedicating
 \texttt{ctrl} to all application-specific commands as opposed to single keys
 lends a sense of consistency, we believe.
 
-This is speculation though, as we had no resources so far to perform serious
-research to support these statements.
+This is mere personal experience though, as we had no resources so far to
+perform serious research to support these statements.
 
 The only other keyboard shortcut we support is \texttt{ctrl+enter} for
 submitting the correction. We chose this to stay consistent using the
@@ -514,7 +534,7 @@ submitting the correction. We chose this to stay consistent using the
 messengers, like the Facebook chat or the once popular official ICQ client.
 Also, requiring a key combination prevents accidental submission, which is
 desirable as we only want double-checked, guaranteed-precise ones. In
-comparison, Transcriber uses the base \texttt{enter} key to separate utterances.
+comparison, Transcriber uses the bare \texttt{enter} key to separate utterances.
 oTranscribe and Transcribe allow free formatting with no explicit alignment, so
 using the enter key to split utterances by lines is the user's choice.
 
@@ -542,10 +562,11 @@ textarea and the global playback controls are replaced by those that only allow
 playback of audio corresponding to the selected transcription.
 
 Once the user believes that the content of the textarea corresponds precisely
-to the words uttered, she hits the {\em save} button or the Ctrl-Enter keyboard
-shortcut. This starts an asynchronous HTTP request to the back-end, where
-parametrized (MFCC) versions of the recordings are stored, along with the new
-transcription and the time positions of the beginning and end of the segment.
+to the words uttered, she hits the {\em save} button or the \texttt{ctrl+enter}
+keyboard shortcut. This starts an asynchronous HTTP request to the back-end,
+where parametrized (MFCC) versions of the recordings are stored, along with the
+new transcription and the time positions of the beginning and end of the
+segment.
 
 The server then cuts off the corresponding segment from the parametrized
 recording, runs forced alignment on it with the provided transcription with a
@@ -608,9 +629,10 @@ Also in our case, this approach makes the program more predictable, less
 error-prone and, as the modern programming jargon lovingly expresses, {\em
 easier to reason about}. But some of our features make this a bit complicated.
 
-Among the states the app can enter is simple playback, inspecting a word,
-transcribing a segment and replaying the selected audio span. Now, the only
-relevant things we actually store is the redux state are:
+Among the states the app can enter is simple playback, inspecting a word and
+transcribing a segment. Now, the only relevant things we actually keep in the
+Redux store are:
+
 \begin{enumerate}
 \item{
     The array of transcription words, each of which bears the flag whether it is
@@ -622,7 +644,6 @@ relevant things we actually store is the redux state are:
     character offset in the chunk, which is basically what we get from the DOM
     upon a \texttt{mouseup} event.
 }
-\item{Whether playback is running and the current position.}
 \end{enumerate}
 
 Whether a word is marked or a segment is being edited is determined solely by
@@ -649,7 +670,7 @@ that's really easy to use and inviting to people to submit corrections is nicer.
 One of the aspects we want to explore is enabling people to naturally share
 catching segments of talks on social networks.
 
-Another point of near future endeavor is higher-level work with the contents. By
+Another point of near-future endeavor is higher-level work with the contents. By
 this we mean that we'd like to use both automatic processing methods and the
 users to do semantic analysis of the talks: What topic is covered where? What
 topics are covered at all? Which talks relate to which written works?, and
