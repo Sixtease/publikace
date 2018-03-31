@@ -177,37 +177,52 @@ only the number (1) standing at the second list item.
 \noindent
 \begin{tabularx}{\textwidth}{
     @{\hspace{1.5em}}% Space for left bullet
-    >{\leavevmode\llap{\textbullet~}\raggedright}% Left bullet + formatting of column
+    >{{\hsize=0.9\hsize}\leavevmode\llap{\textbullet~}\raggedright}% Left bullet + formatting of column
     X% Left column specification
+    @{\hspace{0.2em}}
+    >{\hsize=0.2\hsize}
+    X
     @{\quad\hspace{1.5em}}% Space between columns + right bullet space
     >{\leavevmode\llap{\textbullet~}\raggedright\arraybackslash}% Right bullet + formatting of column
     X% Right column specification
     @{}% No column space on right
   }
-  \em{transcription applications}: & \em{our application}: \\
-  (1,2,3) are optimized for the case where there is no transcription available and it
+  \em{transcription applications}: & & \em{our application}: \\
+  are optimized for the case where there is no transcription available and it
   must be acquired from scratch; &
-    always assumes a prior transcription is available; \\
-  (1) allow annotation of speakers; &
-    assumes all utterances come from the same speaker; \\
-  (1,2,3) need no quality control: the user is free to enter whatever
-  transcription she pleases and the ultimate measure is her satisfaction; &
-    needs the transcription to be accurate because it is used as training data
-    for the acoustic model; \\
-  (1)\footnote{Transcriber explicitly aligns the text with speech, while the
-  other two merely automate addition of timestamps into the transcription.} use
-  alignment on the level of phrases, if any; &
-    uses alignment on the level of words; \\
-  (1,2,3) are user-centric: the user transcribes whatever acoustic data they
-  choose; &
-    is data-centric: the whole application with all its tools and persons
-    revolves around the data set; \\
-  (1,2,3) assumes the user wants to transcribe; &
-    assume the user wants to listen and possibly read along and we want to
-    animate her to submit transcriptions; \\
-  (1,2)\footnote{Transcribe supports team co-operation.} has no shared data
-  between users; &
-    must count with collisions. \\
+    (1,2,3) &
+      always assumes a prior transcription is available; \\
+
+  allow annotation of speakers; &
+    (1) &
+      assumes all utterances come from the same speaker; \\
+
+  need no quality control: the user is free to enter whatever transcription she
+  pleases and the ultimate measure is her satisfaction; &
+    (1,2,3) &
+      needs the transcription to be accurate because it is used as training data
+      for the acoustic model; \\
+
+  use alignment on the level of phrases, if any; &
+    (1)\footnote{
+        Transcriber explicitly aligns the text with speech, while the
+        other two merely automate addition of timestamps into the transcription.
+    } &
+      uses alignment on the level of words; \\
+
+  are user-centric: the user transcribes whatever acoustic data they choose; &
+    (1,2,3) &
+      is data-centric: the whole application with all its tools and persons
+      revolves around the data set; \\
+
+  assumes the user wants to transcribe; &
+    (1,2,3) &
+      assume the user wants to listen and possibly read along and we want to
+      animate her to submit transcriptions; \\
+
+  has no shared data between users; &
+    (1,2)\footnote{Transcribe supports team co-operation.} &
+      must count with collisions. \\
 \end{tabularx}
 
 \vspace{5mm}
