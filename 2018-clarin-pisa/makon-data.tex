@@ -1,0 +1,281 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX TS-program = xelatex
+%
+% File CLARIN2018.tex
+%
+% Adapted for modern XeLaTeX and Unicode by desmedt@uib.no
+% Otherwise contact: jwagner@computing.dcu.ie
+%% 
+%% Based on the style files for CLARIN2015, which were, in turn,
+%% Based on the style files for CAC2014, which were, in turn,
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn,
+%% based on the style files for ACL-2010, which were, in turn,
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{CLARIN2018}
+% - - - - - - - IMPORTANT - - - - - - - -
+% The next three lines allow XeLaTeX, graphics import and hyperlinks, set font and language
+\usepackage{xltxtra,polyglossia,graphicx,hyperref}
+\setmainfont[Mapping=tex-text]{Times New Roman}
+\setdefaultlanguage{english}
+% If for some reason the above three lines are not compatible with your LaTeX installation,
+% comment out the above three instructions and uncomment the following four instead:
+%\usepackage{times}
+%\usepackage{url}
+%\usepackage{latexsym}
+%\usepackage[english]{babel}
+
+%\setlength\titlebox{5cm}
+
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\usepackage{covington} % if needed, for linguistic examples
+
+\title{Spoken Corpus of Karel Mako\v{n}}
+
+% - - - - - - - IMPORTANT - - - - - - -
+% Leave the author information empty until your paper has been accepted 
+
+% Uncomment the following line ONLY if you need two author rows
+%\setlength\titlebox{80mm} 
+
+\author{First Author \\
+  Department (optional)\\
+  University of City, Country \\
+  {\tt email@domain} \\\And % if needed: this makes a second column
+  Second Author \\
+  Department (optional)\\
+  University Name without city \\
+  City, Country \\
+ {\tt email@domain} \\
+% \AND % if needed: this makes a second row
+%  Third Author \\
+%  Department (optional)\\
+%  University of City, Country \\
+%  {\tt email@domain} \\\And
+%  Fourth Author \\
+%  Department (optional)\\
+%  University Name without city \\
+%  City, Country \\
+%  {\tt email@domain} \\
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  We present a detailed view on the spoken corpus of Karel Mako\v{n}. This paper
+  briefly outlines the system for processing the corpus, which has been
+  published in a previous work, and elaborates on the corpus, the process of its
+  acquisition and its annotation.
+\end{abstract}
+
+\section{Introduction} \label{intro}
+
+% - - - - - - - IMPORTANT - - - - - - -
+% The following footnote without marker is needed for the camera-ready
+% version of the paper.
+% Comment out the instructions (first text) and uncomment the 8 lines
+% under "final paper" for your variant of English.
+%
+\blfootnote{
+    %
+    % for review submission
+    %
+    %\hspace{-0.65cm}  % space normally used by the marker
+This work is licenced under a Creative Commons Attribution 4.0 International Licence.
+Licence details:
+\url{http://creativecommons.org/licenses/by/4.0/}
+    % % final paper: en-uk version (to license, a licence)
+    %
+    % \hspace{-0.65cm}  % space normally used by the marker
+    % This work is licensed under a Creative Commons
+    % Attribution 4.0 International Licence.
+    % Licence details:
+    % \url{http://creativecommons.org/licenses/by/4.0/}
+    %
+    % % final paper: en-us version (to licence, a license)
+    %
+    % \hspace{-0.65cm}  % space normally used by the marker
+    % This work is licenced under a Creative Commons
+    % Attribution 4.0 International License.
+    % License details:
+    % \url{http://creativecommons.org/licenses/by/4.0/}
+}
+
+The spoken corpus of Karel Mako\v{n} is a collection of talks given in a circle
+of friends in the course of late 60's or early 70's till 1991. The recordings
+have been kept on magnetophone tapes until their digitization that took place
+between 2010 and 2012. A complete transcription was obtained using a dedicated
+ASR system and the work of the community around K.M's legacy. The corpus is
+about 1000 hours in total length, of which about 66 have been transcribed
+manually.
+
+\section{Content of the Corpus}
+
+\subsection{Karel Mako\v{n}}
+
+The author of the talks, Mr. Karel Mako\v{n} *1912 \textdagger{}1993, was giving
+talks in a strife to share his awareness of the proverbial meaning of life and
+to give a manual to eternal life after his release from a concentration camp
+during the WWII.
+
+His steep spiritual path began in early childhood when he was
+subject to repeated arm surgery without anesthesy. The pain the child suffered
+made him escape mentally from inside his body, which led him to what he calls
+``the yellow light''. As a result, he felt obliged always to {\em do the right
+thing}.
+
+This culminated in the age of 17, in a perceived life crissis, when he read in a
+book that ``this life is the bridge to the eternal life''. The thought
+captivated him and gave him a new life direction, which also led to several
+ecstasies.
+
+The next culmination happened in 1939, after nine years of constant prayer for a
+stronger love to God, when he was doported to the nazi concentration camp in
+Sachsenhausen, as a university student. Here, he was promised certain death by a
+Gestapo warden. As the nazi was approaching K.M. to kill him, he gave up his
+life completely to God and the attacker turned around in awe and fled.
+
+It was in that moment that Mako\v{n} obtained enlightenment, accompanied with
+profound understanding of Christian symbolism. He was experiencing absolute
+freedom and abundance ever since, even in the concentration camp. He also
+understood the general spiritual mechanisms that conditioned his deliverance and
+devoted much of his subsequent life to enabling others to learn from his
+experience.
+
+\subsection{Giving and Recording the Talks}
+
+The mystical, religious and spiritual nature of Mako\v{n}'s talks put K.M. in
+direct antagonism with the communist regime. The opposition was strictly
+unidirectional though, as Mako\v{n} also understood the purpose of the regime
+and was far from wasting his energy on a fight against it. His way of dealing
+with the conflict was by staying out of wide popularity. Hence, most of the
+talks have been given during regular meetings in various places of
+Czechoslovakia and later the Czech Republic, in a close circle of friends.
+
+One of the fortunate consequences of the seclusion of the talks is that there is
+very little background noise. Also, most of the recordings
+% TODO: kolik je od Elgra?
+have been taken by a single person who used the available state-of-the-art
+amateur recording technology and methods. He was also very systematic in
+labeling and archiving the recordings. As a result, the majority of the base for
+digitization was a set of reel-to-reel tapes labeled with ordinal indexes and a
+set of cassettes labeled by year and ordinal index. The reel-to-reel tapes have
+been acquired in a generous speed of 9cm/second, which granted them a very good
+shield against the inevitable aging.
+
+\subsection{Topics}
+
+In general, the whole corpus deals with a single topic that can be summarized as
+a howto for entering the eternal life before the physical death. On a
+finer-grained look, we can identify recurring sub-topics, like
+
+\begin{itemize}
+\item{interpretation of some passages in the New Testament, notably the parable
+of the prodigal son, the parable of the talents, and the Our Father prayer,}
+\item{milestone personal experiences, like the one in the concentration camp,}
+\item{explaining symbolism, the apostles as symbols for human abilities,}
+\item{references to specific people, like St. Teresa of \'{A}vila or Padre Pio.}
+\end{itemize}
+
+A list of recurring topics and their identification in the sound files is a
+point of future work.
+
+\subsection{Acoustic Quality}
+
+Despite of the relatively good recording technique and mostly quiet environment,
+the resulting acoustic quality varies wildly. Many recordings are clearly
+intelligible, while some suffer from various defects like
+\begin{itemize}
+\item{background noise in varying intensity and bandwidth,}
+\item{altered speed,}
+\item{clipping or faitness,}
+\item{echo,}
+\item{overlap of two recordings.}
+\end{itemize}
+
+Sometimes the quality changes abruptly inside a file, when recording was stopped
+and resumed with different conditions.
+
+Expectably, the age of a recording correlates with its quality but other factors
+play a significant role also. Apart of obvious ones like the relative position
+of the speaker to the microphone, the acoustics of the room and quality of the
+recording device, also the tape brand seems to be quite important.
+
+\section{Processing}
+
+I have focused on two major aspects of processing the material: 1. Making it
+accessible to the public and 2. acquiring a complete transcription. The
+% akustická úprava, indexy, vyhledávání
+
+%\section*{Acknowledgements}
+%
+%This document has been adapted from the instructions for the 
+%CAC2014 proceedings, which are, in turn based on those for the
+%COLING 2014 proceedings, which are, in turn, based on the ACL-2014
+%proceedings compiled by Alexander Koller and Yusuke Miyao,
+%which are, in turn, based on the instructions for earlier ACL proceedings,
+%including those for ACL-2012 by Maggie Li and Michael
+%White, those from ACL-2010 by Jing-Shing Chang and Philipp Koehn,
+%those for ACL-2008 by Johanna D. Moore, Simone Teufel, James Allan,
+%and Sadaoki Furui, those for ACL-2005 by Hwee Tou Ng and Kemal
+%Oflazer, those for ACL-2002 by Eugene Charniak and Dekang Lin, and
+%earlier ACL and EACL formats. Those versions were written by several
+%people, including John Chen, Henry S. Thompson and Donald
+%Walker. Additional elements were taken from the formatting
+%instructions of the {\em International Joint Conference on Artificial
+%  Intelligence}.
+
+
+% The bibliography section below is for illustration only! Include your own bib file like this:
+%\bibliography{yourbibfile}
+
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Aho and Ullman}1972]{Aho:72}
+Alfred~V. Aho and Jeffrey~D. Ullman.
+\newblock 1972.
+\newblock {\em The Theory of Parsing, Translation and Compiling}, volume~1.
+\newblock Prentice-{Hall}, Englewood Cliffs, NJ.
+
+\bibitem[\protect\citename{{American Psychological Association}}1983]{APA:83}
+{American Psychological Association}.
+\newblock 1983.
+\newblock {\em Publications Manual}.
+\newblock American Psychological Association, Washington, DC.
+
+\bibitem[\protect\citename{{Association for Computing Machinery}}1983]{ACM:83}
+{Association for Computing Machinery}.
+\newblock 1983.
+\newblock {\em Computing Reviews}, 24(11):503--512.
+
+\bibitem[\protect\citename{Chandra \bgroup et al.\egroup }1981]{Chandra:81}
+Ashok~K. Chandra, Dexter~C. Kozen, and Larry~J. Stockmeyer.
+\newblock 1981.
+\newblock Alternation.
+\newblock {\em Journal of the Association for Computing Machinery},
+  28(1):114--133.
+
+\bibitem[\protect\citename{Gusfield}1997]{Gusfield:97}
+Dan Gusfield.
+\newblock 1997.
+\newblock {\em Algorithms on Strings, Trees and Sequences}.
+\newblock Cambridge University Press, Cambridge, UK.
+
+\end{thebibliography}
+
+\end{document}
