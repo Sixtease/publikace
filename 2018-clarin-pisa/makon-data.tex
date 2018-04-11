@@ -195,6 +195,60 @@ of the prodigal son, the parable of the talents, and the Our Father prayer,}
 A list of recurring topics and their identification in the sound files is a
 point of future work.
 
+We can take the current transcription %and the few notes some listeners made
+%about topics and their alignment with the audio
+as a source for a baseline.
+Topic is inherently a vague concept, which I shall address when I focus on it
+but for the baseline evaluation, we can take a look at some easily defined cases
+like named entities. The ease about them is that we can look for their specific
+word form and if it is not found, then it means the transcription is not talking
+about it.
+
+Of course, there are exceptions, like saying ``the capital of Japan'' instead of
+``Tokyo'' but firstly, I chose terms where this is not likely to happen and
+secondly, this can only lower the recall of our baseline score, not the
+precision, and we have no way of telling the precision given no annotated data
+for this task.\footnote{The 50-minute test set is way too small for this kind of
+task.}
+
+I have chosen the following terms:
+
+\begin{enumerate}
+\item{Lazarus,}
+\item{Mithra, Mithraism,}
+\item{Satan,}
+\item{St. Teresa,}
+\item{fairy-tale.}
+\end{enumerate}
+
+I chose fairy-tale (Czech: \emph{poh\'{a}dka}) as a recurring topic with a
+unifying word, for an example of a non-named-entity.
+
+The search for stems of these words in the automatic part of the transcription
+yielded results summed up in Table~\ref{tab:topicsearch}. For terms where there
+were more than 20 hits, I have checked the first 20 but each from a different
+file.
+
+\begin{table}[htpb]
+\begin{center}
+\begin{tabular}{|l|l|r|r|r|}
+\hline
+Term & Query & hits in automatic transcription & hits in manual transcription & Precision \\
+\hline
+Lazarus & \texttt{lazar.*} & 16 & 14 & 8/10   \\
+Mithra & \texttt{mithra.*|mitra.*} & 0 & 0 & n/a   \\
+Satan & \texttt{satan.*} & 308 & 129 & 16/20   \\
+St. Teresa & \texttt{terez.*} & 882 & 91 & 15/20   \\
+fairy-tale & \texttt{pohádk.*} & 216 & 55 & 18/20   \\
+\hline
+\multicolumn{4}{|l|}{average precision} & 81.25\%\\
+\hline
+\end{tabular}
+\caption{Text search hits in the automatically-acquired part of the
+transcription}\label{tab:topicsearch}
+\end{center}
+\end{table}
+
 \subsection{Acoustic Quality}
 
 Despite of the relatively good recording technique and mostly quiet environment,
@@ -275,7 +329,9 @@ the case of narrow-band noise, which occurs on some recordings, predominantly in
 the bass range.
 
 This was a cheap solution for a low-hanging fruit but a more holistic approach
-is 
+is very desirable.
+
+
 
 % 7.6\% of the corpus is annotated with 620615 : 7574994 hum : auto
 
