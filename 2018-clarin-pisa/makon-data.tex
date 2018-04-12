@@ -124,6 +124,18 @@ ASR system and the work of the community around K.M's legacy. The corpus is
 about 1000 hours in total length, of which about 66 have been transcribed
 manually.
 
+Most of the previous work was focused on acquiring the automatic transcription
+and development of a web interface to allow users to access the talks and
+provide corrections to the existing transcription, in order to have high-quality
+transcription as well as to gather more training data.
+
+The actual content of the corpus with respect to topics, references and
+statements, is on one hand quite well known firstly because there are many books
+by the author with descriptive indexes like any other book, which largely
+correspond to what is said in the talks, secondly because the the domain stays
+more or less consistent across the whole set. On the other hand, it is only
+known vaguely and a systematic effort to analyze it is yet to be carried out.
+
 \section{Content of the Corpus}
 
 \subsection{Karel Mako\v{n}}
@@ -188,7 +200,7 @@ finer-grained look, we can identify recurring sub-topics, like
 \item{interpretation of some passages in the New Testament, notably the parable
 of the prodigal son, the parable of the talents, and the Our Father prayer,}
 \item{milestone personal experiences, like the one in the concentration camp,}
-\item{explaining symbolism, the apostles as symbols for human abilities,}
+\item{explaining symbolism, like the apostles as symbols for human abilities,}
 \item{references to specific people, like St. Teresa of \'{A}vila or Padre Pio.}
 \end{itemize}
 
@@ -198,7 +210,7 @@ point of future work.
 We can take the current transcription %and the few notes some listeners made
 %about topics and their alignment with the audio
 as a source for a baseline.
-Topic is inherently a vague concept, which I shall address when I focus on it
+Topic is inherently a vague concept %, which I shall address when I focus on it
 but for the baseline evaluation, we can take a look at some easily defined cases
 like named entities. The ease about them is that we can look for their specific
 word form and if it is not found, then it means the transcription is not talking
@@ -207,11 +219,12 @@ about it.
 Of course, there are exceptions, like saying ``the capital of Japan'' instead of
 ``Tokyo'' but firstly, I chose terms where this is not likely to happen and
 secondly, this can only lower the recall of our baseline score, not the
-precision, and we have no way of telling the precision given no annotated data
+precision, and we have no way of telling the recall given no annotated data
 for this task.\footnote{The 50-minute test set is way too small for this kind of
-task.}
+task. Another source could be manual notes available to some of the recordings
+but preparing them for this purpose requires some more effort.}
 
-I have chosen the following terms:
+I have chosen the following example topics:
 
 \begin{enumerate}
 \item{Lazarus,}
@@ -249,6 +262,22 @@ transcription}\label{tab:topicsearch}
 \end{center}
 \end{table}
 
+The precision of over 80\% seems quite promising and hints that the current
+quality of transcription allows for reasonable searching through the corpus.
+However, the hits were all clearly audible. I met none in an acoustically defect
+(see the next subsection) file, which leads to the hypothesis that those are not
+yet searchable to a distantly satisfying level.
+
+\subsubsection{Correspondence between Talks and Books}
+
+The proclamation at the end of the introduction~\ref{intro}, that the
+topics of the talks correspond largely to that of the concurrently written
+books, deserves a kind of support. Mako\v{n} translated the book \emph{El
+Castillo Interior}, English \emph{The Interior Castle} by St. Teresa of Ávila in
+1977. For most recordings, the year of their acquisition is known.
+Figure~\ref{fig:teresa-year} shows how many hits for the name of the Saint are
+present in the transcription by recording year.
+
 \subsection{Acoustic Quality}
 
 Despite of the relatively good recording technique and mostly quiet environment,
@@ -263,12 +292,14 @@ intelligible, while some suffer from various defects like
 \end{itemize}
 
 Sometimes the quality changes abruptly inside a file, when recording was stopped
-and resumed with different conditions.
+and resumed with different conditions. This prevents us from classifying
+individual recordings by their acoustic quality.
 
 Expectably, the age of a recording correlates with its quality but other factors
-play a significant role also. Apart of obvious ones like the relative position
-of the speaker to the microphone, the acoustics of the room and quality of the
-recording device, also the tape brand seems to be quite important.
+play a significant role also. Most are obvious like the relative position
+of the speaker to the microphone, the acoustics of the room, quality of the
+recording device and also the tape brand. Unfortunately, none of these can be
+said with certainty.
 
 \section{Processing}
 
