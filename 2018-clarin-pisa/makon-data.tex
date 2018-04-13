@@ -79,8 +79,8 @@
 \begin{abstract}
   We present a detailed view on the spoken corpus of Karel Mako\v{n}. This paper
   briefly outlines the system for processing the corpus, which has been
-  published in a previous work, and elaborates on the corpus, the process of its
-  acquisition and its annotation.
+  published in a previous work, and elaborates on the corpus. A baseline for
+  topical analysis is presented.
 \end{abstract}
 
 \section{Introduction} \label{intro}
@@ -120,7 +120,7 @@ The spoken corpus of Karel Mako\v{n} is a collection of talks given in a circle
 of friends in the course of late 60's or early 70's till 1991. The recordings
 have been kept on magnetophone tapes until their digitization that took place
 between 2010 and 2012. A complete transcription was obtained using a dedicated
-ASR system and the work of the community around K.M's legacy. The corpus is
+ASR system and the work of the community around K.M.'s legacy. The corpus is
 about 1000 hours in total length, of which about 66 have been transcribed
 manually.
 
@@ -130,15 +130,12 @@ provide corrections to the existing transcription, in order to have high-quality
 transcription as well as to gather more training data.
 
 The actual content of the corpus with respect to topics, references and
-statements, is on one hand quite well known firstly because there are many books
-by the author with descriptive indexes like any other book, which largely
-correspond to what is said in the talks, secondly because the the domain stays
+statements, is on one hand quite well known
+because the the domain stays
 more or less consistent across the whole set. On the other hand, it is only
 known vaguely and a systematic effort to analyze it is yet to be carried out.
 
-\section{Content of the Corpus}
-
-\subsection{Karel Mako\v{n}}
+\section{Author}
 
 The author of the talks, Mr. Karel Mako\v{n} *1912 \textdagger{}1993, was giving
 talks in a strife to share his awareness of the proverbial meaning of life and
@@ -153,14 +150,15 @@ thing}.
 
 This culminated in the age of 17, in a perceived life crissis, when he read in a
 book that ``this life is the bridge to the eternal life''. The thought
-captivated him and gave him a new life direction, which also led to several
+captivated him and gave him a new life direction, which led to several
 ecstasies.
 
 The next culmination happened in 1939, after nine years of constant prayer for a
-stronger love to God, when he was doported to the nazi concentration camp in
+stronger love to God, when he was deported to the nazi concentration camp in
 Sachsenhausen, as a university student. Here, he was promised certain death by a
 Gestapo warden. As the nazi was approaching K.M. to kill him, he gave up his
-life completely to God and the attacker turned around in awe and fled.
+life completely to God and the attacker unexplainably turned around in awe and
+fled.
 
 It was in that moment that Mako\v{n} obtained enlightenment, accompanied with
 profound understanding of Christian symbolism. He was experiencing absolute
@@ -169,7 +167,7 @@ understood the general spiritual mechanisms that conditioned his deliverance and
 devoted much of his subsequent life to enabling others to learn from his
 experience.
 
-\subsection{Giving and Recording the Talks}
+\section{Giving and Recording the Talks}
 
 The mystical, religious and spiritual nature of Mako\v{n}'s talks put K.M. in
 direct antagonism with the communist regime. The opposition was strictly
@@ -180,7 +178,7 @@ talks have been given during regular meetings in various places of
 Czechoslovakia and later the Czech Republic, in a close circle of friends.
 
 One of the fortunate consequences of the seclusion of the talks is that there is
-very little background noise. Also, most of the recordings
+very little background noise on most of the recordings. Also, most of them
 % TODO: kolik je od Elgra?
 have been taken by a single person who used the available state-of-the-art
 amateur recording technology and methods. He was also very systematic in
@@ -192,11 +190,15 @@ shield against the inevitable aging.
 
 \section{Processing}
 
+We don't have the resources needed to manually annotate the corpus like
+e.g.~\ref{japsponta}, but there are lay
+volunteers willing to work on the project for the cause of tending Mako\v{n}'s
+legacy.
+
+A complete transcription is essential or at least helpful for any kind of
+further processing.  Therefore,
 I have focused on two major aspects of processing the material: 1. Making it
-accessible to the public and 2. acquiring a complete transcription. To a lesser
-extent, I have also worked towards 1. overcoming the acoustic difficulties for
-listeners, 2. topically indexing some recordings and 3. enablind a full-text
-search over the whole corpus.
+accessible to the public and 2. acquiring a complete transcription.
 
 \subsection{Access to the Corpus}
 
@@ -219,12 +221,12 @@ and feed that to the web application, as a base for the users to correct.
 
 We only have a single speaker, a restricted domain, relatively consistent
 conditions, an extensive collection of the author's original books,
-translations, comments and letters to build a well-fitting language model. So
+translations, comments and letters to build a fitting language model. So
 even very little training data should give satisfactory results and the error
 rate should drop rapidly as the training data would increase.
 
 Well, the error rate did drop as the training data increased but the accuracy of
-the speech recognition was more of a challenge than I had thought. Fot the most
+the speech recognition was more of a challenge than I had thought. For the most
 part, the users were actually using the web interface to provide a new
 transcription from scratch, ignoring the way too erroneous output of the ASR,
 instead of merely correcting single errors, as was meant.
@@ -236,44 +238,39 @@ allow reading along and to do full-text search.
 
 The word error rate on our test set is currently 42\% but it is probably lower
 on clean recordings and also most mistakes are in word endings, so the meaning
-is comprehensible. I am currently training a DNN acoustic model, so chances are
-the ASR score will soon rise noticeably.
+is comprehensible. I am currently working on a DNN acoustic model, so chances
+are the ASR score will soon rise.
 
-\subsection{Acoustic Quality}
+\subsubsection{Acoustic Quality}
 
 Despite of the relatively good recording technique and mostly quiet environment,
 the resulting acoustic quality varies wildly. Many recordings are clearly
 intelligible, while some suffer from various defects like
-\begin{itemize}
-\item{background noise in varying intensity and bandwidth,}
-\item{altered speed,}
-\item{clipping or faitness,}
-\item{echo,}
-\item{overlap of two recordings.}
-\end{itemize}
+1. background noise in varying intensity and bandwidth,
+2. altered speed,
+3. clipping or faitness,
+4. echo,
+5. overlap of two recordings.
 
-Sometimes the quality changes abruptly inside a file, when recording was stopped
-and resumed with different conditions. This prevents us from classifying
-individual recordings by their acoustic quality.
+The varying acoustic quality is the most serious obstacle to the quality of the
+automatic transcription. But it is also detrimental to the manual transcription.
 
-Expectably, the age of a recording correlates with its quality but other factors
-play a significant role also. Most are obvious like the relative position
-of the speaker to the microphone, the acoustics of the room, quality of the
-recording device and also the tape brand. Unfortunately, none of these can be
-said with certainty.
-
+To mitigate this, the web interface features since lately a user-controllable
+graphical equalizer, which can help especially in the case of narrow-band noise.
 
 \subsection{Secondary Processing Attempts}
 
-\subsubsection{Mitigating Acoustic Defects}
+Some limited effort was invested into further processing beyond plain
+transcription. I have created a simple search engine over the transcription that
+yields deep links into relevant passages in the audio. Elasticsearch was used
+for this purpose, with Czech algorithmic stemmer.
 
-In a new version of the web interface (paper pending), I have implemented a
-user-controllable parametric graphical equalizer. This can help significantly in
-the case of narrow-band noise, which occurs on some recordings, predominantly in
-the bass range.
-
-This was a cheap solution for a low-hanging fruit but a more holistic approach
-is very desirable.
+Another effort was processing manually written indexes that are available for a
+fraction of the recordings. These have been partly hand-written, partly typed
+and are aligned using the positions of the device counter. Most of these are
+scanned and some limited experiments were carried out to apply OCR. The explicit
+mapping of the indexes with corresponding recordings and time-positions is yet
+to be done.
 
 \section{Topics}
 
@@ -291,15 +288,14 @@ of the prodigal son, the parable of the talents, and the Our Father prayer,}
 
 A list of recurring topics and their identification in the sound files is a
 point of future work.
-
 We can take the current transcription %and the few notes some listeners made
 %about topics and their alignment with the audio
 as a source for a baseline.
 Topic is inherently a vague concept %, which I shall address when I focus on it
 but for the baseline evaluation, we can take a look at some easily defined cases
 like named entities. The ease about them is that we can look for their specific
-word form and if it is not found, then it means the transcription is not talking
-about it.
+word form and if it is not found, then it means the transcription is not
+covering it.
 
 Of course, there are exceptions, like saying ``the capital of Japan'' instead of
 ``Tokyo'' but firstly, I chose terms where this is not likely to happen and
@@ -310,14 +306,11 @@ task. Another source could be manual notes available to some of the recordings
 but preparing them for this purpose requires some more effort.}
 
 I have chosen the following example topics:
-
-\begin{enumerate}
-\item{Lazarus,}
-\item{Mithra, Mithraism,}
-\item{Satan,}
-\item{St. Teresa,}
-\item{fairy-tale.}
-\end{enumerate}
+1. \emph{Lazarus},
+2. \emph{Mithra, Mithraism},
+3. \emph{Satan},
+4. \emph{St. Teresa},
+5. \emph{fairy-tale}.
 
 I chose fairy-tale (Czech: \emph{poh\'{a}dka}) as a recurring topic with a
 unifying word, for an example of a non-named-entity.
@@ -350,18 +343,17 @@ transcription}\label{tab:topicsearch}
 The precision of over 80\% seems quite promising and hints that the current
 quality of transcription allows for reasonable searching through the corpus.
 However, the hits were all clearly audible. I met none in an acoustically defect
-(see the next subsection) file, which leads to the hypothesis that those are not
-yet searchable to a distantly satisfying level.
+file, which leads to the hypothesis that those are not yet searchable to a
+distantly satisfying level.
 
 \subsubsection{Correspondence between Talks and Books}
 
-The proclamation at the end of the introduction~\ref{intro}, that the
-topics of the talks correspond largely to that of the concurrently written
-books, deserves a kind of support. Mako\v{n} translated the book \emph{El
-Castillo Interior}, English \emph{The Interior Castle} by St. Teresa of Ávila in
-1988. For most recordings, the year of their acquisition is known.
-Figure~\ref{fig:teresa-year} shows how many hits for the name of the Saint are
-present in the transcription by recording year.
+K.M. was writing, translating and commenting books most of his life. We can
+assume that the book he was just working on influenced the topic of his talks. 
+For on, he translated the book \emph{El Castillo Interior}, English \emph{The
+Interior Castle} by St. Teresa of Ávila in 1988. For most recordings, the year
+of their acquisition is known.  Figure~\ref{fig:teresa-year} shows how many hits
+for the name of the Saint are present in the transcription by recording year.
 
 \begin{figure}[htpb]
 \includegraphics[scale=0.6]{rc/teresa-by-year.eps}
