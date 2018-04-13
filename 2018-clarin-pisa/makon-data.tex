@@ -42,6 +42,7 @@
 % in the camera-ready version and ask you to change it back.
 
 \usepackage{covington} % if needed, for linguistic examples
+\usepackage{makecell}
 
 \begin{filecontents}{citace.bib}
 @inproceedings{maekawa2000spontaneous,
@@ -106,7 +107,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  We present a detailed view on the spoken corpus of Karel Mako\v{n}. This paper
+  We present the spoken corpus of Karel Mako\v{n}. This paper
   briefly outlines the system for processing the corpus, which has been
   published in a previous work, and elaborates on the corpus. A baseline for
   topical analysis is presented.
@@ -174,14 +175,9 @@ release from a concentration camp during the WWII.
 His steep spiritual path began in early childhood when he was subject to
 repeated arm surgery without anesthesy. The pain the child suffered made him
 escape mentally from inside his body, which led him to what he calls ``the
-yellow light''. As a result, he felt obliged always to {\em do the right thing}.
+yellow light''. 
 
-This culminated in the age of 17, in a perceived life crissis, when he read in a
-book that ``this life is the bridge to the eternal life''. The thought
-captivated him and gave him a new life direction, which led to several
-ecstasies.
-
-The next culmination happened in 1939, after nine years of constant prayer for a
+His path culminated in 1939, after nine years of constant prayer for a
 stronger love to God, when he was deported to the nazi concentration camp in
 Sachsenhausen, as a university student. Here, he was promised certain death by a
 Gestapo warden. As the nazi was approaching K.M. to kill him, he gave up his
@@ -199,8 +195,8 @@ experience.
 
 The mystical, religious and spiritual nature of Mako\v{n}'s talks put K.M. in
 direct antagonism with the communist regime. The opposition was strictly
-unidirectional though, as Mako\v{n} also understood the purpose of the regime
-and was far from wasting his energy on a fight against it. His way of dealing
+unidirectional though, as Mako\v{n}
+was far from wasting his energy on a fight against it. His way of dealing
 with the conflict was by staying out of wide popularity. Hence, most of the
 talks have been given during regular meetings in various places of
 Czechoslovakia and later the Czech Republic, in a close circle of friends.
@@ -209,12 +205,12 @@ One of the fortunate consequences of the seclusion of the talks is that there is
 very little background noise on most of the recordings. Also, most of them
 % TODO: kolik je od Elgra?
 have been taken by a single person who used the available state-of-the-art
-amateur recording technology and methods. He was also very systematic in
-labeling and archiving the recordings. As a result, the majority of the base for
-digitization was a set of reel-to-reel tapes labeled with ordinal indexes and a
-set of cassettes labeled by year and ordinal index. The reel-to-reel tapes have
-been acquired in a generous speed of 9cm/second, which granted them a very good
-shield against the inevitable aging.
+amateur recording technology and methods. This person was also very systematic
+in labeling and archiving the recordings. As a result, the majority of the base
+for digitization was a set of reel-to-reel tapes labeled with ordinal indexes
+and a set of cassettes labeled by year and ordinal index. The reel-to-reel tapes
+have been recorded in a generous speed of 9cm/second, which granted them a very
+good shield against the inevitable aging.
 
 \section{Processing}
 
@@ -230,14 +226,14 @@ accessible to the public and 2. acquiring a complete transcription.
 
 \subsection{Access to the Corpus}
 
-The speech recordings are available through two sources. First and foremost,
+The speech recordings are available through two sources. Firstly,
 it is in the Clarin repository, which guarantees it will be easily available no
 matter what fate this project will take.
 
 Secondly, I have created a web application for listening to the recordings
 directly in the browser. The web application is also capable of displaying the
-transcription synchronously. When there is an error in the transcription (which
-is frequently so in case of automatically acquired ones), the user can submit a
+transcription synchronously. When there is an error in the transcription (and
+the automatic transcription has plenty of errors), the user can submit a
 correction.
 
 \subsection{Complete Transcription}
@@ -247,19 +243,7 @@ the time spent on the project. The concept was to transcribe a few minutes from
 scratch, train a HMM-based ASR model on that, evaluate the bulk of the corpus
 and feed that to the web application, as a base for the users to correct.
 
-We only have a single speaker, a restricted domain, relatively consistent
-conditions, an extensive collection of the author's original books,
-translations, comments and letters to build a fitting language model. So
-even very little training data should give satisfactory results and the error
-rate should drop rapidly as the training data would increase.
-
-Well, the error rate did drop as the training data increased but the accuracy of
-the speech recognition was more of a challenge than I had thought. For the most
-part, the users were actually using the web interface to provide a new
-transcription from scratch, ignoring the way too erroneous output of the ASR,
-instead of merely correcting single errors, as was meant.
-
-Still, the community managed to provide over 66 hours of high-quality manual
+The community managed to provide over 66 hours of high-quality manual
 transcriptions, which have been used gradually as training data. Now, the
 acoustically intact recordings are automatically transcribed well enough to
 allow reading along and to do full-text search.
@@ -282,7 +266,6 @@ intelligible, while some suffer from various defects like
 
 The varying acoustic quality is the most serious obstacle to the quality of the
 automatic transcription. But it is also detrimental to the manual transcription.
-
 To mitigate this, the web interface features since lately a user-controllable
 graphical equalizer, which can help especially in the case of narrow-band noise.
 
@@ -329,42 +312,50 @@ Of course, there are exceptions, like saying ``the capital of Japan'' instead of
 ``Tokyo'' but firstly, I chose terms where this is not likely to happen and
 secondly, this can only lower the recall of our baseline score, not the
 precision, and we have no way of telling the recall given no annotated data
-for this task.\footnote{The 50-minute test set is way too small for this kind of
-task. Another source could be manual notes available to some of the recordings
-but preparing them for this purpose requires some more effort.}
+for this task anyway.\footnote{The 50-minute test set is way too small for this
+kind of task. Another source could be manual notes available to some of the
+recordings but preparing them for this purpose requires some more effort.}
 
 I have chosen the following example topics:
-1. \emph{Lazarus},
-2. \emph{Mithra, Mithraism},
-3. \emph{Satan},
-4. \emph{St. Teresa},
-5. \emph{fairy-tale}.
-
+1. \textbf{Lazarus},
+2. \textbf{Mithra, Mithraism},
+3. \textbf{Satan},
+4. \textbf{St. Teresa},
+5. \textbf{fairy-tale}.
 I chose fairy-tale (Czech: \emph{poh\'{a}dka}) as a recurring topic with a
 unifying word, for an example of a non-named-entity.
 
-The search for stems of these words in the automatic part of the transcription
+The search for stems of these words in the transcription
 yielded results summed up in Table~\ref{tab:topicsearch}. For terms where there
 were more than 20 hits, I have checked the first 20 but each from a different
 file.
 
 \begin{table}[htpb]
 \begin{center}
-\begin{tabular}{|l|l|r|r|r|}
+\begin{tabular}{|l|l|r|r|r|r|}
 \hline
-Term & Query & hits in automatic transcription & hits in manual transcription & Precision \\
+Term &
+Query &
+\makecell{hits in automatic\\
+transcription} &
+\makecell{expected hits\\
+in automatic\\
+transcription} &
+\makecell{hits in manual\\
+transcription} &
+Precision \\
 \hline
-Lazarus & \texttt{lazar.*} & 16 & 14 & 8/10   \\
-Mithra & \texttt{mithra.*|mitra.*} & 0 & 0 & n/a   \\
-Satan & \texttt{satan.*} & 308 & 129 & 16/20   \\
-St. Teresa & \texttt{terez.*} & 882 & 91 & 15/20   \\
-fairy-tale & \texttt{pohádk.*} & 216 & 55 & 18/20   \\
+Lazarus & \texttt{lazar.*} & 16 & 171 & 14 & 8/10   \\
+Mithra & \texttt{mithra.*|mitra.*} & 0 & 0 & 0 & n/a   \\
+Satan & \texttt{satan.*} & 308 & 1575 & 129 & 16/20   \\
+St. Teresa & \texttt{terez.*} & 882 & 1111 & 91 & 15/20   \\
+fairy-tale & \texttt{pohádk.*} & 216 & 671 & 55 & 18/20   \\
 \hline
-\multicolumn{4}{|l|}{average precision} & 81.25\%\\
+\multicolumn{5}{|l|}{average precision} & 81.25\%\\
 \hline
 \end{tabular}
-\caption{Text search hits in the automatically-acquired part of the
-transcription}\label{tab:topicsearch}
+\caption{Text search hits in the transcription; precision only calculated from
+automatic transcription}\label{tab:topicsearch}
 \end{center}
 \end{table}
 
@@ -373,6 +364,8 @@ quality of transcription allows for reasonable searching through the corpus.
 However, the hits were all clearly audible. I met none in an acoustically defect
 file, which leads to the hypothesis that those are not yet searchable to a
 distantly satisfying level.
+
+7.6\% of the total words in the corpus are manually transcribed. 
 
 \subsubsection{Correspondence between Talks and Books}
 
