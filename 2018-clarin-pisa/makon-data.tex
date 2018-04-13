@@ -190,7 +190,92 @@ set of cassettes labeled by year and ordinal index. The reel-to-reel tapes have
 been acquired in a generous speed of 9cm/second, which granted them a very good
 shield against the inevitable aging.
 
-\subsection{Topics}
+\section{Processing}
+
+I have focused on two major aspects of processing the material: 1. Making it
+accessible to the public and 2. acquiring a complete transcription. To a lesser
+extent, I have also worked towards 1. overcoming the acoustic difficulties for
+listeners, 2. topically indexing some recordings and 3. enablind a full-text
+search over the whole corpus.
+
+\subsection{Access to the Corpus}
+
+The speech recordings are available through two sources. First and foremost,
+it is in the Clarin repository, which guarantees it will be easily available no
+matter what fate this project will take.
+
+Secondly, I have created a web application for listening to the recordings
+directly in the browser. The web application is also capable of displaying the
+transcription synchronously. When there is an error in the transcription (which
+is frequently so in case of automatically acquired ones), the user can submit a
+correction.
+
+\subsection{Complete Transcription}
+
+Transcription of the whole corpus has been the main focus for the majority of
+the time spent on the project. The concept was to transcribe a few minutes from
+scratch, train a HMM-based ASR model on that, evaluate the bulk of the corpus
+and feed that to the web application, as a base for the users to correct.
+
+We only have a single speaker, a restricted domain, relatively consistent
+conditions, an extensive collection of the author's original books,
+translations, comments and letters to build a well-fitting language model. So
+even very little training data should give satisfactory results and the error
+rate should drop rapidly as the training data would increase.
+
+Well, the error rate did drop as the training data increased but the accuracy of
+the speech recognition was more of a challenge than I had thought. Fot the most
+part, the users were actually using the web interface to provide a new
+transcription from scratch, ignoring the way too erroneous output of the ASR,
+instead of merely correcting single errors, as was meant.
+
+Still, the community managed to provide over 66 hours of high-quality manual
+transcriptions, which have been used gradually as training data. Now, the
+acoustically intact recordings are automatically transcribed well enough to
+allow reading along and to do full-text search.
+
+The word error rate on our test set is currently 42\% but it is probably lower
+on clean recordings and also most mistakes are in word endings, so the meaning
+is comprehensible. I am currently training a DNN acoustic model, so chances are
+the ASR score will soon rise noticeably.
+
+\subsection{Acoustic Quality}
+
+Despite of the relatively good recording technique and mostly quiet environment,
+the resulting acoustic quality varies wildly. Many recordings are clearly
+intelligible, while some suffer from various defects like
+\begin{itemize}
+\item{background noise in varying intensity and bandwidth,}
+\item{altered speed,}
+\item{clipping or faitness,}
+\item{echo,}
+\item{overlap of two recordings.}
+\end{itemize}
+
+Sometimes the quality changes abruptly inside a file, when recording was stopped
+and resumed with different conditions. This prevents us from classifying
+individual recordings by their acoustic quality.
+
+Expectably, the age of a recording correlates with its quality but other factors
+play a significant role also. Most are obvious like the relative position
+of the speaker to the microphone, the acoustics of the room, quality of the
+recording device and also the tape brand. Unfortunately, none of these can be
+said with certainty.
+
+
+\subsection{Secondary Processing Attempts}
+
+\subsubsection{Mitigating Acoustic Defects}
+
+In a new version of the web interface (paper pending), I have implemented a
+user-controllable parametric graphical equalizer. This can help significantly in
+the case of narrow-band noise, which occurs on some recordings, predominantly in
+the bass range.
+
+This was a cheap solution for a low-hanging fruit but a more holistic approach
+is very desirable.
+
+\section{Topics}
 
 In general, the whole corpus deals with a single topic that can be summarized as
 a howto for entering the eternal life before the physical death. On a
@@ -288,89 +373,6 @@ alleged year of the recording}
 The peak around the year 1988 supports the speculation that topics in the talks
 correlate with those of books written at the same time.
 
-\subsection{Acoustic Quality}
-
-Despite of the relatively good recording technique and mostly quiet environment,
-the resulting acoustic quality varies wildly. Many recordings are clearly
-intelligible, while some suffer from various defects like
-\begin{itemize}
-\item{background noise in varying intensity and bandwidth,}
-\item{altered speed,}
-\item{clipping or faitness,}
-\item{echo,}
-\item{overlap of two recordings.}
-\end{itemize}
-
-Sometimes the quality changes abruptly inside a file, when recording was stopped
-and resumed with different conditions. This prevents us from classifying
-individual recordings by their acoustic quality.
-
-Expectably, the age of a recording correlates with its quality but other factors
-play a significant role also. Most are obvious like the relative position
-of the speaker to the microphone, the acoustics of the room, quality of the
-recording device and also the tape brand. Unfortunately, none of these can be
-said with certainty.
-
-\section{Processing}
-
-I have focused on two major aspects of processing the material: 1. Making it
-accessible to the public and 2. acquiring a complete transcription. To a lesser
-extent, I have also worked towards 1. overcoming the acoustic difficulties for
-listeners, 2. topically indexing some recordings and 3. enablind a full-text
-search over the whole corpus.
-
-\subsection{Access to the Corpus}
-
-The speech recordings are available through two sources. First and foremost,
-it is in the Clarin repository, which guarantees it will be easily available no
-matter what fate this project will take.
-
-Secondly, I have created a web application for listening to the recordings
-directly in the browser. The web application is also capable of displaying the
-transcription synchronously. When there is an error in the transcription (which
-is frequently so in case of automatically acquired ones), the user can submit a
-correction.
-
-\subsection{Complete Transcription}
-
-Transcription of the whole corpus has been the main focus for the majority of
-the time spent on the project. The concept was to transcribe a few minutes from
-scratch, train a HMM-based ASR model on that, evaluate the bulk of the corpus
-and feed that to the web application, as a base for the users to correct.
-
-We only have a single speaker, a restricted domain, relatively consistent
-conditions, an extensive collection of the author's original books,
-translations, comments and letters to build a well-fitting language model. So
-even very little training data should give satisfactory results and the error
-rate should drop rapidly as the training data would increase.
-
-Well, the error rate did drop as the training data increased but the accuracy of
-the speech recognition was more of a challenge than I had thought. Fot the most
-part, the users were actually using the web interface to provide a new
-transcription from scratch, ignoring the way too erroneous output of the ASR,
-instead of merely correcting single errors, as was meant.
-
-Still, the community managed to provide over 66 hours of high-quality manual
-transcriptions, which have been used gradually as training data. Now, the
-acoustically intact recordings are automatically transcribed well enough to
-allow reading along and to do full-text search.
-
-The word error rate on our test set is currently 42\% but it is probably lower
-on clean recordings and also most mistakes are in word endings, so the meaning
-is comprehensible. I am currently training a DNN acoustic model, so chances are
-the ASR score will soon rise noticeably.
-
-\subsection{Secondary Processing Attempts}
-
-\subsubsection{Mitigating Acoustic Defects}
-
-In a new version of the web interface (paper pending), I have implemented a
-user-controllable parametric graphical equalizer. This can help significantly in
-the case of narrow-band noise, which occurs on some recordings, predominantly in
-the bass range.
-
-This was a cheap solution for a low-hanging fruit but a more holistic approach
-is very desirable.
 
 
 
