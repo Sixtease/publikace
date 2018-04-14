@@ -195,13 +195,13 @@ experience.
 
 \section{Giving and Recording the Talks}
 
-The mystical, religious and spiritual nature of Mako\v{n}'s talks put K.M. in
+The mystical, religious and spiritual nature of his talks put K.M. in
 direct antagonism with the communist regime. The opposition was strictly
 unidirectional though, as Mako\v{n}
 was far from wasting his energy on a fight against it. His way of dealing
 with the conflict was by staying out of wide popularity. Hence, most of the
 talks have been given during regular meetings in various places of
-Czechoslovakia and later the Czech Republic, in a close circle of friends.
+Czechoslovakia and later the Czech Republic, in a narrow circle of friends.
 
 One of the fortunate consequences of the seclusion of the talks is that there is
 very little background noise on most of the recordings. Also, most of them
@@ -246,9 +246,9 @@ scratch, train a HMM-based ASR model on that, evaluate the bulk of the corpus
 and feed that to the web application, as a base for the users to correct.
 
 The community managed to provide over 66 hours of high-quality manual
-transcriptions, which have been used gradually as training data. Now, the
-acoustically intact recordings are automatically transcribed well enough to
-allow reading along and to do full-text search.
+transcriptions through the web application and which have been used gradually
+as training data. Now, the acoustically intact recordings are automatically
+transcribed well enough to allow reading along and to do full-text search.
 
 The word error rate on our test set is currently 42\% but it is probably lower
 on clean recordings and also most mistakes are in word endings, so the meaning
@@ -357,7 +357,7 @@ fairy-tale & \texttt{pohádk.*} & 216 & 671 & 55 & 18/20   \\
 \hline
 \end{tabular}
 \caption{Text search hits in the transcription; precision only calculated from
-automatic transcription}\label{tab:topicsearch}
+automatic part}\label{tab:topicsearch}
 \end{center}
 \end{table}
 
@@ -367,13 +367,17 @@ However, the hits were all clearly audible. I met none in an acoustically defect
 file, which leads to the hypothesis that those are not yet searchable to a
 distantly satisfying level.
 
-7.6\% of the total words in the corpus are manually transcribed. 
+7.6\% of the total words in the corpus are manually transcribed. The column
+``expected hits'' interpolates how many occurrences should appear given equal
+frequency. Oddly enough, the ratio of the expected and actual hits varies a lot
+among the search terms. It is almost certain that at least for some of them, the
+recall is very low.
 
 \subsubsection{Correspondence between Talks and Books}
 
 K.M. was writing, translating and commenting books most of his life. We can
 assume that the book he was just working on influenced the topic of his talks. 
-For on, he translated the book \emph{El Castillo Interior}, English \emph{The
+For one, he translated the book \emph{El Castillo Interior}, English \emph{The
 Interior Castle} by St. Teresa of Ávila in 1988. For most recordings, the year
 of their acquisition is known.  Figure~\ref{fig:teresa-year} shows how many hits
 for the name of the Saint are present in the transcription by recording year.
