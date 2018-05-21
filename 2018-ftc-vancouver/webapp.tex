@@ -62,6 +62,39 @@
   ISSN={1212-1371},
   editor={Zden\v{e}k Vojt\'{i}\v{s}ek}
 }
+@inproceedings{ide2010manually,
+  title={The manually annotated sub-corpus: A community resource for and by the people},
+  author={Ide, Nancy and Fellbaum, Christiane and Baker, Collin and Passonneau, Rebecca},
+  booktitle={Proceedings of the ACL 2010 conference short papers},
+  pages={68--73},
+  year={2010},
+  organization={Association for Computational Linguistics}
+}
+@article{bojar2008czeng,
+  title={CzEng 0.7: Parallel Corpus with Community-Supplied Translations},
+  author={Bojar, Ond{\v{r}}ej and Jan{\'\i}{\v{c}}ek, Miroslav and {\v{C}}e{\v{s}}ka, Pavel and Be{\v{n}}a, Peter and others},
+  journal={LREC 2008},
+  year={2008}
+}
+@inproceedings{5494979,
+  author={M. Marge and S. Banerjee and A. I. Rudnicky},
+  booktitle={2010 IEEE International Conference on Acoustics, Speech and Signal Processing},
+  title={Using the Amazon Mechanical Turk for transcription of spoken language},
+  year={2010},
+  volume={},
+  number={},
+  pages={5270-5273},
+  keywords={linguistics;natural language processing;speech processing;Amazon mechanical turk service;MTurk marketplace;Rover voting scheme;speaker demographics;spoken language transcription;transcription guideline;Computer science;Costs;Demography;Gold;Guidelines;Humans;Natural languages;Recruitment;Speech synthesis;Streaming media;crowd sourcing;speech transcription},
+  doi={10.1109/ICASSP.2010.5494979},
+  ISSN={1520-6149},
+  month={March},
+}
+@article{reese2010wikicorpus,
+  title={Wikicorpus: A word-sense disambiguated multilingual wikipedia corpus},
+  author={Reese, Samuel and Boleda, Gemma and Cuadros, Montse and Rigau, German},
+  year={2010},
+  publisher={Citeseer}
+}
 \end{filecontents}
 
 
@@ -133,13 +166,6 @@ answers to questions, personal experiences, behind-the-scenes to the books etc.
 
 \section{Differences to Other Settings}
 
-% wreally: pause interval
-%          auto loop
-%          templates
-%          pedál
-%          Fka
-%          bez alignmentu
-
 The application we describe is a part of a larger system that deals with
 Mako\v{n}'s recordings. It consists roughly of (1) the corpus itself, (2) an ASR
 system trained specially for it and (3) a web interface for the users. These
@@ -160,6 +186,24 @@ the user to give as much and as high-quality contribution as possible.
 
 To our best knowledge, there is no other project with a comparable setting.
 However, we can compare single aspects found in other applications.
+
+\subsection{Corpora}
+
+Our project is not the first community-driven corpus annotation. We can mention
+the Manually annotated sub-corpus\cite{ide2010manually}, where annotations of
+various kinds are gathered from volunteers, or the
+Wikicorpus\cite{reese2010wikicorpus}, a corpus of Wikipedia articles with some
+linguistic annotation. Our project may reach profound similarities with these in
+the future, when we no longer focus on the transcription itself but rather on
+annotation. There is also CzEng\cite{bojar2008czeng}, the Czech-English Parallel
+Corpus, where a large part of the translation is provided by volunteers. The
+similarity in setting is considerable as both projects involve a
+machine-produced erroneous derivative of the original material (in our case
+audio transcriptions, in the case of CzEng Czech translations of English texts),
+and a community of volunteers corrects these. But the specifics of the projects
+bring different challenges and dictate different approaches. Finally, Marge
+2009\cite{5494979} investigates using The Mechanical Turk to obtain audio
+transcriptions.
 
 \subsection{Transcription Apps}
 \label{ssec:diff:trans}
