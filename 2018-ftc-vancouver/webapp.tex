@@ -165,7 +165,7 @@ However, we can compare single aspects found in other applications.
 \label{ssec:diff:trans}
 
 The best widespread match to our task is that of creating an application for
-transcribing speech recordings. Let's compare the two tasks, pointing out the
+transcribing speech recordings. Let us compare the two tasks, pointing out the
 main points of difference. For reference, we take (1)
 Transcriber\footnote{trans.sourceforge.net}, a classical open-source program
 written in TCL, (2) oTranscribe\footnote{otranscribe.com}, a free modern
@@ -306,7 +306,7 @@ Legend to Figure~\ref{fig:scn1lab}:
     \begin{itemize}
     \item{
         occurrence: the word with contextual capitalization and
-        punctuation as it appeard in the text (currently being edited as the
+        punctuation as it appeared in the text (currently being edited as the
         selected initial letter reveals),
     }
     \item{form: normalized word form as it appears in the word list,}
@@ -353,7 +353,7 @@ Legend to Figure~\ref{fig:scn2lab}:
 \item{
     The edit tool with
     \begin{itemize}
-    \item{textarea prefilled with the current transcription,}
+    \item{text area prefilled with the current transcription,}
     \item{playback button that plays the corresponding segment,}
     \item{save button and}
     \item{download-segment button, which initiates a file-save action for the
@@ -426,8 +426,8 @@ call for every word to be wrapped in its own element.
 Point~\ref{feats:item:showall} and the median count of words in a transcript of
 about 6000 yield 6000 \texttt{<span>} elements just to show the text. 
 
-Although this may not seem like a big deal, it does make affect the
-responsiveness and memory footprint of the page.
+Although this may not seem like a big deal, it does affect the responsiveness
+and memory footprint of the page.
 
 In the original version, we solved this by sacrificing point~5:
 only 3 lines of text are shown with the current word kept on the middle line as
@@ -471,7 +471,7 @@ precisely beneath it (beneath on the z-axis; over it in the x-y sense), avoiding
 positioning issues and keeping the rectangle position synced even after scrolling
 / window resizing is definitely a challenge but we chose this way nonetheless.
 The performance gain for the majority of the usage time outweighs the possible
-errors in the corner cases, moreso since the eventual errors are not critical
+errors in the corner cases, more so since the eventual errors are not critical
 and mostly remedied by further playback.
 
 The efficiency of repositioning a rectangle is supported by the fact that we can
@@ -506,7 +506,7 @@ It is clear that the ease of use is crucial in our case where the user is
 supposed to perform a requiring, tedious task with repeated steps, especially
 since it is our interest more than hers that she performs them. We compared our
 setting with that of transcription apps in section~\ref{ssec:diff:trans},
-pointing out lessons to learn. Let's now look at some specific points and their
+pointing out lessons to learn. Let us now look at some specific points and their
 actual (lack of) implementation.
 
 \subsubsection{Keyboard Shortcuts}
@@ -541,7 +541,7 @@ using the enter key to split utterances by lines is the user's choice.
 \subsubsection{Missing Features}
 
 One of the features that Transcribe, the only commercial tool in our reference
-list, offers is setting up keyboard shortcuts for common words. We haven't
+list, offers is setting up keyboard shortcuts for common words. We have not
 implemented this because ideally, common words should be covered by the speech
 recognition. However, it could be sensible to implement it anyway. The reason is
 that a word can be very rare globally and thus poorly recognized by ASR but very
@@ -558,10 +558,10 @@ the user in the end.
 As stated above, when the user selects at least one character with the mouse,
 the application enters the state of correcting the selected transcription padded
 to whole words. In this mode, the transcription to correct is shown in a
-textarea and the global playback controls are replaced by those that only allow
+text area and the global playback controls are replaced by those that only allow
 playback of audio corresponding to the selected transcription.
 
-Once the user believes that the content of the textarea corresponds precisely
+Once the user believes that the content of the text area corresponds precisely
 to the words uttered, she hits the {\em save} button or the \texttt{ctrl+enter}
 keyboard shortcut. This starts an asynchronous HTTP request to the back-end,
 where parametrized (MFCC) versions of the recordings are stored, along with the
@@ -574,15 +574,15 @@ threshold to reject bad matches. If the forced alignment fails, an error
 response is sent back and the transcription is not merged into the original. In
 the case of a success, the correction is merged on one hand on the server side
 and pushed to a CDN, on the other hand it is merged into the transcription word
-array in the JavaScript application. This redundancy warrants that we don't have
-to reload the whole transcription every time a segment is corrected.
+array in the JavaScript application. This redundancy warrants that we do not
+have to reload the whole transcription every time a segment is corrected.
 
 React ensures the updating of the chunks, and the coordinates of the words
 further in the document are recalculated for word-highlighting purposes.
 
 Apart from this, the version of the transcription to the recording is updated.
 This is because the transcriptions have a long cache time because normally, they
-don't change at all. At the page load, the versions of all transcriptions are
+do not change at all. At the page load, the versions of all transcriptions are
 loaded and used as cache busters. This enables us to use an external CDN and
 cache effectively.
 
@@ -622,7 +622,7 @@ management. The good thing about Redux is that it makes it easy to keep minimal
 state as the single source of truth and everything that can be computed is
 computed, while avoiding needless calculations. This is of course nothing new --
 basically it is what we know from database design as the normal
-representation.\cite{codd1970relational} It is the first time this approach
+representation\cite{codd1970relational}. It is the first time this approach
 reached the web front-end in such degree of popularity though.
 
 Also in our case, this approach makes the program more predictable, less
@@ -665,13 +665,13 @@ that Mako\v{n}'s talks are of interest to some people, and our aim is to
 remove as many obstacles as possible from potentially interested people reaching
 the material. The benefit from technical point of view would be clear: A web app
 for listening to recordings and correcting their transcription is nice but one
-that's really easy to use and inviting to people to submit corrections is nicer.
+that is really easy to use and inviting to people to submit corrections is nicer.
 
 One of the aspects we want to explore is enabling people to naturally share
 catching segments of talks on social networks.
 
 Another point of near-future endeavor is higher-level work with the contents. By
-this we mean that we'd like to use both automatic processing methods and the
+this we mean that we wouldd like to use both automatic processing methods and the
 users to do semantic analysis of the talks: What topic is covered where? What
 topics are covered at all? Which talks relate to which written works?, and
 similar questions.
