@@ -45,6 +45,15 @@
   volume={10},
   year={2013}
 }
+@article{mihalcea2004building,
+  title={Building sense tagged corpora with volunteer contributions over the web},
+  author={Mihalcea, Rada and Chklovski, Timothy},
+  journal={Recent Advances in Natural Language Processing III: Selected Papers from RANLP 2003},
+  volume={260},
+  pages={357},
+  year={2004},
+  publisher={John Benjamins Publishing}
+}
 @article{abramov2015redux,
   title={Redux},
   author={Abramov, D},
@@ -160,9 +169,10 @@ entering the eternal life before the physical death. He draws mainly from the
 Christian symbolism, builds up on Christian mysticism and ancient tradition of
 India and China.
 
-Basically the meat of his teachings is systematically encompassed in his written
-works, whilst the talks contain the sauce: talks tailored to the audience,
+Mako\v{n}'s written works present his teachings in a systematic, comprehensible
+fashion, while the recordings offer bonuses: talks tailored to the audience,
 answers to questions, personal experiences, behind-the-scenes to the books etc.
+The archive is freely accessible under the CC-BY license.
 
 \section{Differences to Other Settings}
 
@@ -186,24 +196,6 @@ the user to give as much and as high-quality contribution as possible.
 
 To our best knowledge, there is no other project with a comparable setting.
 However, we can compare single aspects found in other applications.
-
-\subsection{Corpora}
-
-Our project is not the first community-driven corpus annotation. We can mention
-the Manually annotated sub-corpus\cite{ide2010manually}, where annotations of
-various kinds are gathered from volunteers, or the
-Wikicorpus\cite{reese2010wikicorpus}, a corpus of Wikipedia articles with some
-linguistic annotation. Our project may reach profound similarities with these in
-the future, when we no longer focus on the transcription itself but rather on
-annotation. There is also CzEng\cite{bojar2008czeng}, the Czech-English Parallel
-Corpus, where a large part of the translation is provided by volunteers. The
-similarity in setting is considerable as both projects involve a
-machine-produced erroneous derivative of the original material (in our case
-audio transcriptions, in the case of CzEng Czech translations of English texts),
-and a community of volunteers corrects these. But the specifics of the projects
-bring different challenges and dictate different approaches. Finally, Marge
-2009\cite{5494979} investigates using The Mechanical Turk to obtain audio
-transcriptions.
 
 \subsection{Transcription Apps}
 \label{ssec:diff:trans}
@@ -301,10 +293,49 @@ a larger transcription of user B;}
 coordinating with each other. We plan to expand to broader public soon though.}
 \end{enumerate}
 
+\subsection{Corpora}
+
+Our project is not the first involving community-driven corpus annotation. We
+can mention the Manually annotated sub-corpus\cite{ide2010manually}, where
+annotations of various kinds are gathered from volunteers, or the
+Wikicorpus\cite{reese2010wikicorpus}, a corpus of Wikipedia articles with some
+linguistic annotation. Our project may reach profound similarities with these in
+the future, when we no longer focus on the transcription itself but rather on
+annotation. There is also CzEng\cite{bojar2008czeng}, the Czech-English Parallel
+Corpus, where a large part of the translation is provided by volunteers. The
+similarity in setting is considerable as both projects involve a
+machine-produced erroneous derivative of the original material (in our case
+audio transcriptions, in the case of CzEng Czech translations of English texts),
+and a community of volunteers correct these. But the specifics of the projects
+bring different challenges and dictate different approaches. Marge
+(2009)\cite{5494979} investigates using The Mechanical Turk to obtain audio
+transcriptions. Mihalcea (2004)\cite{mihalcea2004building} offers a web
+interface for word-sense disambiguation but focuses mostly on annotator conflict
+resolution.
+
 \section{Description of the Web Application}
 
-We have pointed out the differences in our setting to others. Now we shall
-describe how we implemented the program.
+\subsection{Usage}
+
+We have no special assumption of the user beyond basic computer usage skills and
+understanding the audio. We assume no prior training. There is a manual for
+clearing common points of confusion. The main message in it is that anything
+that is to be transcribed, should be should be transcribed with respect to
+phonetic precision, even if it results in nonsensical character strings.
+
+Anything except words spoken by the one speaker of interest is to be left
+untranscribed, including noise or speech by other persons\footnote{We may later
+add a speaker annotation}. Incomprehensible words are to be left uncorrected
+(the ASR output kept) if the phones are unclear. If the phones uttered are clear
+but it is not clear what word was meant, the word may be transcribed
+phonetically.
+
+A submitted transcribed segment always overwrites the present version but we
+keep all the submissions in a database, so undo operations, clustering
+submissions by their author etc. are possible but we had little need for this so
+far.
+
+\subsection{Implementation}
 
 The application consists of several views:
 \begin{enumerate}
@@ -724,11 +755,12 @@ similar questions.
 
 With our web application, a user can listen to recorded speech, see its
 transcription with the currently played word highlighted, commit corrections to
-the transcription, and inspect a word as well as a span of text and audio. The
-corrections are checked by a forced-alignment mechanism on the server side. Our
-solution overcomes performance challenges and is a serious improvement from the
-original version. More widespread usage as well as employing it on another data
-set is to be done.
+the transcription, and inspect a word. The corrections are checked by a
+forced-alignment mechanism on the server side. Our solution overcomes
+performance challenges and is a serious improvement from the original version.
+All our codebase is open-source, accessible on
+Github\footnote{https://github.com/sixtease/MakonReact} and we are actively
+looking for similar datasets with communities to employ the application on.
 
 \section*{Acknowledgments}
 
