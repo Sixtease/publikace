@@ -153,6 +153,13 @@ observe the usage patterns and discover shortcomings of the solution at hand, we
 have created a next generation of the programme. We shall describe the steps
 taken and discuss their motivation and impact.
 
+The application we describe is a part of a larger system that deals with
+Mako\v{n}'s recordings. It consists roughly of (1) the corpus itself, (2) an ASR
+system trained specially for it and (3) a web interface for the users. These
+three parts form a whole where the ASR gives a baseline transcription, the users
+correct it and the corrections are fed as further training data to the acoustic
+and language models. In this paper, we focus on the web interface.
+
 \subsection{Motivation}
 
 Our project focuses on the collection of recordings of Karel
@@ -172,16 +179,11 @@ India and China.
 Mako\v{n}'s written works present his teachings in a systematic, comprehensible
 fashion, while the recordings offer bonuses: talks tailored to the audience,
 answers to questions, personal experiences, behind-the-scenes to the books etc.
-The archive is freely accessible under the CC-BY license.
+The archive is freely
+accessible\footnote{https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-1455}
+under the CC-BY license.
 
 \section{Differences to Other Settings}
-
-The application we describe is a part of a larger system that deals with
-Mako\v{n}'s recordings. It consists roughly of (1) the corpus itself, (2) an ASR
-system trained specially for it and (3) a web interface for the users. These
-three parts form a whole where the ASR gives a baseline transcription, the users
-correct it and the corrections are fed as further training data to the acoustic
-and language models. In this paper, we focus on the web interface.
 
 The spoken corpus is about 1000 hours of a single
 speaker. Our aim is to have a transcription as good as possible for the purpose
@@ -293,24 +295,32 @@ a larger transcription of user B;}
 coordinating with each other. We plan to expand to broader public soon though.}
 \end{enumerate}
 
+With regard to the transription as presented to the user, a submitted segment of
+transcription always overwrites the present version but we keep all the
+submissions in a database, so undo operations, clustering submissions by their
+author etc. are possible but we had little need for this so far.
+
 \subsection{Corpora}
 
-Our project is not the first involving community-driven corpus annotation. We
+Our project is not the first involving community-driven care of a corpus. We
 can mention the Manually annotated sub-corpus\cite{ide2010manually}, where
 annotations of various kinds are gathered from volunteers, or the
 Wikicorpus\cite{reese2010wikicorpus}, a corpus of Wikipedia articles with some
 linguistic annotation. Our project may reach profound similarities with these in
 the future, when we no longer focus on the transcription itself but rather on
-annotation. There is also CzEng\cite{bojar2008czeng}, the Czech-English Parallel
+annotation.
+
+There is also CzEng\cite{bojar2008czeng}, the Czech-English Parallel
 Corpus, where a large part of the translation is provided by volunteers. The
 similarity in setting is considerable as both projects involve a
 machine-produced erroneous derivative of the original material (in our case
 audio transcriptions, in the case of CzEng Czech translations of English texts),
 and a community of volunteers correct these. But the specifics of the projects
-bring different challenges and dictate different approaches. Marge
-(2009)\cite{5494979} investigates using The Mechanical Turk to obtain audio
-transcriptions. Mihalcea (2004)\cite{mihalcea2004building} offers a web
-interface for word-sense disambiguation but focuses mostly on annotator conflict
+bring different challenges and dictate different approaches.
+
+Marge (2009)\cite{5494979} investigates using The Mechanical Turk to obtain
+audio transcriptions. Mihalcea (2004)\cite{mihalcea2004building} offers a web
+interface for word-sense disambiguation and focuses mostly on annotator conflict
 resolution.
 
 \section{Description of the Web Application}
@@ -320,20 +330,16 @@ resolution.
 We have no special assumption of the user beyond basic computer usage skills and
 understanding the audio. We assume no prior training. There is a manual for
 clearing common points of confusion. The main message in it is that anything
-that is to be transcribed, should be should be transcribed with respect to
+that is to be transcribed, should be transcribed with respect to
 phonetic precision, even if it results in nonsensical character strings.
 
 Anything except words spoken by the one speaker of interest is to be left
-untranscribed, including noise or speech by other persons\footnote{We may later
-add a speaker annotation}. Incomprehensible words are to be left uncorrected
+untranscribed, including noise or speech by other persons\footnote{In our data,
+other speakers represent a negligible fraction but we may later add support for
+speaker annotation.}. Incomprehensible words are to be left uncorrected
 (the ASR output kept) if the phones are unclear. If the phones uttered are clear
 but it is not clear what word was meant, the word may be transcribed
 phonetically.
-
-A submitted transcribed segment always overwrites the present version but we
-keep all the submissions in a database, so undo operations, clustering
-submissions by their author etc. are possible but we had little need for this so
-far.
 
 \subsection{Implementation}
 
@@ -349,7 +355,7 @@ corresponding positions in the recordings,}
 \end{enumerate}
 
 We shall only discuss the detail view as the others are not relevant to this
-article. Figure~\ref{fig:scn1lab} shows the interface during playback.
+paper. Figure~\ref{fig:scn1lab} shows the interface during playback.
 Figure~\ref{fig:scn2lab} shows the interface while a segment is being edited.
 The interface in the figures is conveniently shown in English, although in
 reality it is in Czech.
@@ -415,7 +421,7 @@ Legend to Figure~\ref{fig:scn1lab}:
 
 \begin{figure}[htpb]
 \includegraphics[scale=0.6]{rc/radio-makon-en-2-lab.png}
-\caption{Interface in the state of editing a segment, with labels}
+\caption{Interface in the state of editing a segment}
 \label{fig:scn2lab}
 \end{figure}
 
@@ -438,8 +444,8 @@ Legend to Figure~\ref{fig:scn2lab}:
 }
 \end{enumerate}
 
-Most common tasks have keyboard shortcuts: \texttt{ctrl+space} for play/pause
-and \texttt{ctrl+enter} for submitting a correction.
+The most common tasks have keyboard shortcuts: \texttt{ctrl+space} for
+play/pause and \texttt{ctrl+enter} for submitting a correction.
 
 \subsection{Displaying the Transcription}
 
@@ -617,7 +623,7 @@ using the enter key to split utterances by lines is the user's choice.
 
 One of the features that Transcribe, the only commercial tool in our reference
 list, offers is setting up keyboard shortcuts for common words. We have not
-implemented this because ideally, common words should be covered by the speech
+implemented this because ideally, common words should be covered by speech
 recognition. However, it could be sensible to implement it anyway. The reason is
 that a word can be very rare globally and thus poorly recognized by ASR but very
 common in a specific passage. This particularly regards named entities.
@@ -656,9 +662,9 @@ React ensures the updating of the chunks, and the coordinates of the words
 further in the document are recalculated for word-highlighting purposes.
 
 Apart from this, the version of the transcription to the recording is updated.
-This is because the transcriptions have a long cache time because normally, they
-do not change at all. At the page load, the versions of all transcriptions are
-loaded and used as cache busters. This enables us to use an external CDN and
+This is because the transcription files have a long cache time because normally,
+they do not change at all. At the page load, the versions of all transcriptions
+are loaded and used as cache busters. This enables us to use an external CDN and
 cache effectively.
 
 \subsection{Implementation Details}
@@ -705,7 +711,7 @@ error-prone and, as the modern programming jargon lovingly expresses, {\em
 easier to reason about}. But some of our features make this a bit complicated.
 
 Among the states the app can enter is simple playback, inspecting a word and
-transcribing a segment. Now, the only relevant things we actually keep in the
+transcribing a segment. The only relevant things we actually keep in the
 Redux store are:
 
 \begin{enumerate}
@@ -750,6 +756,9 @@ this we mean that we wouldd like to use both automatic processing methods and th
 users to do semantic analysis of the talks: What topic is covered where? What
 topics are covered at all? Which talks relate to which written works?, and
 similar questions.
+
+We shall also deploy the technology on a different data set once we find a good
+fit.
 
 \section{Conclusion}
 
