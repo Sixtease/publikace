@@ -17,10 +17,9 @@
 
 \begin{abstract}
 The paper presents an application for lay, untrained users to generate
-high-quality phonetic transcription of speech. The application has been in use
+high-quality, aligned phonetic transcription of speech. The application has been in use
 for several years and has served to transcribe over 600 thousand word forms over
-two versions of a web interface. In this paper, I present measures for
-compensating the lack of expert training.
+two versions of a web interface. We present measures for compensating the lack of expert training.
 \end{abstract}
 
 \section{Introduction}
@@ -41,11 +40,11 @@ original magnetic tapes, the second step was releasing all of them on the
 world-wide web, the third step was developing a web-based system for human /
 machine transcription of the bulk, allowing for search.
 
-The transcription we do is both phonetic and ortographic\footnote{There is no
-actual focus on ortography. Instead, we mean the natural way of transcribing the
+The transcription we do is both phonetic and orthographic\footnote{There is no
+actual focus on orthography. Instead, we mean the natural way of transcribing the
 speech to human-readable text. Where it matters, focus is directed at precise
 correspondence with the utterances instead of language cleanliness}. Our users
-are supposed provide ortographic transcription where the pronunciation is
+are supposed provide orthographic transcription where the pronunciation is
 standard and phonetic otherwise.
 
 \section{Annotator Expertise}
@@ -114,12 +113,154 @@ assume no malevolence on the part of the users.
 
 Apart from catching wrong transcription, the forced alignment mechanism provides
 exact synchronization on the time axis. This is a completely missing element in
-the case of virtually all programs for aiding manual transcription. For some
+the case of virtually all programs for computer-aided transcription. For some
 examples, Transcriber\footnote{http://trans.sourceforge.net/}, a veteran
 open-source transcribing program for Linux, expects the user to provide
 alignment on the level of phrases;
-Transcribe\footnote{http://transcribe.wreally.com/}, a commercial web-based
+Transcribe\footnote{https://transcribe.wreally.com/}, a commercial web-based
 transcribing tool, allows the user to add timestamps anywhere in the text. There
 is no acoustic model, hence nothing to match against.
+
+\section{Phonetic Transcription}
+
+\subsection{Purpose}
+
+We have originally built the acoustic model using
+HTK\footnote{http://htk.eng.cam.ac.uk/}, the Hidden Markov Toolkit. Here,
+explicit phonetically labeled training data are necessary for training. We are
+switching to DNN, using Mozilla's
+DeepSpeech\footnote{https://github.com/mozilla/DeepSpeech}, where no explicit
+phonetic annotation is needed but for some purposes like forced alignment, the
+original HMM is still irreplaceable.
+
+Also, the phonetic labeling is valuable per se for research purposes.
+
+\subsection{Acquisition}
+
+The phonetic transcription is in normal case also a product of forced alignment,
+as in case of pronunciation variants, it selects the most fitting one. This
+requires a way to automatically obtain all pronunciation variants of any word.
+We use a combination of a rule-based system inspired by Psutka et
+al.\cite{psutka2004development}, in combination with a dynamic dictionary.
+The dynamic dictionary is a list of alternative pronunciations of a word, which
+expands as the app is being used.
+
+The users are instructed to transcribe any words with non-standard pronunciation
+phonetically and then correct their orthographical form. This is one of the few
+cases where we are coercing the users to something.
+
+When the orthographically broken, phonetic transcription of a word is submitted,
+if it passes the forced-alignment phase, it is integrated into the displayed
+transcription. The word's data representation consists of its
+\begin{enumerate}
+\item{occurrence:
+    the word as it appears in the text, including capitalization and
+    punctuation,
+}
+\item{wordform:
+    the word as it appears in the language model and phonetic dictionary
+    (computed as the occurrence in lowercase and stripped of non-alphabetic
+    characters\footnote{This implies that all non-alphabetic characters are
+    always a part of a token and never form a token on their own.}),
+}
+\item{pronunciation:
+    an array of phonemes,
+}
+\item{timestamp:
+    distance of the beginning of the word from the beginning of the file, in
+    seconds, in precision of 2 decimal digits,
+}
+\item{manual/automatic:
+    boolean flag denoting whether the word has been transcribed manually or not,
+}
+\item{confidence measure:
+    in case of automatically acquired words, the confidence-measure score of the
+    recognizer.
+}
+\end{enumerate}
+Once merged into the displayed transcription, each word's occurrence can be
+edited manually. Hence the user can enter the correct form deviating from Czech
+pronunciation rules.
+
+Doing so results in adding the wordform-pronunciation couple to the dynamic
+pronunciation dictionary and is also used at forced alignment. Thus, this
+operation must only be performed once per word and any subsequent time the word
+is entered in its standard orthographic form, the correct pronunciation is
+inferred.
+
+For example, let's examine the scenario of transcribing the sentence {\em Proč
+se toto nestalo Marii Markétě Alacoque?} Its phonetic representation is {\em p r
+o ch sil s e sil t o t o sil n e s t a l o sil m a r i j i sil m a r k ee tj e
+sil a l a k o k}.
+\begin{enumerate}
+\item{Suppose the user enters the correct ortographic transcription.}
+\item{
+    The phonetic transducer outputs {\em
+        p r o ch sil
+        s e sil
+        t o t o sil
+        n e s t a l o sil
+        m a r i j i sil
+        m a r k ee tj e sil
+        a l a c o k v u e
+    }.
+}
+\item{
+    With a bit of luck, the forced alignment fails because of the distiction of
+    the phone sequence {\em k o k} and {\em c o k v u e}.
+}
+\item{
+    The transcription is rejected, the user realizes that the word is pronounced
+    in a non-standard way and re-tries with
+    {\em Proč se toto nestalo Marii Markétě alakok?}
+}
+\item{
+    Forced alignment succeeds now and the entered transcription is merged into
+    the view.
+}
+\item{
+    The user selects the non-existent word {\em alakok} and edits its occurrence
+    to {\em Alacoque?}
+}
+\item{
+    Now the word is correctly stored and on any subsequent user inputs of {\em
+    Alacoque} with any punctuation or capitalization, the pronunciation
+    {\em a l a k o k} is considered at the forced alignment.
+}
+\end{enumerate}
+
+\subsection{Representation}
+
+As can be seen above, for the sake of simplicity and interoperability, we use
+the set of phonemes as defined by Nouza et al.\cite{nouza1997phonetic} With all
+advantages of this representation, it is clearly not the most natural way for
+lay Czechs to write down literal pronunciation. Thanks to the simple, mostly
+deterministic mapping between phonemes and graphemes, pronunciation respelling
+is a reliable, natural way. There's not even a need for explicit syllable
+separation as seen in English pronunciation respelling {\em
+(wikipedia\footnote{https://en.wikipedia.org/wiki/Pronunciation\_respelling}
+gives the example {\em ``Diarrhoea'' is pronounced DYE-uh-REE-a})}.
+
+The previous subsection gave an example of using pronunciation respelling in
+Czech with the example of {\em alakok} for {\em Alacoque}. The direction from
+the phonetic respelling to the phoneme array is covered by the
+ortographic-to-phonetic transducer. But we also need the opposite direction to
+provide the users a way to check whether the pronunciation selected by the
+forced alignment fits.
+
+For this purpose, we have created a JavaScript module for transduction between
+the array of phonemes and the pronunciation
+respelling\footnote{https://github.com/Sixtease/MakonReact/blob/master/src/lib/Phonet.js}.
+
+The module includes two-way transduction, although only the one from array of
+phonemes to human-readable phonetic respelling is needed in our application.
+Note that when encoding into the phonetic respelling, none of
+{\em di ti ni dě tě ně} is ever output. The palatal consonants are always
+explicitly spelled out.
+
+The ambiguity of diphtong / subsequent vocals, as in {\em poučit [p o u ch i t]}
+vs. {\em louže [l ow zh e]} is explicated by an apostrophe in the respelling
+{\em po'učit / louže}. Voiceless alveolar fricative trill is explicated as {\em
+r'} as in {\em tř'ít} vs. {\em dřít}.
 
 \end{document}
