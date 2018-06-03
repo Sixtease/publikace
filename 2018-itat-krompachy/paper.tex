@@ -10,8 +10,7 @@
 \author{Oldřich Krůza\inst{1}}
 
 \institute{ÚFAL MFF UK,\\
-\email{kruza@ufal.mff.cuni.cz},\\ WWW home page:
-\texttt{http://sixtease.net/}}
+\email{kruza@ufal.mff.cuni.cz}}
 
 \maketitle              % typeset the title of the contribution
 
@@ -229,7 +228,8 @@ sil a l a k o k}.
 }
 \end{enumerate}
 
-\subsection{Representation}
+\subsection{Phonetic Respelling}
+\label{subsec:respelling}
 
 As can be seen above, for the sake of simplicity and interoperability, we use
 the set of phonemes as defined by Nouza et al.\cite{nouza1997phonetic} With all
@@ -252,15 +252,132 @@ For this purpose, we have created a JavaScript module for transduction between
 the array of phonemes and the pronunciation
 respelling\footnote{https://github.com/Sixtease/MakonReact/blob/master/src/lib/Phonet.js}.
 
+The algorithm is simple. In most cases, a phoneme corresponds uniquely to one
+character in the respelling. Exceptions are as follows:
+\begin{enumerate}
+\item{The phone {\em (x)} is spelled {\em ``ch''}.}
+\item{The phone {\em (dz) (dzh)} are spelled {\em ``dz'' ``dž''}.}
+\item{The diphtongs {\em (aw) (ew) (ow)} are spelled {\em ``au'' ``eu'' ``ou''}.}
+\item{
+    Sequences {\em (c) (h), (o) (u), (a) (u), (e) (u), (d) (z), (d zh) } are
+    spelled {\em ``c'h'', ``o'u'', ``a'u'', ``e'u'', ``d'z'', ``d'ž''}. Note
+    though, that the sequence {\em (c) (h)} is purely hypothetical, as it
+    contradicts voiced/voiceless assimilation.
+}
+\item{
+    Voiceless alveolar fricative trill is explicated as {\em ``r'{}''} as in {\em
+    tř'ít} vs. {\em dřít}.
+}
+\item{
+    Palatal nasal and labiodental nasal are spelled {\em ``n'{}'', ``m'{}''}.
+}
+\item{Trailing silence is not represented.}
+\end{enumerate}
+
 The module includes two-way transduction, although only the one from array of
 phonemes to human-readable phonetic respelling is needed in our application.
+Still, the user can mark up special-case pronunciation with the apostrophe, like
+the sequence of phonemes {\em (c)} and {\em (h)} with the string {\em c'h}. The
+need has never occurred during the six years' lifespan of the application.
+
 Note that when encoding into the phonetic respelling, none of
 {\em di ti ni dě tě ně} is ever output. The palatal consonants are always
-explicitly spelled out.
+explicitly spelled out and e.g. the sequence {\em (n) (i)} is always spelled
+{\em``ny''}
 
-The ambiguity of diphtong / subsequent vocals, as in {\em poučit [p o u ch i t]}
-vs. {\em louže [l ow zh e]} is explicated by an apostrophe in the respelling
-{\em po'učit / louže}. Voiceless alveolar fricative trill is explicated as {\em
-r'} as in {\em tř'ít} vs. {\em dřít}.
+A few examples of words and their phonetic respelling as output by the
+algorithm (given the corresponding pronunciation is input as phoneme list):
+\begin{itemize}
+\item{nic: {\em ňic},}
+\item{kdo: {\em gdo},}
+\item{disk: {\em dysk},}
+\item{dřít: {\em dřít},}
+\item{třít: {\em tř'ít},}
+\item{auto: {\em auto},}
+\item{nauka: {\em na'uka},}
+\item{džbán: {\em džbán},}
+\item{odželezněný: {\em od'železněný},}
+\item{odznak: {\em odznak},}
+\item{podzemí: {\em pod'zemí},}
+\item{noc: {\em noc},}
+\item{tento: {\em tento},}
+\item{hangár: {\em han'gár},}
+\item{samba: {\em samba},}
+\item{tonfa: {\em tom'fa}.}
+\end{itemize}
+
+We postulate that the phonetic respelling is natural to all alphabetized native
+Czech speakers as a fact without any supporting research, based on experience
+alone. The use of apostrophe for distinguishing ambiguities and special cases is
+not 100\% intuitive and presents another point where instruction is necessary
+for the user to use this feature properly.
+
+\section{Evaluation}
+
+We have presented our web application as a tool that enables gathering precisely
+aligned, phoneme-exact transcription from untrained casual visitors. We have
+presented measures for reaching this goal but the degree to which it was reached
+remains unclear.
+
+We have no gold standard data to measure the quality of our manual
+transcriptions. On the contrary, we use the manual transcriptions as gold
+standard for the automatic recognition. What we can to, however, is look at some
+random samples and try to get a rough idea of how the system performs.
+
+\subsection{Validation by Forced Alignment}
+
+One thing we can examine are the approvals / rejections of the forced alignment.
+Of 109640 forced alignment attempts, 3419 have failed, which makes for 3.12\%.
+We have manually inspected 20 random failed attempts and came to the following
+numbers:
+\begin{itemize}
+\item{
+    11 cases were false negatives, where the transcription was correct and
+    should have been accepted,
+}
+\item{
+    4 cases were caused by acoustic irregularities like noise,
+}
+\item{
+    4 cases were true negatives caused by wrongly chosen segment boundaries and
+}
+\item{
+    1 case was true negative caused by wrong transcription.
+}
+\end{itemize}
+
+Hence, in 25\% of the minimalistic sample, the forced alignment did its job of a
+validator and prevented a piece of broken training data from entering the
+dataset. In 55\% it was a nuisance and failure, and in the remaining 20\%, it
+rejected a valid transcription but prevented a bad training example from
+occurring, so we can see this in positive light.
+
+\subsection{Non-Standard Pronunciation}
+
+We can also track how the scenario described in
+subsection~\ref{subsec:respelling} is applied. We have looked up four promising
+example records in the dynamic dictionary and checked submitted transcriptions
+containing them. Table~\ref{tab:pronunc}
+
+\begin{table}[htpb]
+\begin{center}
+\begin{tabular}{|l r|l r|l r|l r|}
+\hline
+Correct written form        & \#
+	& wrong phonetic pronunc.   & \#
+		& correct pronunc.          & \#
+			& phon. respelling          & \# \\
+\hline
+Moody & 2 & {\texttt m o o d i} & 0 & {\texttt m uu d i} & 4 & {\em múdy}, {\em můdy} & 2 \\
+Descartes & 2 & {\texttt d e s c a r t e s} & 0 & {\texttt d e k aa r t} & 4 & {\em dekárt} & 2   \\
+Weinfurter & 18 & {\texttt v e j n f u r t e r} & 9 & {\texttt v a j n f u r t r} & 16 & {\em vajnfurtr} & 9 \\
+Michelangelo & 6 & {\texttt m i x e l a ng g e l o} & 9 & {\texttt m i k e l a n dzh e l o} & 9 & {\em mikelan'dželo} & 4 \\
+\hline
+\end{tabular}
+\caption{Examples of non-standard pronunciation in the manually transcribed data}\label{tab:pronunc}
+\end{center}
+\end{table}
+
+
 
 \end{document}
