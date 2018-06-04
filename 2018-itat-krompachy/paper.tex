@@ -1,16 +1,21 @@
 \documentclass{itatnew}
 %% !!!dolezite: ak pisete po slovensky alebo po cesky pouzite
 %% \documentclass[slovensky]{itatnew}
-%% \documentclass[cesky]{itatnew}
+% \documentclass[cesky]{itatnew}
+\usepackage{fontspec}
 
 \begin{document}
 
 \title{Phonetic Transcription by Untrained Annotators}
 
-\author{Oldřich Krůza\inst{1}}
+\author{Oldřich Krůza}
 
-\institute{ÚFAL MFF UK,\\
-\email{kruza@ufal.mff.cuni.cz}}
+\institute{
+    Charles University,
+    Faculty of Mathematics and Physics,\\
+    Institute of Formal and Applied Linguistics\\
+    \email{kruza@ufal.mff.cuni.cz}
+}
 
 \maketitle              % typeset the title of the contribution
 
@@ -39,25 +44,17 @@ heavily on traditional Christian mysticism as well as ancient tradition of India
 and China, adapting them for the present. The whole system can be seen as a
 manual for entering the eternal life prior to the physical death.
 
-Makoň points to the life of Jesus as depicted by the gospels as to perfect,
-detailed manual for the path to eternal life usable by anybody. He corrects many
-alleged mistakes in the official Catholic doctrine, although he sees its
-tradition as a very useful and underestimated tool. I, the author of this paper,
-would personally find it most interesting to be able to compare key Makoň's
-postulates with official stance of the Church and its evolution in the last
-decades.
-
 There are over 1000 hours of digitized recordings of Karel Makoň, they are
 accessible under the CC-BY license and the project aims at bringing the most
-benefit from them. The first step was digitizing the recordings from the
+benefit out of them. The first step was digitizing the recordings from the
 original magnetic tapes, the second step was releasing all of them on the
 world-wide web, the third step was developing a web-based system for human /
 machine transcription of the bulk, allowing for search.
 
-The transcription we do is both phonetic and orthographic\footnote{There is no
+The transcription we do is both phonetic and orthographic.\footnote{There is no
 actual focus on orthography. Instead, we mean the natural way of transcribing the
 speech to human-readable text. Where it matters, focus is directed at precise
-correspondence with the utterances instead of language cleanliness}. Our users
+correspondence with the utterances instead of language cleanliness.} Our users
 are supposed provide orthographic transcription where the pronunciation is
 standard and phonetic otherwise.
 
@@ -68,8 +65,9 @@ lucky part of the world where alphabetization nears 100\%, transcription of
 speech is hardly expert work. On the other hand, ensuring that the transcription
 exactly matches the audio
 \begin{itemize}
-\item{as a representation of the words uttered and their meaning,}
-\item{on the phonetic level, phoneme for phoneme,}
+\item{as a representation of the words uttered and of their meaning,}
+\item{on the phonetic level, phone for phoneme,\footnote{In the sense that each
+written phoneme corresponds to exactly one uttered phone.}}
 \item{on the time axis}
 \end{itemize}
 is beyond what can be expected from an untrained user.
@@ -103,12 +101,13 @@ It would be hard to convince them to choose exactly a recording that another
 user has already transcribed.
 
 Luckily, we can implement automatic measures to aid the annotators to deliver
-higher-quality transcriptions.
+higher-quality transcription.
 
 \subsection{Forced Alignment}
 
-Since we always assume an existing transcription, we can see the user's
-contribution as a correction. Every submission has
+We always assume an existing transcription,\footnote{The seed training data
+was of magnitude in order of minutes and has been annotated using Transcriber.}
+so we can see the user's contribution as a correction. Every submission has
 the form of replacing a text segment with another. Since the transcriptions are
 time-aligned to the audio, we also know exactly what is the corresponding audio
 segment to the text submitted.
@@ -128,10 +127,10 @@ assume no malevolence on the part of the users.
 Apart from catching wrong transcription, the forced alignment mechanism provides
 exact synchronization on the time axis. This is a completely missing element in
 the case of virtually all programs for computer-aided transcription. For some
-examples, Transcriber\footnote{http://trans.sourceforge.net/}, a veteran
+examples, Transcriber,\footnote{http://trans.sourceforge.net/} a veteran
 open-source transcribing program for Linux, expects the user to provide
 alignment on the level of phrases;
-Transcribe\footnote{https://transcribe.wreally.com/}, a commercial web-based
+Transcribe,\footnote{https://transcribe.wreally.com/} a commercial web-based
 transcribing tool, allows the user to add timestamps anywhere in the text. There
 is no acoustic model, hence nothing to match against.
 
@@ -140,10 +139,10 @@ is no acoustic model, hence nothing to match against.
 \subsection{Purpose}
 
 We have originally built the acoustic model using
-HTK\footnote{http://htk.eng.cam.ac.uk/}, the Hidden Markov Toolkit. Here,
+HTK,\footnote{http://htk.eng.cam.ac.uk/} the Hidden Markov Model Toolkit. Here,
 explicit phonetically labeled training data are necessary for training. We are
 switching to DNN, using Mozilla's
-DeepSpeech\footnote{https://github.com/mozilla/DeepSpeech}, where no explicit
+DeepSpeech,\footnote{https://github.com/mozilla/DeepSpeech} where no explicit
 phonetic annotation is needed but for some purposes like forced alignment, the
 original HMM is still irreplaceable.
 
@@ -152,10 +151,11 @@ Also, the phonetic labeling is valuable per se for research purposes.
 \subsection{Phoneme Set}
 
 We use a subset of PACal\cite{nouza1997phonetic}. We shall also refer to
-individual phonemes in this paper using the PACal notation. For reference,
-Table~\ref{tab:phones} lists the phonemes used with their IPA notation.
+individual phonemes in this paper using the PACal notation in \texttt{monospace
+font}. For reference, Table~\ref{tab:phones} lists the phonemes used with their
+IPA notation.
 
-\begin{table}[htpb]
+\begin{table*}[htpb]
 \fontspec{DoulosSIL}
 \begin{center}
 \begin{tabular}{|l|l|l|l||l|l|l|l|}
@@ -165,7 +165,7 @@ IPA & PACal & common grapheme & IPA & PACal &  common grapheme \\
 % TODO: IPA
 a  & a   & a      &     ɱ  & mg  & tra\underline{m}vaj \\
 aː & aa  & á      &     n  & n   & \underline{n}e \\
-aʊ̯ & aw  & au     &     ŋ  & ng  & pa\underline{n}t \\
+aʊ̯ & aw  & au     &     ŋ  & ng  & ta\underline{n}k \\
 b  & b   & b      &     ɲ  & nj  & \v{n} \\
 t͡s & c   & c      &     o  & o   & o \\
 t͡ʃ & ch  & č      &     oː & oo  & ó \\
@@ -189,9 +189,9 @@ m  & m   & \underline{m}ák
    &     &        &        & sp  & \\
 \hline
 \end{tabular}
-\caption{Phones used in transcription}\label{tab:phones}
+\caption{Phonemes used in transcription}\label{tab:phones}
 \end{center}
-\end{table}
+\end{table*}
 \normalfont
 
 \subsection{Acquisition}
@@ -238,35 +238,42 @@ transcription. The word's data representation consists of its
 }
 \end{enumerate}
 Once merged into the displayed transcription, each word's occurrence can be
-edited manually. Hence the user can enter the correct form deviating from Czech
+edited manually. Now the user can enter the correct form deviating from Czech
 pronunciation rules.
 
 Doing so results in adding the wordform-pronunciation couple to the dynamic
-pronunciation dictionary and is also used at forced alignment. Thus, this
-operation must only be performed once per word and any subsequent time the word
+pronunciation dictionary and is also used for forced alignment. Thus, this
+operation need only be performed once per word and any subsequent time the word
 is entered in its standard orthographic form, the correct pronunciation is
 inferred.
 
 For example, let's examine the scenario of transcribing the sentence {\em Proč
-se toto nestalo Marii Markétě Alacoque?} Its phonetic representation is {\em p r
-o ch sil s e sil t o t o sil n e s t a l o sil m a r i j i sil m a r k ee tj e
-sil a l a k o k}.
+se toto nestalo Marii Markétě Alacoque? (Why hasn't this happened to Mary
+Margaret Alacoque?)} Its phonetic representation is \texttt{
+    p r o ch sp
+    s e sp
+    t o t o sp
+    n e s t a l o sp
+    m a r i j i sp
+    m a r k ee tj e sp
+    a l a k o k sil
+}.
 \begin{enumerate}
 \item{Suppose the user enters the correct ortographic transcription.}
 \item{
-    The phonetic transducer outputs {\em
-        p r o ch sil
-        s e sil
-        t o t o sil
-        n e s t a l o sil
-        m a r i j i sil
-        m a r k ee tj e sil
-        a l a c o k v u e
+    The phonetic transducer outputs \texttt{
+        p r o ch sp
+        s e sp
+        t o t o sp
+        n e s t a l o sp
+        m a r i j i sp
+        m a r k ee tj e sp
+        a l a c o k v u e sil
     }.
 }
 \item{
     With a bit of luck, the forced alignment fails because of the distiction of
-    the phone sequence {\em k o k} and {\em c o k v u e}.
+    the phone sequence\\ \texttt{k o k} and \texttt{c o k v u e}.
 }
 \item{
     The transcription is rejected, the user realizes that the word is pronounced
@@ -278,28 +285,30 @@ sil a l a k o k}.
     the view.
 }
 \item{
-    The user selects the non-existent word {\em alakok} and edits its occurrence
+    The user selects the non-existent word {\em alakok?} and edits its occurrence
     to {\em Alacoque?}
 }
 \item{
     Now the word is correctly stored and on any subsequent user inputs of {\em
     Alacoque} with any punctuation or capitalization, the pronunciation
-    {\em a l a k o k} is considered at the forced alignment.
+    \texttt{a l a k o k} is inferred by the forced alignment.
 }
 \end{enumerate}
 
 \subsection{Phonetic Respelling}
 \label{subsec:respelling}
 
-As can be seen above, for the sake of simplicity and interoperability, we use
-the set of phonemes as defined by Nouza et al.\cite{nouza1997phonetic} With all
-advantages of this representation, it is clearly not the most natural way for
-lay Czechs to write down literal pronunciation. Thanks to the simple, mostly
+With all advantages of using PACal as a representation for phonemes, it is
+clearly not the most natural way for lay Czechs to write down and read literal
+pronunciation. Thanks to the simple, mostly
 deterministic mapping between phonemes and graphemes, pronunciation respelling
 is a reliable, natural way. There's not even a need for explicit syllable
-separation as seen in English pronunciation respelling {\em
+separation as seen in English pronunciation respelling
 (wikipedia\footnote{https://en.wikipedia.org/wiki/Pronunciation\_respelling}
-gives the example {\em ``Diarrhoea'' is pronounced DYE-uh-REE-a})}.
+gives the example {\em ``Diarrhoea'' is pronounced DYE-uh-REE-a}).
+We postulate that the phonetic respelling is natural to all alphabetized native
+Czech speakers as a fact without any supporting research, based on experience
+alone. 
 
 The previous subsection gave an example of using pronunciation respelling in
 Czech with the example of {\em alakok} for {\em Alacoque}. The direction from
@@ -310,26 +319,25 @@ forced alignment fits.
 
 For this purpose, we have created a JavaScript module for transduction between
 the array of phonemes and the pronunciation
-respelling\footnote{https://github.com/Sixtease/MakonReact/blob/master/src/lib/Phonet.js}.
+respelling.\footnote{https://github.com/Sixtease/MakonReact/\allowbreak{}blob/master/src/lib/Phonet.js}
 
 The algorithm is simple. In most cases, a phoneme corresponds uniquely to one
 character in the respelling. Exceptions are as follows:
 \begin{enumerate}
-\item{The phone {\em (x)} is spelled {\em ``ch''}.}
-\item{The phone {\em (dz) (dzh)} are spelled {\em ``dz'' ``dž''}.}
-\item{The diphtongs {\em (aw) (ew) (ow)} are spelled {\em ``au'' ``eu'' ``ou''}.}
+\item{The phoneme \texttt{x} is spelled {\em ch}.}
+\item{The phonemes \texttt{dz dzh} are spelled {\em dz dž}.}
+\item{The diphtongs \texttt{aw ew ow} are spelled {\em au eu ou}.}
 \item{
-    Sequences {\em (c) (h), (o) (u), (a) (u), (e) (u), (d) (z), (d zh) } are
-    spelled {\em ``c'h'', ``o'u'', ``a'u'', ``e'u'', ``d'z'', ``d'ž''}. Note
-    though, that the sequence {\em (c) (h)} is purely hypothetical, as it
+    Sequences \texttt{c h, o u, a u, e u, d z, d zh} are
+    spelled {\em c'h, o'u, a'u, e'u, d'z, d'ž}. Note
+    though, that the sequence \texttt{c h} is purely hypothetical, as it
     contradicts voiced/voiceless assimilation.
 }
 \item{
-    Voiceless alveolar fricative trill is explicated as {\em ``r'{}''} as in {\em
-    tř'ít} vs. {\em dřít}.
+    Voiceless alveolar fricative trill is explicated as {\em r'}.
 }
 \item{
-    Palatal nasal and labiodental nasal are spelled {\em ``n'{}'', ``m'{}''}.
+    Palatal nasal and labiodental nasal are spelled {\em n', m'}.
 }
 \item{Trailing silence is not represented.}
 \end{enumerate}
@@ -337,38 +345,36 @@ character in the respelling. Exceptions are as follows:
 The module includes two-way transduction, although only the one from array of
 phonemes to human-readable phonetic respelling is needed in our application.
 Still, the user can mark up special-case pronunciation with the apostrophe, like
-the sequence of phonemes {\em (c)} and {\em (h)} with the string {\em c'h}. The
-need has never occurred during the six years' lifespan of the application.
+the sequence of phonemes \texttt{c} and \texttt{h} with the string \texttt{c'h}.
+The need has never occurred during the six years' lifespan of the application.
 
 Note that when encoding into the phonetic respelling, none of
 {\em di ti ni dě tě ně} is ever output. The palatal consonants are always
-explicitly spelled out and e.g. the sequence {\em (n) (i)} is always spelled
-{\em``ny''}
+explicitly spelled out and e.g. the sequence \texttt{n i} is always spelled
+{\em ny}
 
-A few examples of words and their phonetic respelling as output by the
+A few examples of words, pronunciation and phonetic respelling as output by the
 algorithm (given the corresponding pronunciation is input as phoneme list):
 \begin{itemize}
-\item{nic: {\em ňic},}
-\item{kdo: {\em gdo},}
-\item{disk: {\em dysk},}
-\item{dřít: {\em dřít},}
-\item{třít: {\em tř'ít},}
-\item{auto: {\em auto},}
-\item{nauka: {\em na'uka},}
-\item{džbán: {\em džbán},}
-\item{odželezněný: {\em od'železněný},}
-\item{odznak: {\em odznak},}
-\item{podzemí: {\em pod'zemí},}
-\item{noc: {\em noc},}
-\item{tento: {\em tento},}
-\item{hangár: {\em han'gár},}
-\item{samba: {\em samba},}
-\item{tonfa: {\em tom'fa}.}
+\item{nic /\texttt{nj i c}/: {\em ňic},}
+\item{kdo /\texttt{g d o}/: {\em gdo},}
+\item{disk /\texttt{d i s k}/: {\em dysk},}
+\item{dřít /\texttt{d rzh ii t}/: {\em dřít},}
+\item{třít /\texttt{t rsh ii t}/: {\em tř'ít},}
+\item{auto /\texttt{aw t o}/: {\em auto},}
+\item{nauka /\texttt{n a u k a}/: {\em na'uka},}
+\item{džbán /\texttt{dzh b aa n}/: {\em džbán},}
+\item{odžít /\texttt{o d dz ii t}/: {\em od'žít},}
+\item{odznak /\texttt{o dz n a k}/: {\em odznak},}
+\item{podzemí /\texttt{p o d z e m ii}/: {\em pod'zemí},}
+\item{noc /\texttt{n o c}/: {\em noc},}
+\item{tento /\texttt{t e n t o}/: {\em tento},}
+\item{hangár /\texttt{h a ng g aa r}/: {\em han'gár},}
+\item{samba /\texttt{s a m b a}/: {\em samba},}
+\item{tonfa /\texttt{t o mg f a}/: {\em tom'fa}.}
 \end{itemize}
 
-We postulate that the phonetic respelling is natural to all alphabetized native
-Czech speakers as a fact without any supporting research, based on experience
-alone. The use of apostrophe for distinguishing ambiguities and special cases is
+The use of apostrophe for distinguishing ambiguities and special cases is
 not 100\% intuitive and presents another point where instruction is necessary
 for the user to use this feature properly.
 
@@ -387,9 +393,9 @@ random samples and try to get a rough idea of how the system performs.
 \subsection{Validation by Forced Alignment}
 
 One thing we can examine are the approvals / rejections of the forced alignment.
-Of 109640 forced alignment attempts, 3419 have failed, which makes for 3.12\%.
-We have manually inspected 20 random failed attempts and came to the following
-numbers:
+Of 109640 forced alignment attempts, 3419 have failed, which makes for 3.12\%
+rejection rate.  We have manually inspected 20 random failed attempts and came
+to the following numbers:
 \begin{itemize}
 \item{
     11 cases were false negatives, where the transcription was correct and
@@ -422,43 +428,45 @@ orthographic form, the wrong pronunciation obtained by the transducer, the
 correct pronunciation and finally the phonetic respelling. Each is followed by
 the number of occurrences in the manually transcribed data.
 
-\begin{table}[htpb]
+\begin{table*}[htpb]
 \begin{center}
 \begin{tabular}{|l r|l r|l r|l r|}
 \hline
-Correct written form        & \#
+Correct spelling            & \#
 	& wrong phonetic pronunc.   & \#
-		& correct pronunc.          & \#
-			& phon. respelling          & \# \\
+		& correct pronunciation     & \#
+			& phon. respel.             & \# \\
 \hline
-Moody & 2 & {\texttt m o o d i} & 0 & {\texttt m uu d i} & 4 & {\em múdy}, {\em můdy} & 2 \\
-Descartes & 2 & {\texttt d e s c a r t e s} & 0 & {\texttt d e k aa r t} & 4 & {\em dekárt} & 2   \\
-Weinfurter & 30 & {\texttt v e j n f u r t e r} & 13 & {\texttt v a j n f u r t r} & 19 & {\em vajnfurtr} & 2 \\
-Michelangelo & 6 & {\texttt m i x e l a ng g e l o} & 2 & {\texttt m i k e l a n dzh e l o} & 4 & {\em mikelandželo} & 0 \\
+Moody & 2 & \texttt{m o o d i} & 0 & \texttt{m uu d i} & 4 & {\em múdy}, {\em můdy} & 2 \\
+Descartes & 2 & \texttt{d e s c a r t e s} & 0 & \texttt{d e k aa r t} & 4 & {\em dekárt} & 2   \\
+Weinfurter & 30 & \texttt{v e j n f u r t e r} & 13 & \texttt{v a j n f u r t r} & 19 & {\em vajnfurtr} & 2 \\
+Michelangelo & 6 & \texttt{m i x e l a ng g e l o} & 2 & \texttt{m i k e l a n dzh e l o} & 4 & {\em mikelandželo} & 0 \\
 \hline
 \end{tabular}
 \caption{Examples of non-standard pronunciation in the manually transcribed data}\label{tab:pronunc}
 \end{center}
-\end{table}
+\end{table*}
 
-\begin{table}[htpb]
+\begin{table*}[htpb]
 \begin{center}
 \begin{tabular}{|l|r|r|}
 \hline
  & phonetically correct & phonetically incorrect \\
+\hline
 orthographically correct & 25 & 15 \\
-orthographically incorrect & 6 & 0
+\hline
+orthographically incorrect & 6 & 0 \\
 \hline
 \end{tabular}
 \caption{Success rate for phonetic and orthographic representation of foreign
 words}\label{tab:pronunc-rate}
 \end{center}
-\end{table}
+\end{table*}
 
 We can see in Table~\ref{tab:pronunc-rate} that the majority of cases results in
 both orthographic and phonetic forms being correct. Only in about 13\% cases,
 the orthographically incorrect form is kept. We attribute this to the fact that
-those who use the phonetic transcription are aware of the problematic and mostly
+those who use the phonetic respelling are aware of the problematic and mostly
 go the whole way and clean up.
 
 On the other hand, nearly a third of the cases show the wrong phonetic
@@ -469,9 +477,9 @@ examples into the training dataset.
 One of the apparent reasons for this to happen is that the dynamic dictionary
 only recognizes exact matches. We can see in one file, for example, all
 occurrences of the form {\em Weinfurter} to have correct pronunciation while
-{\em Weinfurterovi} a broken one.
+{\em Weinfurterovi} to have a broken one.
 
-Other factors likely include user carelessness or and ignorance, which is
+Other factors likely include user carelessness or ignorance, which is
 exactly what our application is trying to compensate, but fails in these cases.
 
 The cases with false orthographic form don't pose much of a problem. It can
@@ -479,9 +487,29 @@ harden searching for the term in question but performing a search for the
 phonetic respelling or even automatically searching the pronunciation would
 easily mitigate this.
 
+The fourth combination of phonetic respelling and false pronunciation is of
+course not occuring.
+
 \section{Conclusion}
 
+We have presented an application that has been providing access to the
+extensive corpus of Karel Makoň and to acquire an almost complete transcription
+thereof. Nearly 70 hours corresponding to over 600,000 word forms have been
+transcribed manually with minimal financial\footnote{In early stages, we kept a paid
+annotator to test the application.} as well as development\footnote{The system
+has been written by a single developer.} costs. Only some of the volunteer have
+indulged instruction time in order of minutes. The rest of the corpus has been
+transcribed using an ASR system trained on these ever-growing data.
 
+We have presented the ways we use to aid the untrained users to provide a
+high-quality orthographic and phonetic time-aligned transcription. We have
+attempted a rough evaluation of the success rate of the measures presented.
+Though clearly far from perfect, they do serve the purpose and set a baseline
+for improvements or novel approaches.
+
+The system has been built with the motivation of spreading the message contained
+in Karel Makoň's talks. However, to make the technology more useful, we are
+actively looking for similar settings where it could be deployed.
 
 \section*{Acknowledgments}
 
@@ -490,5 +518,8 @@ The research was supported by SVV project number 260 453.\\
 This work has been using language resources stored
 and distributed  by the LINDAT/CLARIN project of the Ministry of Education,
 Youth and Sports of the Czech Republic (project LM2015071).
+
+\bibliographystyle{unsrt}
+\bibliography{citace}
 
 \end{document}
