@@ -21,7 +21,6 @@
 
 % We are an article (more customized later)
 \LoadClass[a4paper,twocolumn,twoside]{article}
-\RequirePackage[utf8x]{inputenc}
 \if@slovak
   \RequirePackage[slovak]{babel}
 \fi
