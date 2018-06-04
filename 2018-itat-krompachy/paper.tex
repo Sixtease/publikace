@@ -357,7 +357,10 @@ occurring, so we can see this in positive light.
 We can also track how the scenario described in
 subsection~\ref{subsec:respelling} is applied. We have looked up four promising
 example records in the dynamic dictionary and checked submitted transcriptions
-containing them. Table~\ref{tab:pronunc}
+containing them. Table~\ref{tab:pronunc} lists for each of them the correct
+orthographic form, the wrong pronunciation obtained by the transducer, the
+correct pronunciation and finally the phonetic respelling. Each is followed by
+the number of occurrences in the manually transcribed data.
 
 \begin{table}[htpb]
 \begin{center}
@@ -370,14 +373,36 @@ Correct written form        & \#
 \hline
 Moody & 2 & {\texttt m o o d i} & 0 & {\texttt m uu d i} & 4 & {\em múdy}, {\em můdy} & 2 \\
 Descartes & 2 & {\texttt d e s c a r t e s} & 0 & {\texttt d e k aa r t} & 4 & {\em dekárt} & 2   \\
-Weinfurter & 18 & {\texttt v e j n f u r t e r} & 9 & {\texttt v a j n f u r t r} & 16 & {\em vajnfurtr} & 9 \\
-Michelangelo & 6 & {\texttt m i x e l a ng g e l o} & 9 & {\texttt m i k e l a n dzh e l o} & 9 & {\em mikelan'dželo} & 4 \\
+Weinfurter & 30 & {\texttt v e j n f u r t e r} & 13 & {\texttt v a j n f u r t r} & 19 & {\em vajnfurtr} & 2 \\
+Michelangelo & 6 & {\texttt m i x e l a ng g e l o} & 2 & {\texttt m i k e l a n dzh e l o} & 4 & {\em mikelandželo} & 0 \\
 \hline
 \end{tabular}
 \caption{Examples of non-standard pronunciation in the manually transcribed data}\label{tab:pronunc}
 \end{center}
 \end{table}
 
+\begin{table}[htpb]
+\begin{center}
+\begin{tabular}{|l|r|r|}
+\hline
+ & phonetically correct & phonetically incorrect \\
+orthographically correct & 25 & 15 \\
+orthographically incorrect & 6 & 0
+\hline
+\end{tabular}
+\caption{Success rate for phonetic and orthographic representation of foreign
+words}\label{tab:pronunc-rate}
+\end{center}
+\end{table}
 
+We can see in Table~\ref{tab:pronunc-rate} that the majority of cases results in
+both orthographic and phonetic forms being correct. Only in about 13\% cases,
+the orthographically incorrect form is kept. We attribute this to the fact that
+those who use the phonetic transcription are aware of the problematic and mostly
+go the whole way and clean up.
+
+On the other hand, nearly a third of the cases show the wrong phonetic
+representation. This is a serious problem on at least two levels: Firstly, it
+shows that the forced aligner failed to catch the error. Secondly
 
 \end{document}
