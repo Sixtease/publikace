@@ -32,6 +32,21 @@ speaking to his friends about a novel way to interpret the teaching of Jesus and
 of mystic and spirituality in general. Karel Makoň died in 1993 and a community
 of favorers of his teachings has persevered since then.
 
+The talks can be seen as companions to Makoň's written works. Together they form
+a unique, extensive, consistent systematization of the spiritual path tailored
+to modern westerners and accessible primarily to Czech speakers. It draws
+heavily on traditional Christian mysticism as well as ancient tradition of India
+and China, adapting them for the present. The whole system can be seen as a
+manual for entering the eternal life prior to the physical death.
+
+Makoň points to the life of Jesus as depicted by the gospels as to perfect,
+detailed manual for the path to eternal life usable by anybody. He corrects many
+alleged mistakes in the official Catholic doctrine, although he sees its
+tradition as a very useful and underestimated tool. I, the author of this paper,
+would personally find it most interesting to be able to compare key Makoň's
+postulates with official stance of the Church and its evolution in the last
+decades.
+
 There are over 1000 hours of digitized recordings of Karel Makoň, they are
 accessible under the CC-BY license and the project aims at bringing the most
 benefit from them. The first step was digitizing the recordings from the
@@ -133,6 +148,51 @@ phonetic annotation is needed but for some purposes like forced alignment, the
 original HMM is still irreplaceable.
 
 Also, the phonetic labeling is valuable per se for research purposes.
+
+\subsection{Phoneme Set}
+
+We use a subset of PACal\cite{nouza1997phonetic}. We shall also refer to
+individual phonemes in this paper using the PACal notation. For reference,
+Table~\ref{tab:phones} lists the phonemes used with their IPA notation.
+
+\begin{table}[htpb]
+\fontspec{DoulosSIL}
+\begin{center}
+\begin{tabular}{|l|l|l|l||l|l|l|l|}
+\hline
+IPA & PACal & common grapheme & IPA & PACal &  common grapheme \\
+\hline
+% TODO: IPA
+a  & a   & a      &     ɱ  & mg  & tra\underline{m}vaj \\
+aː & aa  & á      &     n  & n   & \underline{n}e \\
+aʊ̯ & aw  & au     &     ŋ  & ng  & pa\underline{n}t \\
+b  & b   & b      &     ɲ  & nj  & \v{n} \\
+t͡s & c   & c      &     o  & o   & o \\
+t͡ʃ & ch  & č      &     oː & oo  & ó \\
+d  & d   & d      &     oʊ̯ & ow  & ou \\
+ɟ  & dj  & \v{d}  &     p  & p   & p \\
+d͡z & dz  & dz     &     r  & r   & r \\
+d͡ʒ & dzh & dž     &     r̝̊  & rsh & t\underline{\v{r}}i \\
+ɛ  & e   & e      &     r̝  & rzh & \underline{\v{r}}íz \\
+ɛː & ee  & é      &     s  & s   & s \\
+eʊ̯ & ew  & eu     &     ʃ  & sh  & š \\
+f  & f   & f      &     t  & t   & t \\
+g  & g   & g      &     c  & tj  & \v{t} \\
+ɦ  & h   & h      &     ʊ  & u   & u \\
+i  & i   & i      &     uː & uu  & ú, \r{u} \\
+iː & ii  & í      &     v  & v   & v \\
+j  & j   & j      &     x  & x   & ch \\
+k  & k   & k      &     z  & z   & z \\
+l  & l   & l      &     ʒ  & zh  & ž \\
+m  & m   & \underline{m}ák
+                  &        & sil & \\
+   &     &        &        & sp  & \\
+\hline
+\end{tabular}
+\caption{Phones used in transcription}\label{tab:phones}
+\end{center}
+\end{table}
+\normalfont
 
 \subsection{Acquisition}
 
@@ -403,6 +463,32 @@ go the whole way and clean up.
 
 On the other hand, nearly a third of the cases show the wrong phonetic
 representation. This is a serious problem on at least two levels: Firstly, it
-shows that the forced aligner failed to catch the error. Secondly
+shows that the forced aligner failed to catch the error. Secondly, it lets bad
+examples into the training dataset.
+
+One of the apparent reasons for this to happen is that the dynamic dictionary
+only recognizes exact matches. We can see in one file, for example, all
+occurrences of the form {\em Weinfurter} to have correct pronunciation while
+{\em Weinfurterovi} a broken one.
+
+Other factors likely include user carelessness or and ignorance, which is
+exactly what our application is trying to compensate, but fails in these cases.
+
+The cases with false orthographic form don't pose much of a problem. It can
+harden searching for the term in question but performing a search for the
+phonetic respelling or even automatically searching the pronunciation would
+easily mitigate this.
+
+\section{Conclusion}
+
+
+
+\section*{Acknowledgments}
+
+The research was supported by SVV project number 260 453.\\
+\\
+This work has been using language resources stored
+and distributed  by the LINDAT/CLARIN project of the Ministry of Education,
+Youth and Sports of the Czech Republic (project LM2015071).
 
 \end{document}
