@@ -1,0 +1,71 @@
+\begin{document}
+\begin{abstract}
+\end{abstract}
+
+\section{Introduction}
+
+The way a volume of data is stored impacts all subsequential processing and
+exploitation. A decision on storing the data has to be made as soon as the data
+is being acquired. Obviously, the difficulty of changing the way of storing the
+data increases with the volume of the data stored and with parties relying on
+it. The relying parties can be in-house software tools or even public
+interfaces\footnote{I hesitate to say API because we're talking about access to
+data, not to applications}.
+
+In our case, the data at hand is a collection of speech recordings of total
+magnitude of about one thousand hours. The decisions to be made span many
+levels and the highest levels dictate further questions. Will the data be stored
+as files on a traditional file system or in a database or in a yet another way?
+Will the whole data set be contained on one physical storage device or will it
+be distributed over several?
+
+I have chosen the traditional way of using files on a single directory tree, so
+the next questions are: How will the audio material be divided into individual
+files, what will be the directory structure, what will be the file naming and
+optionally what additional metadata will be maintained.
+
+In the following chapters, I shall list the original structuring for the Spoken
+corpus of Karel Makoň, provide reasons that led to that structuring, explain why
+a change was necessary, and describe the journey to realizing it.
+
+\section{Original Structuring}
+
+\subsection{Prior to Digitization}
+
+The corpus arose as a set of amateur recordings on magnetic tapes. The author of
+the talks, Mr. Karel Makoň, a Czech mystic, started giving talks in private
+groups after his deportation into a concentration camp in 1939, and stopped in
+1991, two years before his death. His regular listeners were recording his
+talks. I don't know exactly when the recording started but the earliest denoted
+date is in 1973.
+
+A part of the recordings (30\% of total length) was taken onto reels, the rest
+onto cassettes. Mostly, there was an identifier for a reel tape or for a
+cassette. Some pieces were unlabeled and some shared a label.
+
+The majority of the recordings were cassettes taken by a single person with
+identifiers of the format YY-NN where YY are the two digits of the year and NN
+is the ordinal number in that year, so for example {\texttt 85-05} is the fifth
+recording taken in the year 1985. These occupy 686 resulting files out of
+total 802 files originating in cassettes.
+
+\subsection{Digitization}
+
+Digitization of the tapes is naturally done one side of the tape into one file.
+Any merging or splitting is extra work. Thus, most of the files resulting from
+the digitization process correspond to one side of a magnetophone cassette
+(worth mostly 45 minutes) or one pass from reel to reel in 9cm/s (90min).
+
+During the two years of digitization, some experiments aiming at saving time and
+effort were done. For instance, using a device that can auto-reverse and play
+two cassettes in a row.
+
+\section{Need for Change}
+
+\section{New Structuring}
+
+\subsection{Where It Is and Isn't Used}
+
+\subsection{}
+
+\end{document}
