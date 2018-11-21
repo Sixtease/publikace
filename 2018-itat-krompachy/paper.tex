@@ -58,6 +58,47 @@ correspondence with the utterances instead of language cleanliness.} Our users
 are supposed provide orthographic transcription where the pronunciation is
 standard and phonetic otherwise.
 
+\subsection{Architecture Overview}
+
+The system consists of
+
+\begin{enumerate}
+\item{
+    The corpus in compressed audio format. We use mp3 and ogg/vorbis to
+    accomodate most browsers.  These data are hosted on an external CDN.
+}
+\item{
+    The exact copy of the corpus in parametrized (MFCC) format. These data
+    reside on the back-end server.
+}
+\item{
+    A complete, aligned transcription of the recordings, hosted on the back-end
+    server and mirrored on a CDN.
+}
+\item{
+    Acoustic model trained on the human-transcribed part of the corpus.
+}
+\item{
+    Language model trained using Srilm\cite{stolcke2002srilm} on a combination
+    of publicly available Czech texts, Karel Makoň's written works, and both the
+    human-submitted and automatically-acquired transcription.
+}
+\item{
+    Back-end API for collecting correcions to the transcription, serving the
+    transcription and allowing full-text search with
+    elasticsearch\footnote{https://www.elastic.co/products/elasticsearch}.
+}
+\item{
+    Separately hosted front-end web application serving as an interface for
+    playing the recordings, synchronously displaying the transcriptions and
+    collecting the corrections from users.
+}
+\end{enumerate}
+
+To get the initial transcription, we have manually transcribed some 10 minutes
+of the material using Transcriber\footnote{http://trans.sourceforge.net/},
+trained an acoustic model on it and recognized the whole data using it.
+
 \section{Annotator Expertise}
 
 Our case is on the edge of what can be called linguistic data annotation. In our
@@ -105,12 +146,10 @@ higher-quality transcription.
 
 \subsection{Forced Alignment}
 
-We always assume an existing transcription,\footnote{The seed training data
-was of magnitude in order of minutes and has been annotated using Transcriber.}
-so we can see the user's contribution as a correction. Every submission has
-the form of replacing a text segment with another. Since the transcriptions are
-time-aligned to the audio, we also know exactly what is the corresponding audio
-segment to the text submitted.
+We always assume an existing transcription, so we can see the user's
+contribution as a correction. Every submission has the form of replacing a text
+segment with another. Since the transcriptions are time-aligned to the audio, we
+also know exactly what is the corresponding audio segment to the text submitted.
 
 This enables us to perform forced alignment on the submitted text and the audio.
 With a well selected pruning threshold, we can distinguish false transcriptions
@@ -119,17 +158,16 @@ Since every segment of audio fits the acoustic model to a different degree, both
 false positives and false negatives will inevitably occur.
 
 False positives (when the system accepts a wrong transcription) present a
-problem, since the error will enter the data set. But false negatives can often
-be circumvented by submitting the transcription divided in different segments.
-Of course, this method can also be used to force a wrong transcription but we
-assume no malevolence on the part of the users.
+problem, since the error will enter the training data set. But users can often
+circumvent false negatives by submitting the transcription divided in different
+segments.  Of course, this method can also be used to force a wrong
+transcription but we assume no malevolence on the part of the users.
 
 Apart from catching wrong transcription, the forced alignment mechanism provides
 exact synchronization on the time axis. This is a completely missing element in
 the case of virtually all programs for computer-aided transcription. For some
-examples, Transcriber,\footnote{http://trans.sourceforge.net/} a veteran
-open-source transcribing program for Linux, expects the user to provide
-alignment on the level of phrases;
+examples, Transcriber, a veteran open-source transcribing program for Linux,
+expects the user to provide alignment on the level of phrases;
 Transcribe,\footnote{https://transcribe.wreally.com/} a commercial web-based
 transcribing tool, allows the user to add timestamps anywhere in the text. There
 is no acoustic model, hence nothing to match against.
@@ -158,7 +196,7 @@ IPA notation.
 \begin{table*}[htpb]
 \fontspec{DoulosSIL}
 \begin{center}
-\begin{tabular}{|l|l|l|l||l|l|l|l|}
+\begin{tabular}{|l|l|l||l|l|l|}
 \hline
 IPA & PACal & common grapheme & IPA & PACal &  common grapheme \\
 \hline
@@ -345,7 +383,7 @@ character in the respelling. Exceptions are as follows:
 The module includes two-way transduction, although only the one from array of
 phonemes to human-readable phonetic respelling is needed in our application.
 Still, the user can mark up special-case pronunciation with the apostrophe, like
-the sequence of phonemes \texttt{c} and \texttt{h} with the string \texttt{c'h}.
+the sequence of phonemes \texttt{o} and \texttt{u} with the string \texttt{o'u}.
 The need has never occurred during the six years' lifespan of the application.
 
 Note that when encoding into the phonetic respelling, none of
@@ -443,7 +481,8 @@ Weinfurter & 30 & \texttt{v e j n f u r t e r} & 13 & \texttt{v a j n f u r t r}
 Michelangelo & 6 & \texttt{m i x e l a ng g e l o} & 2 & \texttt{m i k e l a n dzh e l o} & 4 & {\em mikelandželo} & 0 \\
 \hline
 \end{tabular}
-\caption{Examples of non-standard pronunciation in the manually transcribed data}\label{tab:pronunc}
+\caption{Examples of non-standard pronunciation in the manually transcribed data}
+\label{tab:pronunc}
 \end{center}
 \end{table*}
 
@@ -459,7 +498,8 @@ orthographically incorrect & 6 & 0 \\
 \hline
 \end{tabular}
 \caption{Success rate for phonetic and orthographic representation of foreign
-words}\label{tab:pronunc-rate}
+words based on data from table\ref{tab:pronunc}}
+\label{tab:pronunc-rate}
 \end{center}
 \end{table*}
 
@@ -497,7 +537,7 @@ extensive corpus of Karel Makoň and to acquire an almost complete transcription
 thereof. Nearly 70 hours corresponding to over 600,000 word forms have been
 transcribed manually with minimal financial\footnote{In early stages, we kept a paid
 annotator to test the application.} as well as development\footnote{The system
-has been written by a single developer.} costs. Only some of the volunteer have
+has been written by a single developer.} costs. Only some of the volunteers have
 indulged instruction time in order of minutes. The rest of the corpus has been
 transcribed using an ASR system trained on these ever-growing data.
 

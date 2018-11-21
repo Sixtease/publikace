@@ -176,7 +176,7 @@ entering the eternal life before the physical death. He draws mainly from the
 Christian symbolism, builds up on Christian mysticism and ancient tradition of
 India and China.
 
-Mako\v{n}'s written works present his teachings in a systematic, comprehensible
+Mako\v{n}'s written works present his teachings in a systematic, comprehensive
 fashion, while the recordings offer bonuses: talks tailored to the audience,
 answers to questions, personal experiences, behind-the-scenes to the books etc.
 The archive is freely
@@ -444,7 +444,7 @@ Legend to Figure~\ref{fig:scn2lab}:
 }
 \end{enumerate}
 
-The most common tasks have keyboard shortcuts: \texttt{ctrl+space} for
+The commonest tasks have keyboard shortcuts: \texttt{ctrl+space} for
 play/pause and \texttt{ctrl+enter} for submitting a correction.
 
 \subsection{Displaying the Transcription}
@@ -559,7 +559,10 @@ The efficiency of repositioning a rectangle is supported by the fact that we can
 calculate the coordinates of all rendered words once and only recalculate them
 in two cases: 1) In the rare event of screen resize and 2) when a corrected
 segment is merged into the transcription, in which case we only need to
-recalculate for the words further in the document.
+recalculate for the words further in the document.\footnote{We could even stop
+the recalculation as soon as we find that the new horizontal coordinate of a
+word is left untouched, and add the difference in the vertical coordinate to all
+subsequent words, i.e. when a line stays the same, so do all below it.}
 
 \subsubsection{Manual / Automatic Distinction}
 
@@ -596,10 +599,10 @@ One of the most profound measures in ergonomy are keyboard shortcuts. The most
 common task is pausing and resuming playback. Both oTranscribe and Transcribe
 use the \texttt{esc} key for that, and Transcriber uses the \texttt{tab} key.
 We chose \texttt{ctrl+space} combination. We argue that \texttt{esc} is not the
-best of options because the distance the fingers have to travel from the
-alphanumeric keys causes a noticeable delay. This can lead to missing a pause
-between words. The \texttt{tab} key as chosen by Transcriber is a splendid choice
-from the ergonomy point of view and there is no reason not to use it in a
+best of options for desktops because the distance the fingers have to travel
+from the alphanumeric keys causes a noticeable delay. This can lead to missing a
+pause between words. The \texttt{tab} key as chosen by Transcriber is a splendid
+choice from the ergonomy point of view and there is no reason not to use it in a
 dedicated user interface. However, in the browser, where the \texttt{tab} key
 has as native use, re-binding it could lead to confusion and irritation. The
 space bar is probably the easiest-to-find key in all situations and dedicating
@@ -752,7 +755,7 @@ One of the aspects we want to explore is enabling people to naturally share
 catching segments of talks on social networks.
 
 Another point of near-future endeavor is higher-level work with the contents. By
-this we mean that we wouldd like to use both automatic processing methods and the
+this we mean that we would like to use both automatic processing methods and the
 users to do semantic analysis of the talks: What topic is covered where? What
 topics are covered at all? Which talks relate to which written works?, and
 similar questions.
