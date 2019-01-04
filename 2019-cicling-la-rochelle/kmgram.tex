@@ -1,0 +1,112 @@
+\documentclass{llncs}
+\usepackage{graphicx}
+
+
+\begin{document}
+\newtheorem{Definition}{Definition}
+\title{Dynamic Grammars for Embedded ASR}
+
+%\author{Old\v{r}ich Kr\r{u}za}
+\author{Anonymous}
+
+
+%\institute{Charles University in Prague\\
+%           Faculty of Mathematics and Physics\\
+%           Institute of Formal and Applied Linguistics\\
+%           Malostransk\'{e} n\'{a}m\v{e}st\'{i} 25, Prague\\
+%           Czech Republic\\
+%           kruza@ufal.mff.cuni.cz, vk@ufal.mff.cuni.cz}
+\institute{Anonymous university\\
+           Anonymous institute \\
+           Address\\
+           Country\\
+           E-mail}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a speech recognition system embedded in a wearable device
+where many applications can run and each defines its own set of recognized
+commands. The command set for each application can be fixed or dynamically
+created from available data.
+\end{abstract}
+
+\section{Introduction}
+Speech recognition has undergone a massive improvement since the adpotion of
+deep neural networks in the recent years\cite{hinton2012deep}, although the
+practice is much older\cite{morgan1995neural}. Modern hardware enables ASR
+systems to operate with dictionaries in the magnitude of hundreds of thousands
+of words and even to recognize words out of vocabulary. However, when embedding
+an ASR system\cite{huggins2006pocketsphinx} to an outdated device with limited
+CPU and memory, and with battery life concerns, it can be desirable or necessary
+to sacrifice some of the power and flexibility.
+
+We present one such setting, where voice control for a wearable device running
+Ubuntu 12.04 on an ARM architecture is developed.
+
+\section{Device}
+
+The device in our concern is the {\em AIR\textsuperscript{e} Lens}, a smart glass by
+Konica Minolta designed for use in industry. There
+is a head-mount display attachable to a protective glass or worn
+directly with a detachable nose support. Connected by a cable is a
+handheld-sized control box with the computing unit that features an ARM CPU, 1GB RAM and
+runs Ubuntu 12.04\footnote{Newer versions of the operating system are not
+supported.}
+
+The head-mount display has a gyroscopical accelerometer, a compass, a camera, a
+microphone, and a monocular optical element. The control box has a spare USB
+slot and 9 bulky rubber buttons suitable for use in protective gloves.
+
+\subsection{Control Methods}
+
+The glass can be most reliably controlled by the nine buttons but their use
+requires dedicating a hand and reaching out for the control box, which is
+normally worn on a belt. This can be impractical in situations where the user is
+performing some task using both hands. The small number of buttons further
+limits the comfort in performing complex interactions.
+
+Further input methods include gestures, head motion and pressing a wrist-worn
+bluetooth button. All of these input methods, however, have a very limited
+symbol set. Possible solutions are offered by image (video) recognition and
+speech recognition. Indeed, a QR reader app is used for input of text strings,
+like URLs or WiFi configurations.
+
+\section{Voice Control}
+
+For implementing speech recognition for the smart glass, the first fundamental
+question is whether to embed the engine to the glass or run it remotely. Since
+offline functionality is a highly valued feature in the intended use cases, the
+embedded variant is clearly desirable.
+
+The second fundamental question is the type of the acoustic model. The number
+one choice are of course the deep neural networks. The only thinkable competitor
+could be the old school hidden Markov models. The major pros of the neural
+networks are better fundamental suitability for acoustic modeling and thus
+implied higher accuracy, and also the option of skipping explicit dealing with
+the phonetic transcription.
+The arguments for HMMs are lesser computational intensity and maturity of tools.
+
+As a compromise, we have chosen the excellent free software speech recognition
+tool Julius\cite{lee2001julius}, \cite{lee2009recent}, which is very stable,
+feature-rich and allows HMM as well as GMM-DNN-hybrid models.
+
+\section*{Acknowledgments}
+
+This work has been using language resources developed, stored and distributed by the LINDAT/CLARIN project of the Ministry of Education, Youth and Sports of the Czech Republic (project LM2010013).
+\\
+This work was supported by the Grant of Czech Science Foundation (GA\v{C}R) No. P202/10/1333.
+\\
+This work was supported by the Charles University Grant Agency (GAUK) Grant No. 920913.
+\\
+Participation in the conference was supported by Foundation of Vilem Mathesius.
+\\
+This research was partially supported by SVV project number 260 104.
+
+\bibliographystyle{splncs}
+
+\begin{thebibliography}{}
+
+\end{thebibliography}
+%\bibliography{paper}
+\end{document}
