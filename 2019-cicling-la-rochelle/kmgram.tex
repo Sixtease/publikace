@@ -88,8 +88,61 @@ the phonetic transcription.
 The arguments for HMMs are lesser computational intensity and maturity of tools.
 
 As a compromise, we have chosen the excellent free software speech recognition
-tool Julius\cite{lee2001julius}, \cite{lee2009recent}, which is very stable,
-feature-rich and allows HMM as well as GMM-DNN-hybrid models.
+tool Julius\cite{lee2001julius}, \cite{lee2009recent}, which is very mature,
+feature-rich and allows HMM as well as DNN and GMM-DNN-hybrid models.
+
+\subsection{Acoustic Modeling}
+
+We have used the Mozilla Common Voice\footnote{voice.mozilla.org} corpus for
+training, the CMU Sphinx\cite{lamere2003cmu} dictionary and their
+Tensorflow\cite{abadi2016tensorflow}-based pronunciation tool named {\em
+g2p-seq2seq} for phonetic transcription. For training of the models, we have
+used HTK\cite{young2002htk}. We use tied-state triphones clustered by decision
+trees and Gaussian mixture models with 8 mixtures.
+
+The model in binary form has 23MB and takes about 2 seconds to load on the
+device.
+
+\subsection{Usage}
+
+The glass runs dedicated applications to perform its various tasks. All of those
+applications are designed to be controlled by four directional arrow keys and a
+confirm key. The remaining four keys present on the control box are for
+operations outside the scope of an application. For example, turning the display
+on and off, exiting to the main screen etc.
+
+By default, the voice control uses a grammar that copies the buttons, i.e. it is
+in an isolated-word mode with vocabulary of {\em next, back, up, down, OK}.
+Some synonyms are also recognized, like {\em left} for {\em back}, {\em upward}
+for {\em up} or {\em enter} for {\em OK}.
+
+Whenever one of these commands is recognized, pressing the corresponding key
+is triggered.
+
+Every application can either rely on this behavior or capture the recognition
+output, handling it as it sees fit. The recognition grammar can be redefined, so
+the set of commands is changed as long as the app is running.
+
+For example, an application that offers a list of items for selection, can
+define the recognition grammar to accept commands {\em next}, {\em back}, {\em
+OK} and the names of the offered items. Of course, this requires that the
+pronounciation of each item is known. We do not run g2p-seq2seq on the device
+for performance reasons, so this has to be taken care of in advance.
+
+\section{Architecture}
+
+The glass uses the web platform internally. Firefox (version 52) serves web applications
+locally via the \texttt{file://} protocol. There is a Java-based middleware
+layer called the SG server, which provides endpoints for camera, logs and other
+device functionality. Julius can run either as a command-line application
+outputting to standard output, or as a TCP server capable of handling one single
+connection at a time.
+
+The browser supports websockets, which is the most suitable technology for
+accepting a continuous data stream over extended time periods without the
+necessity of polling on the client side. To bridge the
+websocket-protocol-speaking client with the TCP-speaking server, and to mitigate
+the limitation to a single connection, we have created a {\em broker}
 
 \section*{Acknowledgments}
 
@@ -105,8 +158,6 @@ This research was partially supported by SVV project number 260 104.
 
 \bibliographystyle{splncs}
 
-\begin{thebibliography}{}
+\bibliography{citace}
 
-\end{thebibliography}
-%\bibliography{paper}
 \end{document}
