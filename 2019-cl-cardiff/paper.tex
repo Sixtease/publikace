@@ -5,7 +5,8 @@
 \section{Introduction}
 
 The way a volume of data is stored impacts all subsequential processing and
-exploitation. A decision on storing the data has to be made as soon as the data
+exploitation, see Reppen 2010\cite{reppen2010building}.
+A decision on storing the data has to be made as soon as the data
 is being acquired. Obviously, the difficulty of changing the way of storing the
 data increases with the volume of the data stored and with parties relying on
 it. The relying parties can be in-house software tools or even public
@@ -49,20 +50,100 @@ is the ordinal number in that year, so for example {\texttt 85-05} is the fifth
 recording taken in the year 1985. These occupy 686 resulting files out of
 total 802 files originating in cassettes.
 
+Of the 39 self-digitized reel-to-reel tapes, 36 were recorded at 9.53cm per
+second. The remaining three in 2.38cm per second. The latter took six hours to
+play back and the quality was heavily impaired.
+
 \subsection{Digitization}
 
-Digitization of the tapes is naturally done one side of the tape into one file.
-Any merging or splitting is extra work. Thus, most of the files resulting from
-the digitization process correspond to one side of a magnetophone cassette
-(worth mostly 45 minutes) or one pass from reel to reel in 9cm/s (90min).
+The digitization has mostly been done one side of a cassette to one file and one
+channel of one pass from reel to reel to one file. Notable exceptions are
+cassettes digitized in auto-reverse mode, which has been experimented with during
+the two years of the digitization.
 
-During the two years of digitization, some experiments aiming at saving time and
-effort were done. For instance, using a device that can auto-reverse and play
-two cassettes in a row.
+An exhaustive list of the volumes corresponding to each digitized file follows:
 
-\section{Need for Change}
+\begin{enumerate}
+\item{sides of cassettes: 615 files;}
+\item{whole cassettes: 140 files;}
+\item{reel-to-reel passes: 112 files;}
+\item{imported, uncertain: 222 files;}
+\item{two concatenated cassettes: 1 file;}
+\end{enumerate}
+
+The imported files are those that have been digitized by other parties prior to
+my own  effort. The format for digitization was 48kHz, 16bit, real time. An
+exception to real-time digitization were the three reels recorded in 2.38cm/s.
+These have been digitized in the standard speed of 9.53cm/s and had the sample
+rate set to one quarter of the nominal value.
+
+\section{Usage of Digitized Material}
+
+The digitized audio files have been used for two purposes. On one hand for
+direct distribution over physical media and on the other hand in a dedicated web
+application that has been serving for direct playback in the browser and for
+acquisition of manual transcription. There were two generations of said web
+application, see Krůza 2012\cite{kruuza2012making} for the first one, and Krůza
+2018\cite{biblio:KrKuSecondGenerationWeb2018} for the second one.
+
+The original version used the HTML audio element for playback. This suffers from
+poor timing precision when playing back specific words but it handles streaming
+very well. The next generation of the web application uses the Web Audio API,
+which remedies the precision issues at the cost of streaming capability.
+
+To prevent the necessity to load the whole recording, which is often 90 minutes
+long, a change was inevitable.
 
 \section{New Structuring}
+
+To enable the web application to access random segments of a long recording,
+while keeping the precision provided by Web Audio API, these options emerge:
+
+\begin{enumerate}
+\item{pre-load and decode the whole recording;}
+\item{serve ranges by cutting the audio on the server side;}
+\item{store the recordings in smaller chunks;}
+\item{wait for streaming to be supported;}
+\end{enumerate}
+
+Option 1 - pre-loading the whole recording is the easiest one to implement but
+it has unbearable downsides for the user. The recoding not only must be
+completely downloaded, it also must be decoded. This takes minutes to complete.
+Worse yet, it can freeze the computer by using up all memory.
+
+Option 2 - serving arbitrary ranges cut on the server side seems quite viable.
+It is flexible and not very hard to implement. One downside is that the server
+must be able to script as well as access the whole recordings. Since the amount
+is in order of tens of gigabytes even using compressed audio formats, it limits
+the options for hosting and increases costs. Another downside is with caching.
+Repeated sessions with the same recording would likely lead to different ranges
+being requested, thus disabling the advatages of caching.
+
+Option 3 - storing the corpus in smaller chunks has the downside of serving
+unnecessary context when requesting a specific range. Also, if we want to retain
+full download capability, we must either stitch the recording together or host
+both split and integral versions of all recordings.
+
+Option 4 - waiting for streaming support in Web Audio API might seem silly but
+the issue has been discussed by the Web Audio API developer team.\footnote{see
+https://github.com/WebAudio/web-audio-api/issues/1305}
+
+In the end I opted for storing the corpus in smaller chunks. The downside of
+unnecessary context is a minor one, especially if we choose a fitting length of
+the chunks. Having to host two versions of the corpus raises the costs in my
+case by less than a US Dollar per month, which is bearable.
+
+\subsection{The Process of Restructuring}
+
+There are three choices to be made for the restructuring:
+\begin{enumerate}
+\item{how long will the chunks be;}
+\item{how to choose individual split points;}
+\item{what will be the directory structure;}
+\end{enumerate}
+
+The length of the chunks should be no more than 2 minutes. With 16kHz compressed
+audio, a 2-minute chunk takes up about 500kB. This 
 
 \subsection{Where It Is and Isn't Used}
 

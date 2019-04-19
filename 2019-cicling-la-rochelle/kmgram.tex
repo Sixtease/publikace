@@ -143,6 +143,13 @@ accepting a continuous data stream over extended time periods without the
 necessity of polling on the client side. To bridge the
 websocket-protocol-speaking client with the TCP-speaking server, and to mitigate
 the limitation to a single connection, we have created a {\em broker}
+application that acts on one hand as the sole client for Julius' TCP server and
+on the other hand as a websocket server for any number of connections,
+forwarding the traffic from Julius to all clients and vice versa. Whenever there
+is no active client connection, the default recognition grammar is restored and
+button keypresses emulated.
+
+
 
 \section*{Acknowledgments}
 
