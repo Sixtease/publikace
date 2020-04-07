@@ -231,7 +231,7 @@ minutes, we must discard at the very least 40\% of the segments. I use the
 following criteria for including a segment in the data:
 
 \begin{enumerate}
-\item{The first and last token have reliability at least 50\%,}
+\item{The first and last token have reliability at least 70\%,}
 \item{The mean reliability of all tokens is at least 70\%,}
 \item{The number of words is no less than five.}
 \end{enumerate}
@@ -255,16 +255,16 @@ extra words in the (mis)aligned chunk. The mean taps these.
 All the constants and criteria are to be considered a baseline solution. They
 all could be tweaked much more rigorously and solved much more soundly. However,
 this simple solution readily yields a high-quality training dataset of 1058
-hours. Of the total 542,610 segments, 166,458 (31\%) have been accepted to the
-training dataset. Of the total 376,152 discarded segments, 316,030 (84\%) were
+hours. Of the total 539,057 segments, 142,530 (26\%) have been accepted to the
+training dataset. Of the total 396,527 discarded segments, 350,258 (88\%) were
 discarded because of the criterion of unreliable start or end.
 
-Setting the minimum reliability of the boundary words from 50\% to 70\% reduces
-the number of accepted chunks to by 17\%. It strips 5\% segments
-of the total number from the dataset. But if we consider that 40\% of the total
-number of segments must be discarded because of audio padding, the loss is
-acually 9\%. It is an option to raise the matching reliability with a cost of
-training data volume.
+Reducing the minimum reliability of the boundary words from 70\% to 50\% increases
+the number of accepted chunks by 17\%. It adds 5\% segments
+of the total number to the dataset. But if we consider that 40\% of the total
+number of segments must be discarded because of audio padding, the gain is
+acually 9\%. It is an option to increase the training data volume at the cost
+of matching precision.
 
 \section{ASR Based on the Dataset}
 
