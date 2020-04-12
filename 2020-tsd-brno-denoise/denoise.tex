@@ -91,11 +91,11 @@ information harder to extract, the learning is going to be less successful.
 
 For speech recognition, the problem of noise, reverberation and other defects
 has been a pain point and also a point of research. To mention some, Gillespie
-and Atlas (2002)\cite{gillespie2002diversity} deal with reverberation for
-GMM-based ASR, Yoshioka et al. (2012)\cite{reverbmagazine} summarize various
-dereverberation techniques, Ko et al. (2017)\cite{reverbaugment} attempt to
-simlulate reverberation in training data digitally. Seltzer, Yu and Wang
-(2013)\cite{dnnnoiserobust} deal with noise in DNN-based ASR.
+and Atlas\cite{gillespie2002diversity} deal with reverberation for
+GMM-based ASR, Yoshioka et al.\cite{reverbmagazine} summarize various
+dereverberation techniques, Ko et al.\cite{reverbaugment} attempt to
+simlulate reverberation in training data digitally. Seltzer, Yu and
+Wang\cite{dnnnoiserobust} deal with noise in DNN-based ASR.
 
 There are in principle two ways to deal with the negative effect of acoustic
 deficiencies in speech recognition: 1) to adapt the model, which includes
@@ -152,15 +152,14 @@ interferences is a difficult task.
 
 \section{Neural Domain Transfer}
 
-The revolutionary article of Zhu et al. (2017)\cite{cyclegan} presenting
+The revolutionary article of Zhu et al.\cite{cyclegan} presenting
 cycle-consistent generative adversarial networks gave mankind a mighty tool and
 a hilarious toy that was used for de-hazing
 photographs\cite{Engin_2018_CVPR_Workshops}, giving people other's facial
 expressions\cite{jin2017faceoff}, in biomedicine\cite{yang2018biogan} and also
-in speech processing: Kaneko and Tameoka (2017)\cite{kaneko2017parallel} present
-speech domain transfer and Hosseini-Asl et al.
-(2018)\cite{hosseini2018malevoicegan} do the same for the purpose of speech
-recognition.
+in speech processing: Kaneko and Tameoka\cite{kaneko2017parallel} present
+speech domain transfer and Hosseini-Asl et al.\cite{hosseini2018malevoicegan} do
+the same for the purpose of speech recognition.
 
 
 Most closely related to the work presented in this article is probably
@@ -180,7 +179,7 @@ point of future work, I have explored the simpler way of clustering the data.
 \section{Clustering}
 
 In order to perform clustering on any dataset, a metric on the data is needed.
-I have used that proposed by Mandel \& Ellis (2005)\cite{mandel2005song}, which
+I have used that proposed by Mandel \& Ellis\cite{mandel2005song}, which
 is based on mel-frequency cepstra. A distance matrix has been created using the
 tool musly\cite{schnitzer2011using} and the clusters on top of that using
 hierarchical clustering\cite{johnson1967hierarchical}.
@@ -205,8 +204,8 @@ have a maximum internal distance of 25.
 
 \section{Results}
 
-I have used the voice transfer method as proposed by Kaneko \& Kameoka
-(2017)\cite{kaneko2017parallel} and implemented by
+I have used the voice transfer method as proposed by Kaneko \&
+Kameoka\cite{kaneko2017parallel} and implemented by
 Mao\footnote{github.com/leimao/Voice\_Converter\_CycleGAN}. I have trained
 transfer 1) between the clean and the overdriven cluster and 2) between the
 clean and the low-speed cluster.
