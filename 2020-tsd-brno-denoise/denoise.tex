@@ -71,7 +71,7 @@ Charles University
 
 \begin{abstract}
 The paper presents an attempt to solve the problem of bad audio quality
-affecting the accuracy of speech-to-text systems. I
+affecting the accuracy of speech-to-text systems. We
 describe an experiment with Gycle-GAN domain transfer from the defect to the
 pure as a way to reduce the impact of noise, overdrive, reverberation and other
 defects.
@@ -104,7 +104,7 @@ presents an experiment in the latter approach.
 
 \section{Spoken Corpus of Karel Makoň}
 
-I am looking into the problem of acoustic inconsistencies in terms of varying
+We are looking into the problem of acoustic inconsistencies in terms of varying
 overall quality, reverberation, noise, overdrive and other phenomena in a
 dataset that is to be automatically transcribed and listened to by humans.
 
@@ -117,7 +117,7 @@ overdrive, and 68\% on recordings taken on a magnetophone tape with a slow
 recording speed of 2 centimeters per second after some 30 years of living-room
 storage.
 
-I am conducting an experiment to make the input data similar to the training
+We are conducting an experiment to make the input data similar to the training
 data instead of the more usual other way around because 1) it is not easy to
 make the volunteer annotators transcribe acoustically flawed data, 2) not only
 speech recognition would benefit from successful denoising, the listening
@@ -178,12 +178,12 @@ recordings are very unlike each other, they don't form a consistent domain.
 There are two ways of dealing with this situation: 1) adapt CycleGAN so that it
 can deal with a ``compact'' and a ``scattered'' domain or 2) cluster the
 data and apply CycleGAN on the individual clusters. While adapting CycleGAN may be a
-point of future work, I have explored the simpler way of clustering the data.
+point of future work, we have explored the simpler way of clustering the data.
 
 \section{Clustering}
 
 In order to perform clustering on any dataset, a metric on the data is needed.
-I have used that proposed by Mandel \& Ellis\cite{mandel2005song}, which
+We have used that proposed by Mandel \& Ellis\cite{mandel2005song}, which
 is based on mel-frequency cepstra. A distance matrix has been created using the
 tool musly\cite{schnitzer2011using} and the clusters on top of that using
 hierarchical clustering\cite{johnson1967hierarchical}.
@@ -192,7 +192,7 @@ A manual... or rather aureal check on the clusters confirms that files falling
 into a cluster are indeed acoustically similar. So we arrived at a cluster of
 overdriven recordings, a cluster of heavily hummed ones etc.
 
-For curiosity, I looked at the distances of the files among each other and
+For curiosity, we looked at the distances of the files among each other and
 compared it to that between other familiar sounds. For instance, two adjacent
 segments of the same speaker from a meeting of the Czech parliament has a
 distance of 1.4. Different speakers have a distance of 6.5. One of these
@@ -211,13 +211,13 @@ clusters have a maximum internal distance of 25.
 
 \section{Results}
 
-I have used the voice transfer method as proposed by Kaneko \&
+We have used the voice transfer method as proposed by Kaneko \&
 Kameoka\cite{kaneko2017parallel} and implemented by
-Mao\footnote{github.com/leimao/Voice\_Converter\_CycleGAN}. I have trained
+Mao\footnote{github.com/leimao/Voice\_Converter\_CycleGAN}. We have trained
 transfer 1) between the clean and the overdriven cluster and 2) between the
 clean and the low-speed cluster.
 
-After 200 epochs, I have performed speech recognition on the transferred data.
+After 200 epochs, we have performed speech recognition on the transferred data.
 The result is summed up in Table~\ref{tab:results}.
 
 \begin{table}[htpb]
@@ -239,8 +239,8 @@ The small but apparent reduction in word error rate in case of the overdriven
 cluster is the positive, promising result. The improvement is rather small, and
 as such it does not seem worthwhile applying it on the entire corpus. It
 proves, however, that there is some potential. An important immediate benefit is
-that the transferred overdriven (or should I say de-overdriven) sound files are
-much easier on the ear and it can be a help for the human listener.
+that the transferred overdriven (or should we say de-overdriven) sound files are
+much easier on the ear and it can be a help for human listeners.
 
 The wrecking word error rate increase from 69\% to 94\% in case of the
 recordings taken at low tape speed requires further investigation.
