@@ -82,11 +82,11 @@ defects.
 
 Automatic speech recognition is generally approached by means of machine
 learning: a statistical model is inferred based on some training data. Its
-application bases on the assumption that whatever was learned about the training
-data will also apply for the input data. It is clear then, that if the input
+application is based on the assumption that whatever was learned about the training
+data will also apply to the input data. It is clear then, that if the input
 data have different properties than the training data, the basic assumption is
 violated and the inference performance will suffer.
-Also if the training data themselves are damaged in a way that makes the desired
+Also, if the training data themselves are damaged in a way that makes the desired
 information harder to extract, the learning is going to be less successful.
 
 For speech recognition, the problem of noise, reverberation and other defects
@@ -119,14 +119,14 @@ storage.
 
 I am conducting an experiment to make the input data similar to the training
 data instead of the more usual other way around because 1) it is not easy to
-make the volunteer annotators transcribe acoustically flawed data, 2) a
-success would not only benefit speech recognition results but also listening
-experience and 3) the model could stay leaner.
+make the volunteer annotators transcribe acoustically flawed data, 2) not only
+speech recognition would benefit from successful denoising, the listening
+experience would improve too, and 3) the model could stay leaner.
 
 What acoustic defects are actually present? Since the corpus was digitized from
-magnetophone tapes of spontaneous talks by a single speaker recorded in various
+magnetophone tapes of spontaneous talks of a single speaker recorded in various
 amateur conditions and with consumer devices, we can broadly distinguist these
-types of interefering signal:
+types of quality degradation:
 \begin{enumerate}
 \item{additive noise -- hum or hiss,}
 \item{
@@ -143,10 +143,14 @@ types of interefering signal:
 \end{enumerate}
 
 The individual interference types affect each other and can occur several times
-in several stages. For instance, echo is like a convolution with a certain
-sample vector. It is followed by non-linear distortion and after that
-convolution again with a different vector in the imperfect magnetophone
-circuits. Additive noise comes on top of that. Another batch of distortions
+in several stages. For instance, the echo is essentially convolution with a certain vector of
+amplitude values, known as the impulse response. It even might not be
+constant if there are moving objects in the room or if the speaker or
+microphone is moving. This convolution is followed by a non-linear
+distortion in the microphone and its preamplifier and convolved again with
+another impulse response, this time representing a frequency and phase
+response of recorder's amplifiers. Finally it is non-linearly distorted in
+the process of making a magnetic recording on the tape. Another batch of distortions
 comes during the playback. Clearly, modeling, let alone reverting these
 interferences is a difficult task.
 
@@ -194,13 +198,16 @@ segments of the same speaker from a meeting of the Czech parliament has a
 distance of 1.4. Different speakers have a distance of 6.5. One of these
 segments compared to a black metal song chorus has the distance of 519. On the
 other hand, the median distance among the Spoken corpus of Karel Makoň, where
-there is one single speaker, amounts to 55.9.
+there is a single speaker, amounts to 55.9.
 
-The experiment presented below is conducted on three clusters: 1) A cluster
-of the cleanest recordings, used as the destination domain, 2) a cluster of
-overdriven recordings and 3) one of those recorded with low tape speed. The
-latter recordings are the hardest to understand also for humans. All clusters
-have a maximum internal distance of 25.
+The experiment presented below is conducted on three clusters:
+\begin{enumerate}
+\item{A cluster of the cleanest recordings, used as the destination domain,}
+\item{a cluster of overdriven recordings and}
+\item{a cluster of recordings taken with low tape speed.}
+\end{enumerate}
+Recordings in cluster 3 are the hardest to understand even for humans. All these
+clusters have a maximum internal distance of 25.
 
 \section{Results}
 
