@@ -106,7 +106,7 @@ recognition training:
     background noise and utterances\cite{stazkadata},
 }
 \item{
-    Spoken Corpus of Karel Makoň\cite{kruuza2012making} with its 70 hours of
+    Spoken Corpus of Karel Makoň\cite{kruuza2012making} with its 100 hours of
     manually transcribed spontaneous speech by a single speaker\cite{makondata},
 }
 \item{and possibly others that I am not aware of.}
@@ -115,7 +115,7 @@ recognition training:
 The Czech parliament meeting recordings represent a publicly available dataset
 of high-quality audio recordings of contemporary Czech in consistent low-noise
 audio quality worth almost 4000 hours of downloadable material, about 2800 hours
-with the overlaps subtracted. Extracting
+after subtraction of the overlaps. Extracting
 training data for speech recognition systems would provide a corpus at least
 one order greater in length than those so far publicly available.
 
@@ -170,10 +170,10 @@ lower right from 01:24 to 12:00.}
 \end{figure}
 
 Systems for aligning long audio segments to their transcripts already exist,
-like that of Moreno et al. 1998\cite{moreno1998recursive} or Hazen
-2006\cite{hazen2006automatic}. They are both based on an already existing
-automatically acquired transcript. I use this technique as well, though much
-simplified.
+like that of Moreno et al.\cite{moreno1998recursive} or
+Hazen\cite{hazen2006automatic}. They are both based on an already existing
+automatically acquired transcript. I use this technique as well, though 
+simplified and adapted to the task.
 
 I have used the dataset mentioned above\cite{pspdata} to train a GMM-based ASR
 system, using the stenographs as training data for a language model. Using these
@@ -198,8 +198,8 @@ level.}
 \subsection{Audio Segmentation}
 
 To create a usable dataset for training a speech-to-text system, it is not
-necessary to perfectly align the whole transcript. It is fine to just select the
-reliable segments.
+necessary to perfectly align the whole transcript. On the contrary, it is
+desirable to align what is reliably precise and discard the rest.
 
 The criteria for good training samples are:
 \begin{enumerate}
@@ -209,18 +209,21 @@ The criteria for good training samples are:
 \end{enumerate}
 
 To ensure precise transcript, it is good to have the samples padded by some
-silence, since the alignment may be a bit imprecise. The need to split at longer
+silence, since the alignment obtained from the initial ASR may be a bit
+imprecise. We thus want to split at pauses, the longer the better, up to a
+certain limit (about 1 second). The need to split at longer
 pauses goes against the need to split at consistent, none-too-great lengths.
 
-The problem of selecting the optimal set of silences so that the longest ones
-are kept and split the recording in chunks of set length boundaries looks like
-one for dynamic programming but a simpler approach is also possible: Start with a set of
-all silences predicted by the forced alignment. Iterate over the silences
-shortest-first and remove it if it doesn't break the constraints.
+So the problem is to select an optimal set of silences so that the longest ones
+are used and so that they split the recording into chunks of length in a given
+range. This looks like a problem for dynamic programming but a simpler approach
+is also possible: Start with a set of all silences predicted by the forced
+alignment.  Iterate over the silences shortest-first and remove each if it
+doesn't break the constraints.
 
 I have experimentally set the length boundaries to 12 - 30 seconds. The maximum
-length could be decreased at the cost of more frequent splits in the middle of a
-word.
+length could be decreased at the cost of available pauses to choose from, which
+would lead to more frequent splits in the middle of a word.
 
 \subsection{Training Samples Selection}
 
@@ -237,11 +240,11 @@ following criteria for including a segment in the data:
 \end{enumerate}
 
 Minimum reliability of border tokens is considered to minimize the danger of
-shifted alignment boundaries. Mean reliability is considered because it is OK for some
-words to have reliability zero: there are enough errors in the prediction,
-that's why we use the manual transcript after all. But if too many tokens have
-too low reliability, then it is a sign of a suspicious segment. The number of
-words has a minimum because with only a few words, the probability of
+shifted alignment boundaries. Mean reliability is considered because it is OK
+for some words to have very low reliability: there are enough errors in the
+prediction, that's why we use the manual transcript after all. But if too many
+tokens have too low reliability, then it is a sign of a suspicious segment. The
+number of words has a minimum because with only a few words, the probability of
 misalignment with good score is much greater than when there are enough words.
 
 Why use mean reliability and not median? The way the reliability is computed
@@ -258,7 +261,9 @@ all could be tweaked much more rigorously and solved much more soundly. However,
 this simple solution readily yields a high-quality training dataset of 1058
 hours. Of the total 539,057 segments, 142,530 (26\%) have been accepted to the
 training dataset. Of the total 396,527 discarded segments, 350,258 (88\%) were
-discarded because of the criterion of unreliable start or end.
+discarded because of the criterion of unreliable start or end. It should be
+noted however, that the start / end reliability criterion is applied first, so
+it catches segments that would be discarded for other reasons also.
 
 Reducing the minimum reliability of the boundary words from 70\% to 50\% increases
 the number of accepted chunks by 17\%. It adds 5\% segments
@@ -269,18 +274,26 @@ of matching precision.
 
 \section{ASR Based on the Dataset}
 
-I have trained a standard DeepSpeech\cite{hannun2014deep} model with training :
-dev : test ratio of 48 : 1 : 1; batch size 50; learning rate 0.0001. The
-training took TODO epochs and the final WER on testing data from the corpus
-itself was TODO.
+I have trained a standard DeepSpeech\cite{hannun2014deep} model on the 1058
+hours with training :
+development : test ratio of 48 : 1 : 1; batch size 50; learning rate 0.0001; dropout
+rate 0.2. The training took 12 epochs to reach optimal dev fit and the final
+word error rate on testing data from the corpus itself is 8.40\%.
+
+The language model used was a pentagram model with pruned singleton trigrams,
+tetragrams and pentagrams. The bulk of scraped transcriptions, including those
+with no downloadable corresponding audio, was used as training data for the
+language model.
 
 \section{Conclusion}
 
 I have presented a new corpus of spoken Czech suitable for training speech
 recognition systems based on data in the public domain. The corpus size exceed
-by an order the size of other freely available such corpora.
+by an order the size of other freely available such corpora. A speech
+recognition system with competitive performance was made to show the fitness
+of the dataset to the purpose.
 
-Source code for scraping and building the corpus is in public domain and
+Source code for scraping and building the corpus is in the public domain and
 available on \texttt{GitHub.com/Sixtease/cz-parliament-speech-corpus}.
 
 \section*{Acknowledgments}
