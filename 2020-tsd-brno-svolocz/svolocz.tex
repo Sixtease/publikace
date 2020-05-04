@@ -43,6 +43,7 @@ trained on these data.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:intro}
 
 Training data for speech recognition is always a demanded commodity, especially
 if it is free. There are for sure already some free Czech corpora fit for speech
@@ -239,7 +240,7 @@ of matching precision.
 
 I have trained a standard DeepSpeech\cite{hannun2014deep} model on the 1058
 hours with training :
-development : test ratio of 48 : 1 : 1; batch size 50; learning rate 0.0001; dropout
+development : test ratio of 18 : 1 : 1; batch size 50; learning rate 0.0001; dropout
 rate 0.2. The training took 12 epochs to reach optimal dev fit and the final
 word error rate on testing data from the corpus itself is 8.40\%.
 
@@ -248,13 +249,57 @@ tetragrams and pentagrams. The bulk of scraped transcriptions, including those
 with no downloadable corresponding audio, was used as training data for the
 language model.
 
+I have also tried training a speech recognition system with other datasets and
+the combination of them all. Of the datasets listed in
+section~\ref{sec:intro}, only Vystadial, Otázky Václava Moravce (ovm) and the
+corpus of Karel Makoň (makon) proved useful without much effort.
+
+Apart from them, I used the publicly not available corpora of Charles University
+Corpus of Financial News (CUCFN, 65 hours)\cite{byrne1999large}, the Balanced
+corpus of informal spoken Czech (Oral2013, 293 hours)\cite{oral2013} and the
+spoken Bible (100 hours) available with no license terms from {\em
+poslouchamebibli.cz}. Table~\ref{tab:csasr:results} shows the speech recognition
+results for each corpus on test data from itself and on a common test set from
+all the corpora.
+
+\begin{table}[htpb]
+\begin{center}
+\begin{tabular}{|l||r|r|}
+\hline
+source    & WER on self & WER on all \\
+\hline
+bible     & 9.20\%  & 94.7\% \\
+cucfgn    & 31.6\%  & 72.8\% \\
+makon     & 30.4\%  & 77.3\% \\
+oral2013  & 78.4\%  & 60.7\% \\
+ovm       & 21.6\%  & 72.9\% \\
+\textbf{parliament}
+          & 8.74\%  & \textbf{39.7\%} \\
+vystadial & 51.0\%  & 74.0\% \\
+\hline
+all       & 28.4\%  & 28.4\% \\
+\hline
+\end{tabular}
+\caption{Word error rate of speech recognition on the individual corpora and on
+their concatenation.}\label{tab:csasr:results}
+\end{center}
+\end{table}
+
+All speech recognition systems were trained with the same hyperparameters as
+described above. For a fairer comparison, a common, general language model was
+used for all the tests. Hence the higher WER for the Parliament corpus tested on
+itself than the reported 8.40\%.
+
 \section{Conclusion}
 
 I have presented a new corpus of spoken Czech suitable for training speech
-recognition systems based on data in the public domain. The corpus size exceed
+recognition systems based on data in the public domain. The corpus size exceeds
 by an order the size of other freely available such corpora. A speech
 recognition system with competitive performance was made to show the fitness
 of the dataset to the purpose.
+
+Among the compared corpora, the Czech parliament corpus performs by far best
+even in speech recognition outside its domain.
 
 Source code for scraping and building the corpus is in the public domain and
 available on \texttt{GitHub.com/Sixtease/cz-parliament-speech-corpus}.
