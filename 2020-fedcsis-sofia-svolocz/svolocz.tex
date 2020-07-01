@@ -280,6 +280,62 @@ of matching precision.
 
 \section{Numerals and Abbreviations}
 
+There are many numeral expressions in the transcripts. They amount to 489,880
+out of 25,010,269 tokens in the complete stenographic transcript, which is
+almost two percent. In the training dataset, 24\% of the samples contain one or
+more numerals.
+
+Originally, I have included the digits into the alphabet for speech recognition,
+thus attempting to train the system to transcribe numeral expressions directly
+into digits. The speech recognition system described in the following section
+would however transcribe numeral expressions as empty strings.
+
+There are four ways to deal with the problem:
+\begin{enumerate}
+\item{ignore it,}
+\item{remove digits from the training data,}
+\item{manually expand digits to words,}
+\item{automatically expand digits to words.}
+\end{enumerate}
+
+The first option needs no elaboration. The second one, removing samples with
+digits, is an easy and viable option but it is a waste of a quarter of the
+dataset and of the vast majority of samples with numerals in them. Manual
+expansion would surely be ideal but very costly. It remains to attempt the
+fourth variant of automated expansion.
+
+For automated expansion of digits into words, we can use the available initial
+transcript and the algorithm for alignment with the stenographic transcript.
+
+The expansion is done in two steps:
+\begin{enumerate}
+\item{generation of verbal variants,}
+\item{selection of the most likely variant.}
+\end{enumerate}
+
+I have used the Perl module \texttt{Lingua::CS::Num2Word} as a base for the
+expansion. I modified the module in the following way: 1) I added support
+the order of billions, which is very common in the corpus. 2) A number is no
+longer expanded into a single phrase but instead into all possible phrases
+expressing the given number. 3) I added support for genitive and accusative
+cases, decimal numerals, ordinals, dates and times.
+
+All tokens in the stenographs that include digits are expanded into their
+verbalization variants before further processing. Upon alignment, the variant
+with least edit distance from the initial transcript is selected.
+
+Common abbreviations and symbols are expanded together with the digits. For
+example, the very common character \textit{``§'' (paragraph)} is expanded into
+the forms \textit{paragraf, paragrafu, paragrafů, paragrafem,
+paragrafech} that represent common inflections of the word. Some common
+abbreviations that undergo inflection include \textit{``čl.'' (article)},
+\textit{``odst.''}, which also means ``paragraph'' and \textit{``tzv.''
+(co-called)}.
+
+With the expansion in the process, the similarity of the stenographic transcript
+and the initial one raised, which raised the number of accepted segments from
+26\% to 35\%. The amount of training data grew by 86 hours to 1144.
+
 \section{ASR Based on the Dataset}
 
 I have trained a standard DeepSpeech\cite{hannun2014deep} model on the 1058
