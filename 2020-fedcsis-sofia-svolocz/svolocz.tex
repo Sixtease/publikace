@@ -154,6 +154,9 @@ annotations, although it is valuable metainformation and 2) it skips some short
 passages, e.g. references to other meetings, as can be seen in the meeting
 from Feb. 12th 2020 10:10 -
 10:20\footnote{https://www.psp.cz/eknih/2017ps/stenprot/040schuz/s040372.htm}.
+Both can be corrected by devising a smarter scraper and neither has any
+significance for speech recognition: speaker annotation fundamentally and
+neglecting the links for their infrequency.
 
 \subsection{Alignment}
 
@@ -200,6 +203,12 @@ audio on word level.
 level.}
 \label{fig:align}
 \end{figure*}
+
+Nota bene, a GMM-based system was chosen for the initial transcript instead of
+a DNN-based for three reasons: 1) Foremost, it is straightforward to obtain
+precise alignment from a GMM-based system. 2) The training doesn't require so
+much computational resources and data. 3) It isn't crucial to have maximum possible
+accuracy in this stage.
 
 \subsection{Audio Segmentation}
 
@@ -314,7 +323,7 @@ The expansion is done in two steps:
 \end{enumerate}
 
 I have used the Perl module \texttt{Lingua::CS::Num2Word} as a base for the
-expansion. I modified the module in the following way: 1) I added support
+expansion. I modified the module in the following way: 1) I added support for
 the order of billions, which is very common in the corpus. 2) A number is no
 longer expanded into a single phrase but instead into all possible phrases
 expressing the given number. 3) I added support for genitive and accusative
@@ -329,12 +338,12 @@ example, the very common character \textit{``§'' (paragraph)} is expanded into
 the forms \textit{paragraf, paragrafu, paragrafů, paragrafem,
 paragrafech} that represent common inflections of the word. Some common
 abbreviations that undergo inflection include \textit{``čl.'' (article)},
-\textit{``odst.''}, which also means ``paragraph'' and \textit{``tzv.''
-(co-called)}.
+\textit{``odst.'' (also paragraph)} and \textit{``tzv.'' (co-called)}.
 
-With the expansion in the process, the similarity of the stenographic transcript
-and the initial one raised, which raised the number of accepted segments from
-26\% to 35\%. The amount of training data grew by 86 hours to 1144.
+After incorporating the expansion into the pipeline, the similarity of the
+stenographic transcript and the initial one raised, which also raised the number
+of accepted segments from 26\% to 35\%. The amount of training data grew by 86
+hours to 1144.
 
 \section{ASR Based on the Dataset}
 
@@ -342,7 +351,8 @@ I have trained a standard DeepSpeech\cite{hannun2014deep} model on the 1058
 hours with training :
 development : test ratio of 18 : 1 : 1; batch size 50; learning rate 0.0001; dropout
 rate 0.2. The training took 12 epochs to reach optimal dev fit and the final
-word error rate on testing data from the corpus itself is 8.40\%.
+word error rate on testing data from the corpus itself is 8.40\% before digit
+expansion and 7.89\% afterwards.
 
 The language model used was a pentagram model with pruned singleton trigrams,
 tetragrams and pentagrams. The bulk of scraped transcriptions, including those
@@ -375,8 +385,10 @@ cucfn     & 31.6\%  & 72.8\% \\
 makon     & 30.4\%  & 77.3\% \\
 oral2013  & 78.4\%  & 60.7\% \\
 ovm       & 21.6\%  & 72.9\% \\
-\textbf{parliament}
-          & 8.74\%  & \textbf{39.7\%} \\
+parliament w/digits
+          & 8.74\%  & 39.7\% \\
+\textbf{parliament expanded}
+          & 7.89\%  & \textbf{36.0\%} \\
 vystadial & 51.0\%  & 74.0\% \\
 \hline
 all       & 28.4\%  & 28.4\% \\
@@ -386,9 +398,9 @@ all       & 28.4\%  & 28.4\% \\
 \end{table}
 
 All speech recognition systems were trained with the same hyperparameters as
-described above. For a fairer comparison, a common, general language model was
-used for all the tests. Hence the higher WER for the Parliament corpus tested on
-itself than the reported 8.40\%.
+described above.% For a fairer comparison, a common, general language model was
+%used for all the tests. Hence the higher WER for the Parliament corpus tested on
+%itself than the reported 8.40\%.
 
 \section{Conclusion}
 
